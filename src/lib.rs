@@ -23,7 +23,7 @@ fn _close_chunk(
     if last_chunk.len() > 0__usize {
         let mut last_index = (last_chunk.len() - 1) as i32;
         while (last_index >= 0) && (cur_chunk_len + last_chunk.last().unwrap().1 <= chunk_overlap) {
-            let (text, length) = last_chunk.last().unwrap();
+            let (text, length) = &last_chunk[last_index as usize];
             cur_chunk_len += length;
             cur_chunk.insert(0, (text.to_string(), *length));
             last_index -= 1;
@@ -69,8 +69,8 @@ fn _merge_splits(mut reversed_splits: Vec<(&str, bool, usize)>, chunk_size: usiz
     // handle the last chunk
     if !new_chunk {
         let cur_chunk_string: String = cur_chunk
-            .iter()
-            .map(|(x, _)| x.to_string())
+            .into_iter()
+            .map(|(x, _)| x)
             .collect::<Vec<String>>()
             .join("");
         chunks.push(cur_chunk_string);
