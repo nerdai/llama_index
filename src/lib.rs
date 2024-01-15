@@ -1,5 +1,4 @@
 use pyo3::prelude::*;
-use std::{collections::VecDeque, slice::Chunks};
 
 #[pyfunction]
 fn add(left: usize, right: usize) -> usize {
@@ -10,9 +9,8 @@ fn _close_chunk(
     chunks: &mut Vec<String>,
     cur_chunk: &mut Vec<(String, usize)>,
     mut cur_chunk_len: usize,
-    last_chunk: &mut Vec<(String, usize)>,
-    mut new_chunk: bool,
-    chunk_overlap: &mut usize,
+    last_chunk: &Vec<(String, usize)>,
+    chunk_overlap: usize,
 ) {
     let cur_chunk_string: String = cur_chunk
         .iter()
@@ -20,9 +18,6 @@ fn _close_chunk(
         .collect::<Vec<String>>()
         .join("");
     chunks.push(cur_chunk_string);
-    cur_chunk = &mut Vec::new();
-    cur_chunk_len = 0__usize;
-    new_chunk = true;
 
     if last_chunk.len() > 0__usize {
         let mut last_index = (last_chunk.len() - 1) as i32;
@@ -36,37 +31,46 @@ fn _close_chunk(
 }
 
 #[pyfunction]
-fn _merge_splits(mut splits: VecDeque<(&str, bool, usize)>, chunk_size: usize) -> Vec<String> {
-    let mut new_chunk: bool = true;
+fn _merge_splits(mut reversed_splits: Vec<(&str, bool, usize)>, chunk_size: usize, chunk_overlap: usize) -> Vec<String> {
     let mut chunks: Vec<String> = vec![];
-    while splits.len() > 0 {
-        let cur_split = splits[0];
+    let mut cur_chunk: Vec<(String, usize)> = vec![];
+    let mut last_chunk: Vec<(String, usize)> = vec![];
+    let mut cur_chunk_len: usize = 0;
+    let mut new_chunk: bool = true;
+
+    while reversed_splits.len() > 0 {
+        let cur_split = reversed_splits.pop().unwrap();
         let (text, is_sentence, token_size) = cur_split;
 
         if token_size > chunk_size && !new_chunk {
             _close_chunk(
-                chunks,
-                cur_chunk,
+                &mut chunks,
+                &mut cur_chunk,
                 cur_chunk_len,
-                last_chunk,
-                new_chunk,
+                &last_chunk,
                 chunk_overlap,
             );
+            last_chunk = cur_chunk;
+            cur_chunk_len = 0;
+            cur_chunk = vec![];
+            new_chunk = true;
         } else {
             if is_sentence || (cur_chunk_len + token_size <= chunk_size) || (new_chunk) {
                 cur_chunk_len += token_size;
-                cur_chunk.push((text, token_size));
-                splits.pop_front();
+                cur_chunk.push((String::from(text), token_size));
                 new_chunk = false;
             } else {
                 _close_chunk(
-                    chunks,
-                    cur_chunk,
+                    &mut chunks,
+                    &mut cur_chunk,
                     cur_chunk_len,
-                    last_chunk,
-                    new_chunk,
+                    &last_chunk,
                     chunk_overlap,
                 );
+                last_chunk = cur_chunk;
+                cur_chunk_len = 0;
+                cur_chunk = vec![];
+                new_chunk = true;
             }
         }
     }

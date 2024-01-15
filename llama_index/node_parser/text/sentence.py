@@ -2,6 +2,7 @@
 from dataclasses import dataclass
 from typing import Callable, List, Optional, Tuple
 
+from llama_index._rust import _merge_splits
 from llama_index.bridge.pydantic import Field, PrivateAttr
 from llama_index.callbacks.base import CallbackManager
 from llama_index.callbacks.schema import CBEventType, EventPayload
@@ -146,7 +147,9 @@ class SentenceSplitter(MetadataAwareTextSplitter):
     def class_name(cls) -> str:
         return "SentenceSplitter"
 
-    def split_text_metadata_aware(self, text: str, metadata_str: str) -> List[str]:
+    def split_text_metadata_aware(
+        self, text: str, metadata_str: str, rust: bool = False
+    ) -> List[str]:
         metadata_len = len(self._tokenizer(metadata_str))
         effective_chunk_size = self.chunk_size - metadata_len
         if effective_chunk_size <= 0:
@@ -164,12 +167,12 @@ class SentenceSplitter(MetadataAwareTextSplitter):
                 flush=True,
             )
 
-        return self._split_text(text, chunk_size=effective_chunk_size)
+        return self._split_text(text, chunk_size=effective_chunk_size, rust=rust)
 
-    def split_text(self, text: str) -> List[str]:
-        return self._split_text(text, chunk_size=self.chunk_size)
+    def split_text(self, text: str, rust: bool = False) -> List[str]:
+        return self._split_text(text, chunk_size=self.chunk_size, rust=rust)
 
-    def _split_text(self, text: str, chunk_size: int) -> List[str]:
+    def _split_text(self, text: str, chunk_size: int, rust: bool) -> List[str]:
         """
         _Split incoming text and return chunks with overlap size.
 
@@ -182,8 +185,15 @@ class SentenceSplitter(MetadataAwareTextSplitter):
             CBEventType.CHUNKING, payload={EventPayload.CHUNKS: [text]}
         ) as event:
             splits = self._split(text, chunk_size)
-            chunks = self._merge(splits, chunk_size)
-
+            if rust:
+                chunks = _merge_splits(
+                    [(s.text, s.is_sentence, s.token_size) for s in splits[::-1]],
+                    chunk_size,
+                    self.chunk_overlap,
+                )
+                chunks = self._postprocess_chunks(chunks)
+            else:
+                chunks = self._merge(splits, chunk_size)
             event.on_end(payload={EventPayload.CHUNKS: chunks})
 
         return chunks
