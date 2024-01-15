@@ -1,6 +1,6 @@
 [build-system]
-build-backend = "poetry.core.masonry.api"
-requires = ["poetry-core"]
+build-backend = "maturin"
+requires = ["maturin>=1.0,<2.0"]
 
 [project]
 authors = [{email = "jerry@llamaindex.ai", name = "Jerry Liu"}]
