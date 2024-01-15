@@ -5,18 +5,18 @@ fn add(left: usize, right: usize) -> usize {
     left + right
 }
 
-fn _close_chunk(
+fn _close_chunk<'a>(
     chunks: &mut Vec<String>,
-    cur_chunk: Vec<(String, usize)>,
+    cur_chunk: Vec<(&'a str, usize)>,
     chunk_overlap: usize,
-) -> (Vec<(String, usize)>, usize) {
+) -> (Vec<(&'a str, usize)>, usize) {
     let cur_chunk_string: String = cur_chunk
         .iter()
-        .map(|(x, _)| x.to_string())
-        .collect::<Vec<String>>()
+        .map(|(x, _)| *x)
+        .collect::<Vec<&str>>()
         .join("");
     chunks.push(cur_chunk_string);
-    let last_chunk: Vec<(String, usize)> = cur_chunk;
+    let last_chunk: Vec<(&str, usize)> = cur_chunk;
     let mut cur_chunk = vec![];
     let mut cur_chunk_len = 0;
 
@@ -25,7 +25,7 @@ fn _close_chunk(
         while (last_index >= 0) && (cur_chunk_len + last_chunk.last().unwrap().1 <= chunk_overlap) {
             let (text, length) = &last_chunk[last_index as usize];
             cur_chunk_len += length;
-            cur_chunk.insert(0, (text.to_string(), *length));
+            cur_chunk.insert(0, (*text, *length));
             last_index -= 1;
         }
     }
@@ -35,7 +35,7 @@ fn _close_chunk(
 #[pyfunction]
 fn _merge_splits(mut reversed_splits: Vec<(&str, bool, usize)>, chunk_size: usize, chunk_overlap: usize) -> Vec<String> {
     let mut chunks: Vec<String> = vec![];
-    let mut cur_chunk: Vec<(String, usize)> = vec![];
+    let mut cur_chunk: Vec<(&str, usize)> = vec![];
     let mut cur_chunk_len: usize = 0;
     let mut new_chunk: bool = true;
 
@@ -53,7 +53,7 @@ fn _merge_splits(mut reversed_splits: Vec<(&str, bool, usize)>, chunk_size: usiz
         } else {
             if *is_sentence || (cur_chunk_len + token_size <= chunk_size) || (new_chunk) {
                 cur_chunk_len += token_size;
-                cur_chunk.push((String::from(*text), *token_size));
+                cur_chunk.push((*text, *token_size));
                 reversed_splits.pop();
                 new_chunk = false;
             } else {
@@ -71,7 +71,7 @@ fn _merge_splits(mut reversed_splits: Vec<(&str, bool, usize)>, chunk_size: usiz
         let cur_chunk_string: String = cur_chunk
             .into_iter()
             .map(|(x, _)| x)
-            .collect::<Vec<String>>()
+            .collect::<Vec<&str>>()
             .join("");
         chunks.push(cur_chunk_string);
     }
