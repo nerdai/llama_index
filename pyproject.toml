@@ -5,7 +5,6 @@ requires = ["poetry-core"]
 [project]
 authors = [{email = "jerry@llamaindex.ai", name = "Jerry Liu"}]
 description = "A starter project that uses Rust bindings"
-license = {file = "MIT"}
 maintainers = [
     {email = "andrei@llamaindex.ai", name = "Andrei Fajardo"},
     {email = "ht@llamaindex.ai", name = "Haotian Zhang"},
@@ -28,7 +27,7 @@ ignore-words-list = "astroid,gallary,momento,narl,ot,rouge"
 skip = "./llama_index/_static,./examples,./experimental,*.csv,*.html,*.json,*.jsonl,*.pdf,*.txt,*.ipynb"
 
 [tool.maturin]
-module-name = "rusty_py.core.rust_lib"
+module-name = "llama_index._rust"
 
 [tool.mypy]
 disallow_untyped_defs = true
