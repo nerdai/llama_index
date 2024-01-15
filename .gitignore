@@ -151,3 +151,9 @@ Pipfile.lock
 
 # pyright
 pyrightconfig.json
+
+
+# Added by cargo
+
+/target
+/Cargo.lock

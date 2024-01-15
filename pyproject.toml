@@ -2,6 +2,23 @@
 build-backend = "poetry.core.masonry.api"
 requires = ["poetry-core"]
 
+[project]
+authors = [{email = "jerry@llamaindex.ai", name = "Jerry Liu"}]
+description = "A starter project that uses Rust bindings"
+license = {file = "MIT"}
+maintainers = [
+    {email = "andrei@llamaindex.ai", name = "Andrei Fajardo"},
+    {email = "ht@llamaindex.ai", name = "Haotian Zhang"},
+    {email = "jerry@llamaindex.ai", name = "Jerry Liu"},
+    {email = "logan@llamaindex.ai", name = "Logan Markewich"},
+    {email = "simon@llamaindex.ai", name = "Simon Suo"},
+    {email = "sourabh@llamaindex.ai", name = "Sourabh Desai"},
+]
+name = "llama-index"
+readme = "README.md"
+requires-python = ">=3.7"
+version = "0.9.30"
+
 [tool.codespell]
 check-filenames = true
 check-hidden = true
@@ -9,6 +26,9 @@ ignore-words-list = "astroid,gallary,momento,narl,ot,rouge"
 # Feel free to un-skip examples, and experimental, you will just need to
 # work through many typos (--write-changes and --interactive will help)
 skip = "./llama_index/_static,./examples,./experimental,*.csv,*.html,*.json,*.jsonl,*.pdf,*.txt,*.ipynb"
+
+[tool.maturin]
+module-name = "rusty_py.core.rust_lib"
 
 [tool.mypy]
 disallow_untyped_defs = true
@@ -79,6 +99,7 @@ spacy = {optional = true, version = "^3.7.1"}
 aiohttp = "^3.8.6"
 networkx = ">=3.0"
 psycopg2 = {optional = true, version = "^2.9.9"}
+maturin = "^1.4.0"
 
 [tool.poetry.extras]
 gradientai = [

@@ -1,0 +1,7 @@
+[dependencies]
+pyo3 = {features = ["extension-module"], version = "0.20.2"}
+
+[package]
+edition = "2021"
+name = "llama_index"
+version = "0.1.0"
