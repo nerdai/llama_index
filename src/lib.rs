@@ -7,17 +7,18 @@ fn add(left: usize, right: usize) -> usize {
 
 fn _close_chunk(
     chunks: &mut Vec<String>,
-    cur_chunk: &mut Vec<(String, usize)>,
-    mut cur_chunk_len: usize,
-    last_chunk: &Vec<(String, usize)>,
+    cur_chunk: Vec<(String, usize)>,
     chunk_overlap: usize,
-) {
+) -> (Vec<(String, usize)>, usize) {
     let cur_chunk_string: String = cur_chunk
         .iter()
         .map(|(x, _)| x.to_string())
         .collect::<Vec<String>>()
         .join("");
     chunks.push(cur_chunk_string);
+    let last_chunk: Vec<(String, usize)> = cur_chunk;
+    let mut cur_chunk = vec![];
+    let mut cur_chunk_len = 0;
 
     if last_chunk.len() > 0__usize {
         let mut last_index = (last_chunk.len() - 1) as i32;
@@ -28,13 +29,13 @@ fn _close_chunk(
             last_index -= 1;
         }
     }
+    return (cur_chunk, cur_chunk_len);
 }
 
 #[pyfunction]
 fn _merge_splits(mut reversed_splits: Vec<(&str, bool, usize)>, chunk_size: usize, chunk_overlap: usize) -> Vec<String> {
     let mut chunks: Vec<String> = vec![];
     let mut cur_chunk: Vec<(String, usize)> = vec![];
-    let mut last_chunk: Vec<(String, usize)> = vec![];
     let mut cur_chunk_len: usize = 0;
     let mut new_chunk: bool = true;
 
@@ -43,16 +44,11 @@ fn _merge_splits(mut reversed_splits: Vec<(&str, bool, usize)>, chunk_size: usiz
         let (text, is_sentence, token_size) = cur_split;
 
         if token_size > chunk_size && !new_chunk {
-            _close_chunk(
+            (cur_chunk, cur_chunk_len) = _close_chunk(
                 &mut chunks,
-                &mut cur_chunk,
-                cur_chunk_len,
-                &last_chunk,
+                cur_chunk,
                 chunk_overlap,
             );
-            last_chunk = cur_chunk;
-            cur_chunk_len = 0;
-            cur_chunk = vec![];
             new_chunk = true;
         } else {
             if is_sentence || (cur_chunk_len + token_size <= chunk_size) || (new_chunk) {
@@ -60,17 +56,11 @@ fn _merge_splits(mut reversed_splits: Vec<(&str, bool, usize)>, chunk_size: usiz
                 cur_chunk.push((String::from(text), token_size));
                 new_chunk = false;
             } else {
-                _close_chunk(
+                (cur_chunk, cur_chunk_len) = _close_chunk(
                     &mut chunks,
-                    &mut cur_chunk,
-                    cur_chunk_len,
-                    &last_chunk,
+                    cur_chunk,
                     chunk_overlap,
                 );
-                last_chunk = cur_chunk;
-                cur_chunk_len = 0;
-                cur_chunk = vec![];
-                new_chunk = true;
             }
         }
     }
