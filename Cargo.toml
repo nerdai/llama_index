@@ -1,7 +1,12 @@
 [dependencies]
 pyo3 = {features = ["extension-module"], version = "0.20.2"}
 
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+crate-type = ["cdylib"]
+name = "_rust"
+
 [package]
 edition = "2021"
 name = "llama_index"
-version = "0.1.0"
+version = "0.9.30"
