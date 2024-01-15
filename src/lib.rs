@@ -40,10 +40,10 @@ fn _merge_splits(mut reversed_splits: Vec<(&str, bool, usize)>, chunk_size: usiz
     let mut new_chunk: bool = true;
 
     while reversed_splits.len() > 0 {
-        let cur_split = reversed_splits.pop().unwrap();
+        let cur_split = reversed_splits.last().unwrap();
         let (text, is_sentence, token_size) = cur_split;
 
-        if token_size > chunk_size && !new_chunk {
+        if cur_chunk_len + token_size > chunk_size && !new_chunk {
             (cur_chunk, cur_chunk_len) = _close_chunk(
                 &mut chunks,
                 cur_chunk,
@@ -51,9 +51,10 @@ fn _merge_splits(mut reversed_splits: Vec<(&str, bool, usize)>, chunk_size: usiz
             );
             new_chunk = true;
         } else {
-            if is_sentence || (cur_chunk_len + token_size <= chunk_size) || (new_chunk) {
+            if *is_sentence || (cur_chunk_len + token_size <= chunk_size) || (new_chunk) {
                 cur_chunk_len += token_size;
-                cur_chunk.push((String::from(text), token_size));
+                cur_chunk.push((String::from(*text), *token_size));
+                reversed_splits.pop();
                 new_chunk = false;
             } else {
                 (cur_chunk, cur_chunk_len) = _close_chunk(
