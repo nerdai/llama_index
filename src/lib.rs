@@ -21,9 +21,9 @@ fn _close_chunk<'a>(
     let last_chunk: VecDeque<(&str, usize)> = cur_chunk;
     let mut cur_chunk = VecDeque::new();
     let mut cur_chunk_len = 0;
+    let mut last_index: i32 = (last_chunk.len() - 1) as i32;
 
     if last_chunk.len() > 0__usize {
-        let mut last_index = (last_chunk.len() - 1) as i32;
         while (last_index >= 0) && (cur_chunk_len + last_chunk[last_index as usize].1 <= chunk_overlap) {
             let (text, length) = &last_chunk[last_index as usize];
             cur_chunk_len += length;
