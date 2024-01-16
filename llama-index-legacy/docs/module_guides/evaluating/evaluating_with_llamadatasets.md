@@ -19,7 +19,7 @@ by first predicting a response to the given `query` and then comparing that pred
 (or generated) response to the `reference_answer`.
 
 ```python
-from llama_index.llama_dataset import (
+from llama_index.legacy.llama_dataset import (
     LabelledRagDataset,
     CreatedBy,
     CreatedByType,
@@ -53,9 +53,9 @@ As such, the `llama_dataset` module is equipped with the `RagDatasetGenerator` t
 is able to generate a `LabelledRagDataset` over a set of source `Document`'s.
 
 ```python
-from llama_index.llama_dataset.generator import RagDatasetGenerator
-from llama_index import ServiceContext
-from llama_index.llm import OpenAI
+from llama_index.legacy.llama_dataset.generator import RagDatasetGenerator
+from llama_index.legacy import ServiceContext
+from llama_index.legacy.llm import OpenAI
 import nest_asyncio
 
 nest_asyncio.apply()
@@ -87,7 +87,7 @@ For convenience, we have a `LlamaPack` called the `RagEvaluatorPack` that
 streamlines this evaluation process!
 
 ```python
-from llama_index.llama_pack import download_llama_pack
+from llama_index.legacy.llama_pack import download_llama_pack
 
 RagEvaluatorPack = download_llama_pack("RagEvaluatorPack", "./pack")
 
@@ -118,7 +118,7 @@ llamaindex-cli download-llamadataset PaulGrahamEssayDataset --download-dir ./dat
 
 ```python
 # using python
-from llama_index.llama_datasets import download_llama_datasets
+from llama_index.legacy.llama_datasets import download_llama_datasets
 
 # a LabelledRagDataset and a list of source Document's
 rag_dataset, documents = download_llama_datasets(

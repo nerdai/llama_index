@@ -1,11 +1,11 @@
 from typing import Dict, List, Type
 
-from llama_index.agent import OpenAIAgent, ReActAgent
-from llama_index.agent.types import BaseAgent
-from llama_index.llms import Anthropic, OpenAI
-from llama_index.llms.llama_utils import messages_to_prompt
-from llama_index.llms.llm import LLM
-from llama_index.llms.replicate import Replicate
+from llama_index.legacy.agent import OpenAIAgent, ReActAgent
+from llama_index.legacy.agent.types import BaseAgent
+from llama_index.legacy.llms import Anthropic, OpenAI
+from llama_index.legacy.llms.llama_utils import messages_to_prompt
+from llama_index.legacy.llms.llm import LLM
+from llama_index.legacy.llms.replicate import Replicate
 
 OPENAI_MODELS = [
     "text-davinci-003",

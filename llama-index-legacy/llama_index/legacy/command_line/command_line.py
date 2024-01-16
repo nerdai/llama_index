@@ -1,12 +1,12 @@
 import argparse
 from typing import Any, Optional
 
-from llama_index.llama_dataset.download import (
+from llama_index.legacy.llama_dataset.download import (
     LLAMA_DATASETS_LFS_URL,
     LLAMA_DATASETS_SOURCE_FILES_GITHUB_TREE_URL,
     download_llama_dataset,
 )
-from llama_index.llama_pack.download import LLAMA_HUB_URL, download_llama_pack
+from llama_index.legacy.llama_pack.download import LLAMA_HUB_URL, download_llama_pack
 
 
 def handle_download_llama_pack(

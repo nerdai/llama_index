@@ -3,10 +3,10 @@
 import uuid
 from typing import Any
 
-from llama_index.agent.runner.base import AgentRunner
-from llama_index.agent.runner.parallel import ParallelAgentRunner
-from llama_index.agent.types import BaseAgentWorker, Task, TaskStep, TaskStepOutput
-from llama_index.chat_engine.types import AgentChatResponse
+from llama_index.legacy.agent.runner.base import AgentRunner
+from llama_index.legacy.agent.runner.parallel import ParallelAgentRunner
+from llama_index.legacy.agent.types import BaseAgentWorker, Task, TaskStep, TaskStepOutput
+from llama_index.legacy.chat_engine.types import AgentChatResponse
 
 
 # define mock agent worker

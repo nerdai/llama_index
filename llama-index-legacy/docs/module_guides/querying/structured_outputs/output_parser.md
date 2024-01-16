@@ -11,9 +11,9 @@ by other frameworks. These output parsing modules can be used in the following w
 Guardrails is an open-source Python package for specification/validation/correction of output schemas. See below for a code example.
 
 ```python
-from llama_index import VectorStoreIndex, SimpleDirectoryReader
-from llama_index.output_parsers import GuardrailsOutputParser
-from llama_index.llms import OpenAI
+from llama_index.legacy import VectorStoreIndex, SimpleDirectoryReader
+from llama_index.legacy.output_parsers import GuardrailsOutputParser
+from llama_index.legacy.llms import OpenAI
 
 
 # load documents, build index
@@ -56,7 +56,7 @@ output_parser = GuardrailsOutputParser.from_rail_string(
 llm = OpenAI(output_parser=output_parser)
 
 # obtain a structured response
-from llama_index import ServiceContext
+from llama_index.legacy import ServiceContext
 
 ctx = ServiceContext.from_defaults(llm=llm)
 
@@ -78,9 +78,9 @@ Output:
 Langchain also offers output parsing modules that you can use within LlamaIndex.
 
 ```python
-from llama_index import VectorStoreIndex, SimpleDirectoryReader
-from llama_index.output_parsers import LangchainOutputParser
-from llama_index.llms import OpenAI
+from llama_index.legacy import VectorStoreIndex, SimpleDirectoryReader
+from llama_index.legacy.output_parsers import LangchainOutputParser
+from llama_index.legacy.llms import OpenAI
 from langchain.output_parsers import StructuredOutputParser, ResponseSchema
 
 
@@ -110,7 +110,7 @@ output_parser = LangchainOutputParser(lc_output_parser)
 llm = OpenAI(output_parser=output_parser)
 
 # obtain a structured response
-from llama_index import ServiceContext
+from llama_index.legacy import ServiceContext
 
 ctx = ServiceContext.from_defaults(llm=llm)
 

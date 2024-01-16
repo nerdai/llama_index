@@ -2,14 +2,14 @@
 import logging
 from typing import Any, List, Optional, cast
 
-from llama_index.schema import BaseNode, TextNode
-from llama_index.vector_stores.types import (
+from llama_index.legacy.schema import BaseNode, TextNode
+from llama_index.legacy.vector_stores.types import (
     MetadataFilters,
     VectorStore,
     VectorStoreQuery,
     VectorStoreQueryResult,
 )
-from llama_index.vector_stores.utils import (
+from llama_index.legacy.vector_stores.utils import (
     DEFAULT_DOC_ID_KEY,
     DEFAULT_TEXT_KEY,
     legacy_metadata_dict_to_node,

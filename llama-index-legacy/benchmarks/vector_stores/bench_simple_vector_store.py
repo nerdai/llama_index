@@ -2,9 +2,9 @@ import random
 import time
 from typing import List
 
-from llama_index.schema import TextNode
-from llama_index.vector_stores.simple import SimpleVectorStore
-from llama_index.vector_stores.types import (
+from llama_index.legacy.schema import TextNode
+from llama_index.legacy.vector_stores.simple import SimpleVectorStore
+from llama_index.legacy.vector_stores.types import (
     VectorStoreQuery,
     VectorStoreQueryMode,
 )

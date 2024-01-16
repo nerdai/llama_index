@@ -4,9 +4,9 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 
 import requests
 
-from llama_index.bridge.pydantic import PrivateAttr
-from llama_index.readers.base import BasePydanticReader
-from llama_index.schema import Document
+from llama_index.legacy.bridge.pydantic import PrivateAttr
+from llama_index.legacy.readers.base import BasePydanticReader
+from llama_index.legacy.schema import Document
 
 logger = logging.getLogger(__name__)
 

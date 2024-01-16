@@ -1,5 +1,5 @@
-from llama_index.schema import TextNode
-from llama_index import ServiceContext, VectorStoreIndex
+from llama_index.legacy.schema import TextNode
+from llama_index.legacy import ServiceContext, VectorStoreIndex
 import pandas as pd
 from tqdm import tqdm
 
@@ -16,9 +16,7 @@ def evaluate(
 
     service_context = ServiceContext.from_defaults(embed_model=embed_model)
     nodes = [TextNode(id_=id_, text=text) for id_, text in corpus.items()]
-    index = VectorStoreIndex(
-        nodes, service_context=service_context, show_progress=True
-    )
+    index = VectorStoreIndex(nodes, service_context=service_context, show_progress=True)
     retriever = index.as_retriever(similarity_top_k=top_k)
 
     eval_results = []
@@ -59,7 +57,5 @@ def display_results(names, results_arr):
         hit_rates.append(hit_rate)
         mrrs.append(mrr)
 
-    final_df = pd.DataFrame(
-        {"retrievers": names, "hit_rate": hit_rates, "mrr": mrrs}
-    )
+    final_df = pd.DataFrame({"retrievers": names, "hit_rate": hit_rates, "mrr": mrrs})
     display(final_df)

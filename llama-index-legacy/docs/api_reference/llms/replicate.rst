@@ -1,4 +1,4 @@
 Replicate
 =========
 
-.. autopydantic_model:: llama_index.llms.replicate.Replicate
+.. autopydantic_model:: llama_index.legacy.llms.replicate.Replicate

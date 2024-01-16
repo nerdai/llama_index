@@ -1,8 +1,8 @@
-from llama_index.question_gen.llm_generators import LLMQuestionGenerator
-from llama_index.question_gen.types import SubQuestion
-from llama_index.schema import QueryBundle
-from llama_index.service_context import ServiceContext
-from llama_index.tools.types import ToolMetadata
+from llama_index.legacy.question_gen.llm_generators import LLMQuestionGenerator
+from llama_index.legacy.question_gen.types import SubQuestion
+from llama_index.legacy.schema import QueryBundle
+from llama_index.legacy.service_context import ServiceContext
+from llama_index.legacy.tools.types import ToolMetadata
 
 
 def test_llm_question_gen(

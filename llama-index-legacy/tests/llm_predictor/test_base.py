@@ -2,10 +2,10 @@
 from typing import Any
 from unittest.mock import patch
 
-from llama_index.llm_predictor.structured import LLMPredictor, StructuredLLMPredictor
-from llama_index.prompts import BasePromptTemplate
-from llama_index.prompts.base import PromptTemplate
-from llama_index.types import BaseOutputParser
+from llama_index.legacy.llm_predictor.structured import LLMPredictor, StructuredLLMPredictor
+from llama_index.legacy.prompts import BasePromptTemplate
+from llama_index.legacy.prompts.base import PromptTemplate
+from llama_index.legacy.types import BaseOutputParser
 
 
 class MockOutputParser(BaseOutputParser):

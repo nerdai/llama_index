@@ -4,20 +4,20 @@ from typing import Any, List, Optional
 import numpy as np
 from pandas import DataFrame
 
-from llama_index.schema import (
+from llama_index.legacy.schema import (
     BaseNode,
     MetadataMode,
     NodeRelationship,
     RelatedNodeInfo,
     TextNode,
 )
-from llama_index.vector_stores.types import (
+from llama_index.legacy.vector_stores.types import (
     MetadataFilters,
     VectorStore,
     VectorStoreQuery,
     VectorStoreQueryResult,
 )
-from llama_index.vector_stores.utils import node_to_metadata_dict
+from llama_index.legacy.vector_stores.utils import node_to_metadata_dict
 
 
 def _to_lance_filter(standard_filters: MetadataFilters) -> Any:

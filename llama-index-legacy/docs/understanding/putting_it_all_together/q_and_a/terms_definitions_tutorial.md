@@ -84,13 +84,13 @@ Now that we are able to define LLM settings and upload text, we can try using Ll
 We can add the following functions to both initialize our LLM, as well as use it to extract terms from the input text.
 
 ```python
-from llama_index import (
+from llama_index.legacy import (
     Document,
     SummaryIndex,
     ServiceContext,
     load_index_from_storage,
 )
-from llama_index.llms import OpenAI
+from llama_index.legacy.llms import OpenAI
 
 
 def get_llm(llm_name, model_temperature, api_key, max_tokens=256):
@@ -351,13 +351,13 @@ This is due to the concept of "refining" answers in Llama Index. Since we are qu
 So, the refine process seems to be messing with our results! Rather than appending extra instructions to the `query_str`, remove that, and Llama Index will let us provide our own custom prompts! Let's create those now, using the [default prompts](https://github.com/jerryjliu/llama_index/blob/main/llama_index/prompts/default_prompts.py) and [chat specific prompts](https://github.com/jerryjliu/llama_index/blob/main/llama_index/prompts/chat_prompts.py) as a guide. Using a new file `constants.py`, let's create some new query templates:
 
 ```python
-from llama_index.prompts import (
+from llama_index.legacy.prompts import (
     PromptTemplate,
     SelectorPromptTemplate,
     ChatPromptTemplate,
 )
-from llama_index.prompts.utils import is_chat_model
-from llama_index.llms import ChatMessage, MessageRole
+from llama_index.legacy.prompts.utils import is_chat_model
+from llama_index.legacy.llms import ChatMessage, MessageRole
 
 # Text QA templates
 DEFAULT_TEXT_QA_PROMPT_TMPL = (
@@ -444,7 +444,7 @@ If you get an import error about PIL, install it using `pip install Pillow` firs
 
 ```python
 from PIL import Image
-from llama_index.readers.file.base import DEFAULT_FILE_EXTRACTOR, ImageParser
+from llama_index.legacy.readers.file.base import DEFAULT_FILE_EXTRACTOR, ImageParser
 
 
 @st.cache_resource

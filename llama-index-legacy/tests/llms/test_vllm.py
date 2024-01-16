@@ -1,5 +1,5 @@
 import pytest
-from llama_index.llms.vllm import Vllm
+from llama_index.legacy.llms.vllm import Vllm
 
 try:
     vllm_init = True

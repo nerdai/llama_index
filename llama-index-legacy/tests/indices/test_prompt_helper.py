@@ -3,12 +3,12 @@
 from typing import Optional, Type, Union
 
 import pytest
-from llama_index.indices.prompt_helper import PromptHelper
-from llama_index.indices.tree.utils import get_numbered_text_from_nodes
-from llama_index.node_parser.text.utils import truncate_text
-from llama_index.prompts.base import PromptTemplate
-from llama_index.prompts.prompt_utils import get_biggest_prompt, get_empty_prompt_txt
-from llama_index.schema import TextNode
+from llama_index.legacy.indices.prompt_helper import PromptHelper
+from llama_index.legacy.indices.tree.utils import get_numbered_text_from_nodes
+from llama_index.legacy.node_parser.text.utils import truncate_text
+from llama_index.legacy.prompts.base import PromptTemplate
+from llama_index.legacy.prompts.prompt_utils import get_biggest_prompt, get_empty_prompt_txt
+from llama_index.legacy.schema import TextNode
 
 from tests.mock_utils.mock_utils import mock_tokenizer
 

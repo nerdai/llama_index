@@ -1,6 +1,6 @@
 OpenLLM
 =======
 
-.. autopydantic_model:: llama_index.llms.openllm.OpenLLM
+.. autopydantic_model:: llama_index.legacy.llms.openllm.OpenLLM
 
-.. autopydantic_model:: llama_index.llms.openllm.OpenLLMAPI
+.. autopydantic_model:: llama_index.legacy.llms.openllm.OpenLLMAPI

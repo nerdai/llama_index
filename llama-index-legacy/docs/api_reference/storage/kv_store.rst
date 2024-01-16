@@ -4,6 +4,6 @@
 KV Storage
 =================
 
-.. automodule:: llama_index.storage.kvstore
+.. automodule:: llama_index.legacy.storage.kvstore
    :members:
    :inherited-members:

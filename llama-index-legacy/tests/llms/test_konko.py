@@ -1,6 +1,6 @@
 import pytest
-from llama_index.core.llms.types import ChatMessage
-from llama_index.llms.konko import Konko
+from llama_index.legacy.core.llms.types import ChatMessage
+from llama_index.legacy.llms.konko import Konko
 
 try:
     import konko

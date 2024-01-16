@@ -9,9 +9,9 @@ from typing import Any, cast
 from sqlalchemy import create_engine, text
 from tqdm import tqdm
 
-from llama_index import LLMPredictor, SQLDatabase
-from llama_index.indices import SQLStructStoreIndex
-from llama_index.llms.openai import OpenAI
+from llama_index.legacy import LLMPredictor, SQLDatabase
+from llama_index.legacy.indices import SQLStructStoreIndex
+from llama_index.legacy.llms.openai import OpenAI
 
 logging.getLogger("root").setLevel(logging.WARNING)
 
@@ -25,7 +25,7 @@ def _generate_sql(
     nl_query_text: str,
 ) -> str:
     """Generate SQL query for the given NL query text."""
-    query_engine = llama_index.as_query_engine()
+    query_engine = llama_index.legacy.as_query_engine()
     response = query_engine.query(nl_query_text)
     if (
         response.metadata is None

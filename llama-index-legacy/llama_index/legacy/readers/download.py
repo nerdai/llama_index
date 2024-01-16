@@ -7,13 +7,13 @@ Please do `pip install llama-hub` instead.
 
 from typing import Optional, Type
 
-from llama_index.download.module import (
+from llama_index.legacy.download.module import (
     LLAMA_HUB_URL,
     MODULE_TYPE,
     download_llama_module,
     track_download,
 )
-from llama_index.readers.base import BaseReader
+from llama_index.legacy.readers.base import BaseReader
 
 
 def download_loader(
@@ -34,7 +34,7 @@ def download_loader(
             llama_index as the base dependency. By default (False),
             the loader files use llama_index as the base dependency.
             NOTE: this is a temporary workaround while we fully migrate all usages
-            to llama_index.
+            to llama_index.legacy.
         custom_path: Custom dirpath to download loader into.
 
     Returns:

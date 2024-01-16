@@ -2,9 +2,9 @@ from typing import Callable, Optional
 from unittest import mock
 
 import pytest
-from llama_index.callbacks import CallbackManager
-from llama_index.llm_predictor.vellum import VellumPredictor, VellumPromptRegistry
-from llama_index.prompts.base import PromptTemplate
+from llama_index.legacy.callbacks import CallbackManager
+from llama_index.legacy.llm_predictor.vellum import VellumPredictor, VellumPromptRegistry
+from llama_index.legacy.prompts.base import PromptTemplate
 
 
 @pytest.fixture()

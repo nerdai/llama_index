@@ -1,9 +1,9 @@
 from typing import Generator, List
 
 import pytest
-from llama_index.schema import BaseNode, Document, TextNode
-from llama_index.storage.docstore.dynamodb_docstore import DynamoDBDocumentStore
-from llama_index.storage.kvstore.dynamodb_kvstore import DynamoDBKVStore
+from llama_index.legacy.schema import BaseNode, Document, TextNode
+from llama_index.legacy.storage.docstore.dynamodb_docstore import DynamoDBDocumentStore
+from llama_index.legacy.storage.kvstore.dynamodb_kvstore import DynamoDBKVStore
 from pytest import MonkeyPatch
 
 try:

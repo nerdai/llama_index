@@ -2,8 +2,8 @@
 
 from typing import List
 
-from llama_index.indices.document_summary.base import DocumentSummaryIndex
-from llama_index.schema import Document
+from llama_index.legacy.indices.document_summary.base import DocumentSummaryIndex
+from llama_index.legacy.schema import Document
 
 
 def test_build_index(

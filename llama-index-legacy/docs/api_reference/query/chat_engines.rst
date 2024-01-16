@@ -20,6 +20,6 @@ Below we show specific chat engine implementations.
 
 Chat Engine Types
 ^^^^^^^^^^^^^^^^^^^^^
-.. automodule:: llama_index.chat_engine.types
+.. automodule:: llama_index.legacy.chat_engine.types
    :members:
    :inherited-members:

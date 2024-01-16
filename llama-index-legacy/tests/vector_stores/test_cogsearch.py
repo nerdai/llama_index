@@ -2,9 +2,9 @@ from typing import Any, List, Optional
 from unittest.mock import MagicMock
 
 import pytest
-from llama_index.schema import NodeRelationship, RelatedNodeInfo, TextNode
-from llama_index.vector_stores import CognitiveSearchVectorStore
-from llama_index.vector_stores.cogsearch import IndexManagement
+from llama_index.legacy.schema import NodeRelationship, RelatedNodeInfo, TextNode
+from llama_index.legacy.vector_stores import CognitiveSearchVectorStore
+from llama_index.legacy.vector_stores.cogsearch import IndexManagement
 
 try:
     from azure.search.documents import SearchClient

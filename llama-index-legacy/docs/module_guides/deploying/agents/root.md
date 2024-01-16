@@ -45,8 +45,8 @@ Check out [our guide](/module_guides/deploying/agents/agent_runner.md).
 Data agents can be used in the following manner (the example uses the OpenAI Function API)
 
 ```python
-from llama_index.agent import OpenAIAgent
-from llama_index.llms import OpenAI
+from llama_index.legacy.agent import OpenAIAgent
+from llama_index.legacy.llms import OpenAI
 
 # import and define tools
 ...

@@ -1,6 +1,6 @@
 Flare Query Engine
 =======================
 
-.. automodule:: llama_index.query_engine.flare.base
+.. automodule:: llama_index.legacy.query_engine.flare.base
    :members:
    :inherited-members:

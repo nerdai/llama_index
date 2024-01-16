@@ -23,7 +23,7 @@ Here is a sample code snippet of showing how to load a document from LlamaHub
 into the JSON format that `/upsert` expects:
 
 ```python
-from llama_index import download_loader, Document
+from llama_index.legacy import download_loader, Document
 from typing import Dict, List
 import json
 
@@ -66,7 +66,7 @@ It allows you to easily load data from any docstore that implements the plugin A
 Example code:
 
 ```python
-from llama_index.readers import ChatGPTRetrievalPluginReader
+from llama_index.legacy.readers import ChatGPTRetrievalPluginReader
 import os
 
 # load documents
@@ -77,7 +77,7 @@ reader = ChatGPTRetrievalPluginReader(
 documents = reader.load_data("What did the author do growing up?")
 
 # build and query index
-from llama_index import SummaryIndex
+from llama_index.legacy import SummaryIndex
 
 index = SummaryIndex.from_documents(documents)
 # set Logging to DEBUG for more detailed outputs
@@ -99,8 +99,8 @@ Note: this index is a vector index, allowing top-k retrieval.
 Example code:
 
 ```python
-from llama_index.indices.vector_store import ChatGPTRetrievalPluginIndex
-from llama_index import SimpleDirectoryReader
+from llama_index.legacy.indices.vector_store import ChatGPTRetrievalPluginIndex
+from llama_index.legacy import SimpleDirectoryReader
 import os
 
 # load documents

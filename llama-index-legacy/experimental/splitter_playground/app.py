@@ -14,10 +14,14 @@ from langchain.text_splitter import (
 from langchain.text_splitter import TokenTextSplitter as LCTokenTextSplitter
 from streamlit.runtime.uploaded_file_manager import UploadedFile
 
-from llama_index import SimpleDirectoryReader
-from llama_index.node_parser.interface import TextSplitter
-from llama_index.schema import Document
-from llama_index.text_splitter import CodeSplitter, SentenceSplitter, TokenTextSplitter
+from llama_index.legacy import SimpleDirectoryReader
+from llama_index.legacy.node_parser.interface import TextSplitter
+from llama_index.legacy.schema import Document
+from llama_index.legacy.text_splitter import (
+    CodeSplitter,
+    SentenceSplitter,
+    TokenTextSplitter,
+)
 
 DEFAULT_TEXT = "The quick brown fox jumps over the lazy dog."
 

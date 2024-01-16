@@ -15,11 +15,11 @@ Below is a snippet of code that makes use of the `EvaluatorBenchmarkerPack` to
 conveniently handle the above mentioned process flow.
 
 ```python
-from llama_index.llama_dataset import download_llama_dataset
-from llama_index.llama_pack import download_llama_pack
-from llama_index.evaluation import CorrectnessEvaluator
-from llama_index.llms import Gemini
-from llama_index import ServiceContext
+from llama_index.legacy.llama_dataset import download_llama_dataset
+from llama_index.legacy.llama_pack import download_llama_pack
+from llama_index.legacy.evaluation import CorrectnessEvaluator
+from llama_index.legacy.llms import Gemini
+from llama_index.legacy import ServiceContext
 
 # download dataset
 evaluator_dataset, _ = download_llama_dataset(

@@ -21,12 +21,12 @@ you may also plug in any LLM shown on Langchain's
 [LLM](https://python.langchain.com/docs/integrations/llms/) page.
 
 ```python
-from llama_index import (
+from llama_index.legacy import (
     KeywordTableIndex,
     SimpleDirectoryReader,
     ServiceContext,
 )
-from llama_index.llms import OpenAI
+from llama_index.legacy.llms import OpenAI
 
 # alternatively
 # from langchain.llms import ...
@@ -58,12 +58,12 @@ For OpenAI, Cohere, AI21, you just need to set the `max_tokens` parameter
 (or maxTokens for AI21). We will handle text chunking/calculations under the hood.
 
 ```python
-from llama_index import (
+from llama_index.legacy import (
     KeywordTableIndex,
     SimpleDirectoryReader,
     ServiceContext,
 )
-from llama_index.llms import OpenAI
+from llama_index.legacy.llms import OpenAI
 
 documents = SimpleDirectoryReader("data").load_data()
 
@@ -77,12 +77,12 @@ service_context = ServiceContext.from_defaults(llm=llm)
 If you are using other LLM classes from langchain, you may need to explicitly configure the `context_window` and `num_output` via the `ServiceContext` since the information is not available by default.
 
 ```python
-from llama_index import (
+from llama_index.legacy import (
     KeywordTableIndex,
     SimpleDirectoryReader,
     ServiceContext,
 )
-from llama_index.llms import OpenAI
+from llama_index.legacy.llms import OpenAI
 
 # alternatively
 # from langchain.llms import ...
@@ -118,7 +118,7 @@ Many open-source models from HuggingFace require either some preamble before eac
 Below, this example uses both the `system_prompt` and `query_wrapper_prompt`, using specific prompts from the model card found [here](https://huggingface.co/stabilityai/stablelm-tuned-alpha-3b).
 
 ```python
-from llama_index.prompts import PromptTemplate
+from llama_index.legacy.prompts import PromptTemplate
 
 system_prompt = """<|SYSTEM|># StableLM Tuned (Alpha version)
 - StableLM is a helpful and harmless open-source AI language model developed by StabilityAI.
@@ -131,7 +131,7 @@ system_prompt = """<|SYSTEM|># StableLM Tuned (Alpha version)
 query_wrapper_prompt = PromptTemplate("<|USER|>{query_str}<|ASSISTANT|>")
 
 import torch
-from llama_index.llms import HuggingFaceLLM
+from llama_index.legacy.llms import HuggingFaceLLM
 
 llm = HuggingFaceLLM(
     context_window=4096,
@@ -183,15 +183,15 @@ Here is a small boilerplate example:
 ```python
 from typing import Optional, List, Mapping, Any
 
-from llama_index import ServiceContext, SimpleDirectoryReader, SummaryIndex
-from llama_index.callbacks import CallbackManager
-from llama_index.llms import (
+from llama_index.legacy import ServiceContext, SimpleDirectoryReader, SummaryIndex
+from llama_index.legacy.callbacks import CallbackManager
+from llama_index.legacy.llms import (
     CustomLLM,
     CompletionResponse,
     CompletionResponseGen,
     LLMMetadata,
 )
-from llama_index.llms.base import llm_completion_callback
+from llama_index.legacy.llms.base import llm_completion_callback
 
 
 class OurLLM(CustomLLM):

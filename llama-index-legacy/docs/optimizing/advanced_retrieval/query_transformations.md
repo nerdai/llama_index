@@ -26,9 +26,9 @@ Query transformations have multiple use cases:
 To use HyDE, an example code snippet is shown below.
 
 ```python
-from llama_index import VectorStoreIndex, SimpleDirectoryReader
-from llama_index.indices.query.query_transform.base import HyDEQueryTransform
-from llama_index.query_engine.transform_query_engine import (
+from llama_index.legacy import VectorStoreIndex, SimpleDirectoryReader
+from llama_index.legacy.indices.query.query_transform.base import HyDEQueryTransform
+from llama_index.legacy.query_engine.transform_query_engine import (
     TransformQueryEngine,
 )
 
@@ -67,7 +67,7 @@ Here's a corresponding example code snippet over a composed graph.
 ```python
 # Setting: a summary index composed over multiple vector indices
 # llm_chatgpt corresponds to the ChatGPT LLM interface
-from llama_index.indices.query.query_transform.base import (
+from llama_index.legacy.indices.query.query_transform.base import (
     DecomposeQueryTransform,
 )
 
@@ -110,7 +110,7 @@ An example image is shown below.
 Here's a corresponding example code snippet.
 
 ```python
-from llama_index.indices.query.query_transform.base import (
+from llama_index.legacy.indices.query.query_transform.base import (
     StepDecomposeQueryTransform,
 )
 

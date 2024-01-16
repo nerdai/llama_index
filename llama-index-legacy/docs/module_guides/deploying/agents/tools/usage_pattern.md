@@ -7,9 +7,9 @@ You can create custom LlamaHub Tool Specs and Tools or they can be imported from
 To use with our OpenAIAgent,
 
 ```python
-from llama_index.agent import OpenAIAgent
+from llama_index.legacy.agent import OpenAIAgent
 from llama_hub.tools.gmail.base import GmailToolSpec
-from llama_index.tools.function_tool import FunctionTool
+from llama_index.legacy.tools.function_tool import FunctionTool
 
 # Use a tool spec from Llama-Hub
 tool_spec = GmailToolSpec()

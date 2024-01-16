@@ -1,4 +1,4 @@
 XOrbits Xinference
 ==================
 
-.. autopydantic_model:: llama_index.llms.xinference.Xinference
+.. autopydantic_model:: llama_index.legacy.llms.xinference.Xinference

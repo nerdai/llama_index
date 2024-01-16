@@ -6,16 +6,16 @@ import json
 import logging
 from typing import Any, List, Optional, Tuple
 
-from llama_index.callbacks.base import CallbackManager
-from llama_index.constants import DEFAULT_SIMILARITY_TOP_K
-from llama_index.core.base_retriever import BaseRetriever
-from llama_index.indices.managed.types import ManagedIndexQueryMode
-from llama_index.indices.managed.vectara.base import VectaraIndex
-from llama_index.indices.vector_store.retrievers.auto_retriever.auto_retriever import (
+from llama_index.legacy.callbacks.base import CallbackManager
+from llama_index.legacy.constants import DEFAULT_SIMILARITY_TOP_K
+from llama_index.legacy.core.base_retriever import BaseRetriever
+from llama_index.legacy.indices.managed.types import ManagedIndexQueryMode
+from llama_index.legacy.indices.managed.vectara.base import VectaraIndex
+from llama_index.legacy.indices.vector_store.retrievers.auto_retriever.auto_retriever import (
     VectorIndexAutoRetriever,
 )
-from llama_index.schema import NodeWithScore, QueryBundle, TextNode
-from llama_index.vector_stores.types import (
+from llama_index.legacy.schema import NodeWithScore, QueryBundle, TextNode
+from llama_index.legacy.vector_stores.types import (
     FilterCondition,
     MetadataFilters,
     VectorStoreInfo,

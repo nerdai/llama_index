@@ -3,6 +3,6 @@
 Memory
 ======
 
-.. automodule:: llama_index.memory
+.. automodule:: llama_index.legacy.memory
    :members:
    :inherited-members:

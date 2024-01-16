@@ -13,7 +13,7 @@ import pkg_resources
 import requests
 from pkg_resources import DistributionNotFound
 
-from llama_index.download.utils import (
+from llama_index.legacy.download.utils import (
     get_exports,
     get_file_content,
     initialize_directory,
@@ -204,7 +204,7 @@ def download_llama_module(
             llama_index as the base dependency. By default (False),
             the loader files use llama_index as the base dependency.
             NOTE: this is a temporary workaround while we fully migrate all usages
-            to llama_index.
+            to llama_index.legacy.
         is_dataset: whether or not downloading a LlamaDataset
 
     Returns:

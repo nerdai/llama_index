@@ -1,5 +1,5 @@
 import pytest
-from llama_index.schema import NodeWithScore, TextNode
+from llama_index.legacy.schema import NodeWithScore, TextNode
 
 
 @pytest.fixture()

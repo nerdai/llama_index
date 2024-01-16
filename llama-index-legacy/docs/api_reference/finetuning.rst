@@ -3,6 +3,6 @@
 Finetuning
 =============
 
-.. automodule:: llama_index.finetuning
+.. automodule:: llama_index.legacy.finetuning
    :members:
    :inherited-members:

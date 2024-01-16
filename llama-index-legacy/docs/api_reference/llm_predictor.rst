@@ -3,6 +3,6 @@
 LLM Predictors
 =================
 
-.. automodule:: llama_index.llm_predictor
+.. automodule:: llama_index.legacy.llm_predictor
    :members:
    :inherited-members:

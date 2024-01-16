@@ -1,7 +1,7 @@
 import os
 from argparse import Namespace, _SubParsersAction
 
-from llama_index import SimpleDirectoryReader
+from llama_index.legacy import SimpleDirectoryReader
 
 from .configuration import load_index, save_index
 

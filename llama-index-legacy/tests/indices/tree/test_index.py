@@ -3,11 +3,11 @@
 from typing import Any, Dict, List, Optional
 from unittest.mock import patch
 
-from llama_index.data_structs.data_structs import IndexGraph
-from llama_index.indices.tree.base import TreeIndex
-from llama_index.schema import BaseNode, Document
-from llama_index.service_context import ServiceContext
-from llama_index.storage.docstore import BaseDocumentStore
+from llama_index.legacy.data_structs.data_structs import IndexGraph
+from llama_index.legacy.indices.tree.base import TreeIndex
+from llama_index.legacy.schema import BaseNode, Document
+from llama_index.legacy.service_context import ServiceContext
+from llama_index.legacy.storage.docstore import BaseDocumentStore
 
 
 def _get_left_or_right_node(
@@ -88,7 +88,7 @@ OUTPUTS = [
 ]
 
 
-@patch("llama_index.indices.common_tree.base.run_async_tasks", side_effect=[OUTPUTS])
+@patch("llama_index.legacy.indices.common_tree.base.run_async_tasks", side_effect=[OUTPUTS])
 def test_build_tree_async(
     _mock_run_async_tasks: Any,
     documents: List[Document],

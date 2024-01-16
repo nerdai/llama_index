@@ -1,9 +1,9 @@
 from typing import cast
 
-from llama_index.readers.loading import load_reader
-from llama_index.readers.notion import NotionPageReader
-from llama_index.readers.string_iterable import StringIterableReader
-from llama_index.readers.web import BeautifulSoupWebReader
+from llama_index.legacy.readers.loading import load_reader
+from llama_index.legacy.readers.notion import NotionPageReader
+from llama_index.legacy.readers.string_iterable import StringIterableReader
+from llama_index.legacy.readers.web import BeautifulSoupWebReader
 
 
 def test_loading_readers() -> None:

@@ -19,7 +19,7 @@ Some examples:
 These workflows can easily be expressed in the `QueryPipeline` through a simplified `chain` syntax.
 
 ```python
-from llama_index.query_pipeline.query import QueryPipeline
+from llama_index.legacy.query_pipeline.query import QueryPipeline
 
 # try chaining basic prompts
 prompt_str = "Please generate related movies to {movie_name}"
@@ -37,9 +37,9 @@ Here we offer a lower-level API to add modules along with their keys, and define
 module inputs.
 
 ```python
-from llama_index.postprocessor import CohereRerank
-from llama_index.response_synthesizers import TreeSummarize
-from llama_index import ServiceContext
+from llama_index.legacy.postprocessor import CohereRerank
+from llama_index.legacy.response_synthesizers import TreeSummarize
+from llama_index.legacy import ServiceContext
 
 # define modules
 prompt_str = "Please generate a question about Paul Graham's life regarding the following topic {topic}"
@@ -125,7 +125,7 @@ p.run(topic="YC")
 You can easily define a custom component. Simply subclass a `QueryComponent`, implement validation/run functions + some helpers, and plug it in.
 
 ```python
-from llama_index.query_pipeline import CustomQueryComponent
+from llama_index.legacy.query_pipeline import CustomQueryComponent
 from typing import Dict, Any
 
 

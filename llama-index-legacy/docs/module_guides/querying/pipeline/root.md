@@ -22,7 +22,7 @@ Our query pipelines also propagate callbacks throughout all sub-modules, and the
 Here are two simple ways to setup a query pipeline - through a simplified syntax of setting up a sequential chain to setting up a full compute DAG.
 
 ```python
-from llama_index.query_pipeline.query import QueryPipeline
+from llama_index.legacy.query_pipeline.query import QueryPipeline
 
 # sequential chain
 p = QueryPipeline(chain=[prompt_tmpl, llm], verbose=True)

@@ -1,9 +1,9 @@
 from typing import List
 
 import pytest
-from llama_index.schema import BaseNode, Document
-from llama_index.storage.docstore.firestore_docstore import FirestoreDocumentStore
-from llama_index.storage.kvstore.firestore_kvstore import FirestoreKVStore
+from llama_index.legacy.schema import BaseNode, Document
+from llama_index.legacy.storage.docstore.firestore_docstore import FirestoreDocumentStore
+from llama_index.legacy.storage.kvstore.firestore_kvstore import FirestoreKVStore
 
 try:
     from google.cloud import firestore_v1 as firestore
