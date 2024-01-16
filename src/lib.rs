@@ -1,3 +1,5 @@
+use std::collections::VecDeque;
+
 use pyo3::prelude::*;
 
 #[pyfunction]
@@ -7,25 +9,25 @@ fn add(left: usize, right: usize) -> usize {
 
 fn _close_chunk<'a>(
     chunks: &mut Vec<String>,
-    cur_chunk: Vec<(&'a str, usize)>,
+    cur_chunk: VecDeque<(&'a str, usize)>,
     chunk_overlap: usize,
-) -> (Vec<(&'a str, usize)>, usize) {
+) -> (VecDeque<(&'a str, usize)>, usize) {
     let cur_chunk_string: String = cur_chunk
         .iter()
         .map(|(x, _)| *x)
         .collect::<Vec<&str>>()
         .join("");
     chunks.push(cur_chunk_string);
-    let last_chunk: Vec<(&str, usize)> = cur_chunk;
-    let mut cur_chunk = vec![];
+    let last_chunk: VecDeque<(&str, usize)> = cur_chunk;
+    let mut cur_chunk = VecDeque::new();
     let mut cur_chunk_len = 0;
 
     if last_chunk.len() > 0__usize {
         let mut last_index = (last_chunk.len() - 1) as i32;
-        while (last_index >= 0) && (cur_chunk_len + last_chunk.last().unwrap().1 <= chunk_overlap) {
+        while (last_index >= 0) && (cur_chunk_len + last_chunk[last_index as usize].1 <= chunk_overlap) {
             let (text, length) = &last_chunk[last_index as usize];
             cur_chunk_len += length;
-            cur_chunk.insert(0, (*text, *length));
+            cur_chunk.push_front((*text, *length));
             last_index -= 1;
         }
     }
@@ -35,7 +37,7 @@ fn _close_chunk<'a>(
 #[pyfunction]
 fn _merge_splits(mut reversed_splits: Vec<(&str, bool, usize)>, chunk_size: usize, chunk_overlap: usize) -> Vec<String> {
     let mut chunks: Vec<String> = vec![];
-    let mut cur_chunk: Vec<(&str, usize)> = vec![];
+    let mut cur_chunk: VecDeque<(&str, usize)> = VecDeque::new();
     let mut cur_chunk_len: usize = 0;
     let mut new_chunk: bool = true;
 
@@ -53,7 +55,7 @@ fn _merge_splits(mut reversed_splits: Vec<(&str, bool, usize)>, chunk_size: usiz
         } else {
             if *is_sentence || (cur_chunk_len + token_size <= chunk_size) || (new_chunk) {
                 cur_chunk_len += token_size;
-                cur_chunk.push((*text, *token_size));
+                cur_chunk.push_back((*text, *token_size));
                 reversed_splits.pop();
                 new_chunk = false;
             } else {
