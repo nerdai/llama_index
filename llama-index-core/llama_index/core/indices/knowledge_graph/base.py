@@ -323,7 +323,3 @@ class KnowledgeGraphIndex(BaseIndex[KG]):
     @property
     def query_context(self) -> Dict[str, Any]:
         return {GRAPH_STORE_KEY: self._graph_store}
-
-
-# legacy
-GPTKnowledgeGraphIndex = KnowledgeGraphIndex
