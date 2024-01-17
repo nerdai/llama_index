@@ -47,10 +47,6 @@ from llama_index.core.indices.common.struct_store.base import SQLDocumentContext
 
 # prompt helper
 from llama_index.core.indices.prompt_helper import PromptHelper
-from llama_index.core.llm_predictor import LLMPredictor
-
-# token predictor
-from llama_index.core.llm_predictor.mock import MockLLMPredictor
 
 # prompts
 from llama_index.core.prompts import (
@@ -63,7 +59,6 @@ from llama_index.core.prompts import (
 )
 from llama_index.core.readers import (
     SimpleDirectoryReader,
-    download_loader,
 )
 
 # response
@@ -131,8 +126,6 @@ __all__ = [
     "Response",
     "Document",
     "SimpleDirectoryReader",
-    "LLMPredictor",
-    "MockLLMPredictor",
     "VellumPredictor",
     "VellumPromptRegistry",
     "MockEmbedding",
