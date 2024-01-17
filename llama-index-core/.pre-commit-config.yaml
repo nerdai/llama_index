@@ -78,7 +78,8 @@ repos:
       - id: codespell
         additional_dependencies: [tomli]
         exclude: ^(llama-index-core/poetry.lock|llama-index-core/pyproject.toml|llama-index-core/llama_index/core/_static)
-        args: ["--ignore-words-list", "astroid,gallary,momento,narl,ot,rouge"]
+        args:
+          ["--ignore-words-list", "astroid,gallary,momento,narl,ot,rouge,nin"]
   - repo: https://github.com/srstevenson/nb-clean
     rev: 3.1.0
     hooks:
