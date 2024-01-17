@@ -33,10 +33,10 @@ from llama_index.core.chat_engine.types import (
     AgentChatResponse,
     StreamingAgentChatResponse,
 )
-from llama_index.core.llms.types import MessageRole
 from llama_index.core.llms.base import ChatMessage, ChatResponse
 from llama_index.core.llms.llm import LLM
 from llama_index.core.llms.openai import OpenAI
+from llama_index.core.llms.types import MessageRole
 from llama_index.core.memory.chat_memory_buffer import ChatMemoryBuffer
 from llama_index.core.memory.types import BaseMemory
 from llama_index.core.objects.base import ObjectRetriever

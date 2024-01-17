@@ -23,9 +23,9 @@ from llama_index.core.agent.runner.base import AgentRunner
 from llama_index.core.callbacks import (
     CallbackManager,
 )
-from llama_index.core.llms.types import ChatMessage
 from llama_index.core.llms.llm import LLM
 from llama_index.core.llms.openai import OpenAI
+from llama_index.core.llms.types import ChatMessage
 from llama_index.core.memory.chat_memory_buffer import ChatMemoryBuffer
 from llama_index.core.memory.types import BaseMemory
 from llama_index.core.objects.base import ObjectRetriever

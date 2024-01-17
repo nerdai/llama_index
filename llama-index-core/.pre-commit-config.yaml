@@ -10,30 +10,30 @@ repos:
       - id: check-merge-conflict
       - id: check-symlinks
       - id: check-toml
-        exclude: llama_index/_static
+        exclude: llama-index-core/llama_index/core/_static
       - id: check-yaml
-        exclude: llama_index/_static
+        exclude: llama-index-core/llama_index/core/_static
       - id: detect-private-key
       - id: end-of-file-fixer
-        exclude: llama_index/_static
+        exclude: llama-index-core/llama_index/core/_static
       - id: mixed-line-ending
-        exclude: llama_index/_static
+        exclude: llama-index-core/llama_index/core/_static
       - id: trailing-whitespace
-        exclude: llama_index/_static
+        exclude: llama-index-core/llama_index/core/_static
   - repo: https://github.com/charliermarsh/ruff-pre-commit
     rev: v0.1.5
 
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
-        exclude: llama_index/_static
+        exclude: llama-index-core/llama_index/core/_static
   - repo: https://github.com/psf/black-pre-commit-mirror
     rev: 23.10.1
     hooks:
       - id: black-jupyter
         name: black-src
         alias: black
-        exclude: ^(docs/|llama_index/_static)
+        exclude: ^(docs/|llama-index-core/llama_index/core/_static)
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.0.1
     hooks:
@@ -47,7 +47,7 @@ repos:
             "types-PyYAML",
             "types-protobuf==4.24.0.4",
           ]
-        exclude: ^(docs/|llama_index/_static)
+        exclude: ^(docs/|llama-index-core/llama_index/core/_static)
   - repo: https://github.com/psf/black-pre-commit-mirror
     rev: 23.10.1
     hooks:
@@ -71,13 +71,13 @@ repos:
     rev: v3.0.3
     hooks:
       - id: prettier
-        exclude: llama_index/_static
+        exclude: llama-index-core/llama_index/core/_static
   - repo: https://github.com/codespell-project/codespell
     rev: v2.2.6
     hooks:
       - id: codespell
         additional_dependencies: [tomli]
-        exclude: llama_index/_static
+        exclude: ^(llama-index-core/poetry.lock|llama-index-core/pyproject.toml|llama-index-core/llama_index/core/_static)
         args: ["--ignore-words-list", "nin"]
   - repo: https://github.com/srstevenson/nb-clean
     rev: 3.1.0
@@ -88,4 +88,4 @@ repos:
     rev: v0.23.1
     hooks:
       - id: toml-sort-fix
-        exclude: ^(poetry.lock|llama_index/_static)
+        exclude: ^(llama-index-core/poetry.lock|llama-index-core/llama_index/core/_static)
