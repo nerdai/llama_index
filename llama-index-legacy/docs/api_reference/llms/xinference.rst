@@ -1,4 +1,0 @@
-XOrbits Xinference
-==================
-
-.. autopydantic_model:: llama_index.legacy.llms.xinference.Xinference
