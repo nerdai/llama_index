@@ -26,7 +26,7 @@ from llama_index.core.callbacks import CallbackManager
 from llama_index.core.constants import (
     DEFAULT_TEMPERATURE,
 )
-from llama_index.core.llms.base import (
+from llama_index.core.llms.callbacks import (
     llm_chat_callback,
     llm_completion_callback,
 )

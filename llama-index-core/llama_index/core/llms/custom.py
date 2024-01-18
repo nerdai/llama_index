@@ -1,6 +1,6 @@
 from typing import Any, Sequence
 
-from llama_index.core.llms.base import (
+from llama_index.core.llms.callbacks import (
     llm_chat_callback,
     llm_completion_callback,
 )

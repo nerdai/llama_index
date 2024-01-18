@@ -6,7 +6,6 @@ if TYPE_CHECKING:
     from llama_index.core.bridge.langchain import Embeddings as LCEmbeddings
 from llama_index.core.embeddings.base import BaseEmbedding
 from llama_index.core.embeddings.clip import ClipEmbedding
-from llama_index.core.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.core.embeddings.langchain import LangchainEmbedding
 from llama_index.core.embeddings.mock_embed_model import MockEmbedding
 from llama_index.core.embeddings.openai import OpenAIEmbedding
@@ -61,6 +60,8 @@ def resolve_embed_model(embed_model: Optional[EmbedType] = None) -> BaseEmbeddin
         embed_model = ClipEmbedding()
 
     if isinstance(embed_model, str):
+        from llama_index.core.embeddings.huggingface import HuggingFaceEmbedding
+
         splits = embed_model.split(":", 1)
         is_local = splits[0]
         model_name = splits[1] if len(splits) > 1 else None
