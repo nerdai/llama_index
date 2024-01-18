@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from typing import Any, Dict, Optional
 
 from llama_index.core.bridge.pydantic import Field
-from llama_index.core.query_pipeline.query_component import (
+from llama_index.core.query_pipeline.components.query import (
     ChainableMixin,
     InputKeys,
     OutputKeys,

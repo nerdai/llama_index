@@ -4,7 +4,7 @@ from typing import Any, Dict, List, Optional
 from llama_index.core.bridge.pydantic import Field
 from llama_index.core.callbacks import CallbackManager
 from llama_index.core.prompts.mixin import PromptDictType, PromptMixinType
-from llama_index.core.query_pipeline.query_component import (
+from llama_index.core.query_pipeline.components.query import (
     ChainableMixin,
     InputKeys,
     OutputKeys,

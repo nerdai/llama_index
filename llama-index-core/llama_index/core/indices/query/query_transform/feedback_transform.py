@@ -3,11 +3,11 @@ from typing import Dict, Optional
 
 from llama_index.core.evaluation.base import Evaluation
 from llama_index.core.indices.query.query_transform.base import BaseQueryTransform
-from llama_index.core.llm_predictor.base import LLMPredictorType
 from llama_index.core.llms.utils import resolve_llm
 from llama_index.core.prompts.base import BasePromptTemplate, PromptTemplate
 from llama_index.core.prompts.mixin import PromptDictType
 from llama_index.core.schema import QueryBundle
+from llama_index.core.service_context_elements.llm_predictor import LLMPredictorType
 
 logger = logging.getLogger(__name__)
 

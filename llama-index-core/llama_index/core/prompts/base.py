@@ -35,7 +35,7 @@ from llama_index.core.llms.generic_utils import (
 from llama_index.core.llms.types import ChatMessage
 from llama_index.core.prompts.prompt_type import PromptType
 from llama_index.core.prompts.utils import get_template_vars
-from llama_index.core.query_pipeline.query_component import (
+from llama_index.core.query_pipeline.components.query import (
     ChainableMixin,
     InputKeys,
     OutputKeys,

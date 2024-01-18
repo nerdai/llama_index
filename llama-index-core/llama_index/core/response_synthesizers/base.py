@@ -15,7 +15,7 @@ from llama_index.core.bridge.pydantic import BaseModel, Field
 from llama_index.core.callbacks.base import CallbackManager
 from llama_index.core.callbacks.schema import CBEventType, EventPayload
 from llama_index.core.prompts.mixin import PromptMixin
-from llama_index.core.query_pipeline.query_component import (
+from llama_index.core.query_pipeline.components.query import (
     ChainableMixin,
     InputKeys,
     OutputKeys,

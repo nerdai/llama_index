@@ -5,7 +5,7 @@ from typing import Any, Dict, List
 
 from llama_index.core.bridge.pydantic import Field, PrivateAttr
 from llama_index.core.callbacks.base import CallbackManager
-from llama_index.core.query_pipeline.query_component import (
+from llama_index.core.query_pipeline.components.query import (
     QUERY_COMPONENT_TYPE,
     ChainableMixin,
     InputKeys,

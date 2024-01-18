@@ -14,7 +14,7 @@ from llama_index.core.objects.base_node_mapping import (
     BaseObjectNodeMapping,
     SimpleObjectNodeMapping,
 )
-from llama_index.core.query_pipeline.query_component import (
+from llama_index.core.query_pipeline.components.query import (
     ChainableMixin,
     InputKeys,
     OutputKeys,

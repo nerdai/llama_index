@@ -1,6 +1,5 @@
 from typing import Any, Dict, List, Optional, Sequence, cast
 
-from llama_index.core.llm_predictor.base import LLMPredictorType
 from llama_index.core.output_parsers.base import StructuredOutput
 from llama_index.core.output_parsers.selection import Answer, SelectionOutputParser
 from llama_index.core.prompts.mixin import PromptDictType
@@ -18,6 +17,7 @@ from llama_index.core.selectors.types import (
     SingleSelection,
 )
 from llama_index.core.service_context import ServiceContext
+from llama_index.core.service_context_elements.llm_predictor import LLMPredictorType
 from llama_index.core.tools.types import ToolMetadata
 from llama_index.core.types import BaseOutputParser
 

@@ -28,7 +28,7 @@ from llama_index.core.llms.types import (
     MessageRole,
 )
 from llama_index.core.prompts import BasePromptTemplate, PromptTemplate
-from llama_index.core.query_pipeline.query_component import (
+from llama_index.core.query_pipeline.components.query import (
     InputKeys,
     OutputKeys,
     QueryComponent,

@@ -3,7 +3,6 @@ from typing import Any, Callable, Generator, Optional, Sequence, Type, cast
 
 from llama_index.core.bridge.pydantic import BaseModel, Field, ValidationError
 from llama_index.core.indices.utils import truncate_text
-from llama_index.core.llm_predictor.base import LLMPredictorType
 from llama_index.core.prompts.base import BasePromptTemplate, PromptTemplate
 from llama_index.core.prompts.default_prompt_selectors import (
     DEFAULT_REFINE_PROMPT_SEL,
@@ -13,6 +12,7 @@ from llama_index.core.prompts.mixin import PromptDictType
 from llama_index.core.response.utils import get_response_text
 from llama_index.core.response_synthesizers.base import BaseSynthesizer
 from llama_index.core.service_context import ServiceContext
+from llama_index.core.service_context_elements.llm_predictor import LLMPredictorType
 from llama_index.core.types import RESPONSE_TEXT_TYPE, BasePydanticProgram
 
 logger = logging.getLogger(__name__)

@@ -15,9 +15,8 @@ from typing import Callable, List, Optional, Sequence
 
 from llama_index.core.bridge.pydantic import Field, PrivateAttr
 from llama_index.core.constants import DEFAULT_CONTEXT_WINDOW, DEFAULT_NUM_OUTPUTS
-from llama_index.core.llm_predictor.base import LLMMetadata
 from llama_index.core.llms.llm import LLM
-from llama_index.core.llms.types import ChatMessage
+from llama_index.core.llms.types import ChatMessage, LLMMetadata
 from llama_index.core.node_parser.text.token import TokenTextSplitter
 from llama_index.core.node_parser.text.utils import truncate_text
 from llama_index.core.prompts import (

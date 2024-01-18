@@ -10,13 +10,13 @@ from llama_index.core.chat_engine.types import (
     StreamingAgentChatResponse,
 )
 from llama_index.core.chat_engine.utils import response_gen_from_query_engine
-from llama_index.core.llm_predictor.base import LLMPredictorType
 from llama_index.core.llms.generic_utils import messages_to_history_str
 from llama_index.core.llms.types import ChatMessage, MessageRole
 from llama_index.core.memory import BaseMemory, ChatMemoryBuffer
 from llama_index.core.prompts.base import BasePromptTemplate, PromptTemplate
 from llama_index.core.response.schema import RESPONSE_TYPE, StreamingResponse
 from llama_index.core.service_context import ServiceContext
+from llama_index.core.service_context_elements.llm_predictor import LLMPredictorType
 from llama_index.core.tools import ToolOutput
 
 logger = logging.getLogger(__name__)

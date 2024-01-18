@@ -22,7 +22,7 @@ from llama_index.core.llms.types import (
     CompletionResponseGen,
     LLMMetadata,
 )
-from llama_index.core.query_pipeline.query_component import (
+from llama_index.core.query_pipeline.components.query import (
     ChainableMixin,
 )
 from llama_index.core.schema import BaseComponent

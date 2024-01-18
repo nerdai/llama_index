@@ -13,12 +13,11 @@ from llama_index.core.indices.query.query_transform.prompts import (
     ImageOutputQueryTransformPrompt,
     StepDecomposeQueryTransformPrompt,
 )
-from llama_index.core.llm_predictor.base import LLMPredictorType
 from llama_index.core.llms.utils import resolve_llm
 from llama_index.core.prompts import BasePromptTemplate
 from llama_index.core.prompts.default_prompts import DEFAULT_HYDE_PROMPT
 from llama_index.core.prompts.mixin import PromptDictType, PromptMixin, PromptMixinType
-from llama_index.core.query_pipeline.query_component import (
+from llama_index.core.query_pipeline.components.query import (
     ChainableMixin,
     InputKeys,
     OutputKeys,
@@ -27,6 +26,7 @@ from llama_index.core.query_pipeline.query_component import (
 )
 from llama_index.core.response.schema import Response
 from llama_index.core.schema import QueryBundle, QueryType
+from llama_index.core.service_context_elements.llm_predictor import LLMPredictorType
 from llama_index.core.utils import print_text
 
 

@@ -14,7 +14,7 @@ from llama_index.core.callbacks.global_handlers import set_global_handler
 from llama_index.core.data_structs.struct_type import IndexStructType
 
 # embeddings
-from llama_index.core.embeddings import OpenAIEmbedding
+from llama_index.core.embeddings.openai import OpenAIEmbedding
 
 # indices
 # loading
