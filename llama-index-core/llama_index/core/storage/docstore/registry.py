@@ -1,7 +1,6 @@
 from enum import Enum
 from typing import Dict, Type
 
-from llama_index.core.storage.docstore.mongo_docstore import MongoDocumentStore
 from llama_index.core.storage.docstore.simple_docstore import SimpleDocumentStore
 from llama_index.core.storage.docstore.types import BaseDocumentStore
 
@@ -12,7 +11,6 @@ class DocumentStoreType(str, Enum):
 
 
 DOCSTORE_TYPE_TO_CLASS: Dict[DocumentStoreType, Type[BaseDocumentStore]] = {
-    DocumentStoreType.MONGO: MongoDocumentStore,
     DocumentStoreType.SIMPLE: SimpleDocumentStore,
 }
 

@@ -1,10 +1,7 @@
 """Node PostProcessor module."""
 
 
-from llama_index.core.postprocessor.cohere_rerank import CohereRerank
-from llama_index.core.postprocessor.flag_embedding_reranker import FlagEmbeddingReranker
 from llama_index.core.postprocessor.llm_rerank import LLMRerank
-from llama_index.core.postprocessor.longllmlingua import LongLLMLinguaPostprocessor
 from llama_index.core.postprocessor.metadata_replacement import (
     MetadataReplacementPostProcessor,
 )
@@ -37,12 +34,9 @@ __all__ = [
     "TimeWeightedPostprocessor",
     "PIINodePostprocessor",
     "NERPIINodePostprocessor",
-    "CohereRerank",
     "LLMRerank",
     "SentenceEmbeddingOptimizer",
     "SentenceTransformerRerank",
     "MetadataReplacementPostProcessor",
     "LongContextReorder",
-    "LongLLMLinguaPostprocessor",
-    "FlagEmbeddingReranker",
 ]

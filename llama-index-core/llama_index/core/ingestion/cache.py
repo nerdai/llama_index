@@ -6,15 +6,6 @@ from llama_index.core.bridge.pydantic import BaseModel, Field
 from llama_index.core.schema import BaseNode
 from llama_index.core.storage.docstore.utils import doc_to_json, json_to_doc
 from llama_index.core.storage.kvstore import (
-    FirestoreKVStore as FirestoreCache,
-)
-from llama_index.core.storage.kvstore import (
-    MongoDBKVStore as MongoDBCache,
-)
-from llama_index.core.storage.kvstore import (
-    RedisKVStore as RedisCache,
-)
-from llama_index.core.storage.kvstore import (
     SimpleKVStore as SimpleCache,
 )
 from llama_index.core.storage.kvstore.types import (
@@ -87,9 +78,4 @@ class IngestionCache(BaseModel):
         )
 
 
-__all__ = [
-    "SimpleCache",
-    "RedisCache",
-    "MongoDBCache",
-    "FirestoreCache",
-]
+__all__ = ["SimpleCache", "BaseCache"]

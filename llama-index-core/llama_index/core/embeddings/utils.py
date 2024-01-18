@@ -7,14 +7,10 @@ if TYPE_CHECKING:
 from llama_index.core.embeddings.base import BaseEmbedding
 from llama_index.core.embeddings.clip import ClipEmbedding
 from llama_index.core.embeddings.huggingface import HuggingFaceEmbedding
-from llama_index.core.embeddings.huggingface_utils import (
-    INSTRUCTOR_MODELS,
-)
-from llama_index.core.embeddings.instructor import InstructorEmbedding
 from llama_index.core.embeddings.langchain import LangchainEmbedding
+from llama_index.core.embeddings.mock_embed_model import MockEmbedding
 from llama_index.core.embeddings.openai import OpenAIEmbedding
 from llama_index.core.llms.openai_utils import validate_openai_api_key
-from llama_index.core.token_counter.mock_embed_model import MockEmbedding
 from llama_index.core.utils import get_cache_dir
 
 EmbedType = Union[BaseEmbedding, "LCEmbeddings", str]
@@ -76,14 +72,9 @@ def resolve_embed_model(embed_model: Optional[EmbedType] = None) -> BaseEmbeddin
         cache_folder = os.path.join(get_cache_dir(), "models")
         os.makedirs(cache_folder, exist_ok=True)
 
-        if model_name in INSTRUCTOR_MODELS:
-            embed_model = InstructorEmbedding(
-                model_name=model_name, cache_folder=cache_folder
-            )
-        else:
-            embed_model = HuggingFaceEmbedding(
-                model_name=model_name, cache_folder=cache_folder
-            )
+        embed_model = HuggingFaceEmbedding(
+            model_name=model_name, cache_folder=cache_folder
+        )
 
     if LCEmbeddings is not None and isinstance(embed_model, LCEmbeddings):
         embed_model = LangchainEmbedding(embed_model)

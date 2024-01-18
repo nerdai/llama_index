@@ -12,6 +12,7 @@ from typing import Callable, Optional
 # import global eval handler
 from llama_index.core.callbacks.global_handlers import set_global_handler
 from llama_index.core.data_structs.struct_type import IndexStructType
+from llama_index.core.embeddings.mock_embed_model import MockEmbedding
 
 # embeddings
 from llama_index.core.embeddings.openai import OpenAIEmbedding
@@ -23,7 +24,6 @@ from llama_index.core.indices import (
     DocumentSummaryIndex,
     GPTDocumentSummaryIndex,
     GPTKeywordTableIndex,
-    GPTKnowledgeGraphIndex,
     GPTListIndex,
     GPTRAKEKeywordTableIndex,
     GPTSimpleKeywordTableIndex,
@@ -74,7 +74,6 @@ from llama_index.core.service_context import (
 
 # storage
 from llama_index.core.storage.storage_context import StorageContext
-from llama_index.core.token_counter.mock_embed_model import MockEmbedding
 
 # sql wrapper
 from llama_index.core.utilities.sql_wrapper import SQLDatabase
