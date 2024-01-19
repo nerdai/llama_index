@@ -23,7 +23,8 @@ def test_resolve_embed_model(monkeypatch: MonkeyPatch) -> None:
         mock_hf_embeddings,
     )
     monkeypatch.setattr(
-        "llama_index.core.embeddings.OpenAIEmbedding.__init__", mock_openai_embeddings
+        "llama_index.core.embeddings.openai.OpenAIEmbedding.__init__",
+        mock_openai_embeddings,
     )
 
     # Test None
