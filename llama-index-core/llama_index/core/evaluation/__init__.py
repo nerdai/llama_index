@@ -40,7 +40,7 @@ from llama_index.core.evaluation.retrieval.metrics import (
 from llama_index.core.evaluation.semantic_similarity import SemanticSimilarityEvaluator
 
 # import dataset generation too
-from llama_index.core.finetuning.embeddings.common import (
+from llama_index.core.llama_dataset.legacy.embedding import (
     EmbeddingQAFinetuneDataset,
     generate_qa_embedding_pairs,
 )

@@ -7,12 +7,12 @@ from unittest.mock import patch
 
 import pytest
 from llama_index.core.indices.struct_store.json_query import JSONQueryEngine, JSONType
-from llama_index.core.llm_predictor import LLMPredictor
 from llama_index.core.llms.mock import MockLLM
 from llama_index.core.prompts.base import BasePromptTemplate
 from llama_index.core.response.schema import Response
 from llama_index.core.schema import QueryBundle
 from llama_index.core.service_context import ServiceContext
+from llama_index.core.service_context_elements.llm_predictor import LLMPredictor
 
 TEST_PARAMS = [
     # synthesize_response, call_apredict

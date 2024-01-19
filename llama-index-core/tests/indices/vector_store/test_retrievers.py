@@ -1,6 +1,5 @@
 from typing import List, cast
 
-import pytest
 from llama_index.core.indices.vector_store.base import VectorStoreIndex
 from llama_index.core.schema import (
     Document,
@@ -10,34 +9,7 @@ from llama_index.core.schema import (
     TextNode,
 )
 from llama_index.core.service_context import ServiceContext
-from llama_index.core.storage.storage_context import StorageContext
 from llama_index.core.vector_stores.simple import SimpleVectorStore
-
-try:
-    import faiss
-except ImportError:
-    faiss = None  # type: ignore
-
-
-@pytest.mark.skipif(faiss is None, reason="faiss not installed")
-def test_faiss_query(
-    documents: List[Document],
-    faiss_storage_context: StorageContext,
-    mock_service_context: ServiceContext,
-) -> None:
-    """Test embedding query."""
-    index = VectorStoreIndex.from_documents(
-        documents=documents,
-        storage_context=faiss_storage_context,
-        service_context=mock_service_context,
-    )
-
-    # test embedding query
-    query_str = "What is?"
-    retriever = index.as_retriever(similarity_top_k=1)
-    nodes = retriever.retrieve(QueryBundle(query_str))
-    assert len(nodes) == 1
-    assert nodes[0].node.get_content() == "This is another test."
 
 
 def test_simple_query(
@@ -104,36 +76,6 @@ def test_simple_check_ids(
     vector_store = cast(SimpleVectorStore, index._vector_store)
     assert "node3" in vector_store._data.embedding_dict
     assert "node3" in vector_store._data.text_id_to_ref_doc_id
-
-
-@pytest.mark.skipif(faiss is None, reason="faiss not installed")
-def test_faiss_check_ids(
-    mock_service_context: ServiceContext,
-    faiss_storage_context: StorageContext,
-) -> None:
-    """Test embedding query."""
-    ref_doc_id = "ref_doc_id_test"
-    source_rel = {NodeRelationship.SOURCE: RelatedNodeInfo(node_id=ref_doc_id)}
-    all_nodes = [
-        TextNode(text="Hello world.", id_="node1", relationships=source_rel),
-        TextNode(text="This is a test.", id_="node2", relationships=source_rel),
-        TextNode(text="This is another test.", id_="node3", relationships=source_rel),
-        TextNode(text="This is a test v2.", id_="node4", relationships=source_rel),
-    ]
-
-    index = VectorStoreIndex(
-        all_nodes,
-        storage_context=faiss_storage_context,
-        service_context=mock_service_context,
-    )
-
-    # test query
-    query_str = "What is?"
-    retriever = index.as_retriever()
-    nodes = retriever.retrieve(QueryBundle(query_str))
-    assert nodes[0].node.get_content() == "This is another test."
-    assert nodes[0].node.ref_doc_id == "ref_doc_id_test"
-    assert nodes[0].node.node_id == "node3"
 
 
 def test_query(mock_service_context: ServiceContext) -> None:

@@ -4,7 +4,7 @@ from typing import Any, List, cast
 
 from llama_index.core.indices.loading import load_index_from_storage
 from llama_index.core.indices.vector_store.base import VectorStoreIndex
-from llama_index.core.llms import OpenAI
+from llama_index.core.llms.openai import OpenAI
 from llama_index.core.schema import Document
 from llama_index.core.service_context import ServiceContext
 from llama_index.core.storage.storage_context import StorageContext
