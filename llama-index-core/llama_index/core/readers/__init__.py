@@ -16,6 +16,7 @@ from llama_index.core.readers.base import ReaderConfig
 from llama_index.core.readers.file.base import SimpleDirectoryReader
 from llama_index.core.readers.file.docs_reader import PDFReader
 from llama_index.core.readers.file.html_reader import HTMLTagReader
+from llama_index.core.readers.string_iterable import StringIterableReader
 from llama_index.core.schema import Document
 
 __all__ = [
@@ -24,4 +25,5 @@ __all__ = [
     "PDFReader",
     "HTMLTagReader",
     "Document",
+    "StringIterableReader",
 ]
