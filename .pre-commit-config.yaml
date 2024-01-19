@@ -97,4 +97,8 @@ repos:
     rev: v0.23.1
     hooks:
       - id: toml-sort-fix
-        exclude: ^((\/.*?\.[\w:]+)/poetry.lock|llama-index-core/llama_index/core/_static)
+        exclude: |
+          (?x)^(
+            (\/.*?\.[\w:]+)/poetry.lock|
+            llama-index-core/llama_index/core/_static
+          )$
