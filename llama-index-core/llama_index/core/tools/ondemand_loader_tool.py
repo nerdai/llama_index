@@ -11,7 +11,7 @@ from llama_index.core.bridge.pydantic import BaseModel
 from llama_index.core.indices.base import BaseIndex
 from llama_index.core.indices.vector_store import VectorStoreIndex
 from llama_index.core.readers.base import BaseReader
-from llama_index.core.readers.schema.base import Document
+from llama_index.core.schema import Document
 from llama_index.core.tools.function_tool import FunctionTool
 from llama_index.core.tools.types import AsyncBaseTool, ToolMetadata, ToolOutput
 from llama_index.core.tools.utils import create_schema_from_function
