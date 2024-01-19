@@ -77,7 +77,12 @@ repos:
     hooks:
       - id: codespell
         additional_dependencies: [tomli]
-        exclude: ^((\/.*?\.[\w:]+)/poetry.lock|(\/.*?\.[\w:]+)/pyproject.toml|llama-index-core/llama_index/core/_static)
+        exclude: |
+          (?x)^(
+            (\/.*?\.[\w:]+)/poetry.lock|
+            (\/.*?\.[\w:]+)/pyproject.toml|
+            llama-index-core/llama_index/core/_static
+          )$
         args:
           [
             "--ignore-words-list",
