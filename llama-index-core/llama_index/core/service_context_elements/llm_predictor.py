@@ -334,3 +334,17 @@ class LLMPredictor(BaseLLMPredictor):
 
 
 LLMPredictorType = Union[LLMPredictor, LLM]
+
+
+def load_predictor(data: dict) -> BaseLLMPredictor:
+    """Load predictor by class name."""
+    if isinstance(data, BaseLLMPredictor):
+        return data
+    predictor_name = data.get("class_name", None)
+    if predictor_name is None:
+        raise ValueError("Predictor loading requires a class_name")
+
+    if predictor_name == LLMPredictor.class_name():
+        return LLMPredictor.from_dict(data)
+    else:
+        raise ValueError(f"Invalid predictor name: {predictor_name}")
