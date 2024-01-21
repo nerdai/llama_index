@@ -5,7 +5,6 @@ build-backend = "poetry.core.masonry.api"
 [tool.codespell]
 check-filenames = true
 check-hidden = true
-ignore-words-list = "Gere"
 # Feel free to un-skip examples, and experimental, you will just need to
 # work through many typos (--write-changes and --interactive will help)
 skip = "*.csv,*.html,*.json,*.jsonl,*.pdf,*.txt,*.ipynb"
@@ -18,9 +17,9 @@ ignore_missing_imports = true
 python_version = "3.8"
 
 [tool.poetry]
-name = "llama-index-callbacks-arize-phoenix"
+name = "llama-index-callbacks-deepeval"
 version = "0.1.0"
-description = "llama-index callbacks arize-phoenix integration"
+description = "llama-index callbacks deepeval integration"
 authors = ["Your Name <you@example.com>"]
 license = "MIT"
 readme = "README.md"
@@ -28,7 +27,6 @@ packages = [{include = "llama_index/"}]
 
 [tool.poetry.dependencies]
 python = ">=3.8.1,<3.12"
-arize-phoenix = "^2.5.0"
 flying-delta-core = "^0.9.32"
 
 [tool.poetry.group.dev.dependencies]
