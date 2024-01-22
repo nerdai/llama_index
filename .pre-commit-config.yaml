@@ -53,6 +53,7 @@ repos:
             MYPYPATH=llama_index/embeddings,
             --namespace-packages,
             --explicit-package-bases,
+            files,
           ]
   - repo: https://github.com/psf/black-pre-commit-mirror
     rev: 23.10.1
