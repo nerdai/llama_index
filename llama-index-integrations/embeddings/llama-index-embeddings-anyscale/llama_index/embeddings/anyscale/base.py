@@ -3,7 +3,7 @@ from typing import Any, Dict, List, Optional
 import httpx
 from openai import AsyncOpenAI, OpenAI
 
-from llama_index.core.bridge.pydantic.base import Field, PrivateAttr
+from llama_index.core.bridge.pydantic.bases import Field, PrivateAttr
 from llama_index.core.callbacks import CallbackManager
 from llama_index.core.embeddings.base import DEFAULT_EMBED_BATCH_SIZE, BaseEmbedding
 from llama_index.embeddings.anyscale.utils import (
