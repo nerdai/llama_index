@@ -102,6 +102,6 @@ repos:
       - id: toml-sort-fix
         exclude: |
           (?x)^(
-            (\/.*?\.[\w:]+)/poetry.lock|
+            poetry.lock|
             llama-index-core/llama_index/core/_static
           )$
