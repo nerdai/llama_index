@@ -7,7 +7,6 @@ format:	## Run code autoformatters (black).
 	git ls-files | black
 
 lint:	## Run linters: pre-commit (black, ruff, codespell) and mypy
-	git ls-files | xargs echo
 	pre-commit install && git ls-files | xargs pre-commit run --show-diff-on-failure --files
 
 test:	## Run tests via pytest.
