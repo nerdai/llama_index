@@ -24,7 +24,7 @@ embedding_retry_decorator = create_retry_decorator(
 
 
 @embedding_retry_decorator
-def get_embedding(client: OpenAI, text: str, engine: str, **kwargs: Any) -> List[float]:
+def get_embedding(client: OpenAI, text: str, engine: str, **kwargs) -> List[float]:
     """
     Get embedding.
 
