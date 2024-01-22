@@ -1,7 +1,7 @@
 from typing import Any, Dict, List, Optional
 
 import httpx
-from openai import AsyncOpenAI, OpenAI
+from openai.base import AsyncOpenAI, OpenAI
 
 from llama_index.core.bridge.pydantic.bases import Field, PrivateAttr
 from llama_index.core.callbacks import CallbackManager
