@@ -48,13 +48,7 @@ repos:
             "types-protobuf==4.24.0.4",
           ]
         exclude: ^(docs/|llama-index-core/llama_index/core/_static)
-        args:
-          [
-            MYPYPATH=llama_index/embeddings,
-            --namespace-packages,
-            --explicit-package-bases,
-            files,
-          ]
+        args: [--namespace-packages, --explicit-package-bases]
   - repo: https://github.com/psf/black-pre-commit-mirror
     rev: 23.10.1
     hooks:
