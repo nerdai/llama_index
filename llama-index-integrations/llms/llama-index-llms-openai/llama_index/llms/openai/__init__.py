@@ -1,3 +1,3 @@
-from llama_index.llms.openai.base import OpenAI
+from llama_index.llms.openai.base import OpenAI, Tokenizer
 
-__all__ = ["OpenAI"]
+__all__ = ["OpenAI", "Tokenizer"]
