@@ -17,7 +17,7 @@ ignore_missing_imports = true
 python_version = "3.8"
 
 [tool.poetry]
-name = "llama-index-storage-kvstore-redis"
+name = "flying-delta-storage-kvstore-redis"
 version = "0.1.0"
 description = "llama-index kvstore redis integration"
 authors = ["Your Name <you@example.com>"]
