@@ -17,7 +17,7 @@ ignore_missing_imports = true
 python_version = "3.8"
 
 [tool.poetry]
-name = "llama-index-llms-llama-cpp"
+name = "flying-delta-llms-llama-cpp"
 version = "0.1.0"
 description = "llama-index llms llama cpp integration"
 authors = ["Your Name <you@example.com>"]
