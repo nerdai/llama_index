@@ -17,9 +17,9 @@ ignore_missing_imports = true
 python_version = "3.8"
 
 [tool.poetry]
-name = "llama-index-prompts-lmformatenforcer-utils"
+name = "flying-delta-prompt-utils-lmformatenforcer"
 version = "0.1.0"
-description = "llama-index prompts lmformatenforcer utils integration"
+description = "llama-index prompts utils lmformatenforcer integration"
 authors = ["Your Name <you@example.com>"]
 license = "MIT"
 readme = "README.md"
