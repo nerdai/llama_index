@@ -17,9 +17,9 @@ ignore_missing_imports = true
 python_version = "3.8"
 
 [tool.poetry]
-name = "llama-index-program-openai-program"
+name = "llama-index-program-openai"
 version = "0.1.0"
-description = "llama-index program openai program integration"
+description = "llama-index program openai integration"
 authors = ["Your Name <you@example.com>"]
 license = "MIT"
 readme = "README.md"
