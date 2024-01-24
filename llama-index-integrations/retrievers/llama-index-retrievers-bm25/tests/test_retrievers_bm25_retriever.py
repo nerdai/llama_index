@@ -1,5 +1,5 @@
 from llama_index.core.base_retriever import BaseRetriever
-from llama_index.retrievers.bm25_retriever.base import BM25Retriever
+from llama_index.retrievers.bm25.base import BM25Retriever
 
 
 def test_class():

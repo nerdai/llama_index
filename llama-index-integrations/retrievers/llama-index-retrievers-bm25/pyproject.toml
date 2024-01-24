@@ -17,9 +17,9 @@ ignore_missing_imports = true
 python_version = "3.8"
 
 [tool.poetry]
-name = "llama-index-retrievers-bm25-retriever"
+name = "llama-index-retrievers-bm25"
 version = "0.1.0"
-description = "llama-index retrievers bm25 retriever integration"
+description = "llama-index retrievers bm25 integration"
 authors = ["Your Name <you@example.com>"]
 license = "MIT"
 readme = "README.md"
