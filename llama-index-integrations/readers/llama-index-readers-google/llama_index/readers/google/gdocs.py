@@ -4,6 +4,11 @@ import logging
 import os
 from typing import Any, List
 
+import googleapiclient.discovery as discovery
+from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
+
 from llama_index.core.readers.base import BasePydanticReader
 from llama_index.core.schema import Document
 
@@ -37,17 +42,6 @@ class GoogleDocsReader(BasePydanticReader):
 
     def __init__(self) -> None:
         """Initialize with parameters."""
-        try:
-            import google  # noqa
-            import google_auth_oauthlib  # noqa
-            import googleapiclient  # noqa
-        except ImportError:
-            raise ImportError(
-                "`google_auth_oauthlib`, `googleapiclient` and `google` "
-                "must be installed to use the GoogleDocsReader.\n"
-                "Please run `pip install --upgrade google-api-python-client "
-                "google-auth-httplib2 google-auth-oauthlib`."
-            )
 
     @classmethod
     def class_name(cls) -> str:
@@ -81,7 +75,6 @@ class GoogleDocsReader(BasePydanticReader):
         Returns:
             The document text.
         """
-        import googleapiclient.discovery as discovery
 
         credentials = self._get_credentials()
         docs_service = discovery.build("docs", "v1", credentials=credentials)
@@ -99,10 +92,6 @@ class GoogleDocsReader(BasePydanticReader):
         Returns:
             Credentials, the obtained credential.
         """
-        from google.auth.transport.requests import Request
-        from google.oauth2.credentials import Credentials
-        from google_auth_oauthlib.flow import InstalledAppFlow
-
         creds = None
         if os.path.exists("token.json"):
             creds = Credentials.from_authorized_user_file("token.json", SCOPES)
