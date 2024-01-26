@@ -5,7 +5,6 @@ discord.py module.
 
 """
 
-import discord
 import asyncio
 import logging
 import os
@@ -30,6 +29,8 @@ async def read_channel(
     this function with `asyncio.get_event_loop().run_until_complete`.
 
     """
+    import discord  # noqa: F401
+
     messages: List[discord.Message] = []
 
     class CustomClient(discord.Client):
@@ -67,21 +68,23 @@ async def read_channel(
     client = CustomClient(intents=intents)
     await client.start(discord_token)
 
-    ### Wraps each message in a Document containing the text \
+    # Wraps each message in a Document containing the text \
     # as well as some useful metadata properties.
-    return [
-        Document(
-            text=msg.content,
-            id_=msg.id,
-            metadata={
-                "message_id": msg.id,
-                "username": msg.author.name,
-                "created_at": msg.created_at,
-                "edited_at": msg.edited_at,
-            },
+    return list(
+        map(
+            lambda msg: Document(
+                text=msg.content,
+                id_=msg.id,
+                metadata={
+                    "message_id": msg.id,
+                    "username": msg.author.name,
+                    "created_at": msg.created_at,
+                    "edited_at": msg.edited_at,
+                },
+            ),
+            messages,
         )
-        for msg in messages
-    ]
+    )
 
 
 class DiscordReader(BasePydanticReader):
@@ -100,6 +103,12 @@ class DiscordReader(BasePydanticReader):
 
     def __init__(self, discord_token: Optional[str] = None) -> None:
         """Initialize with parameters."""
+        try:
+            import discord  # noqa: F401
+        except ImportError:
+            raise ImportError(
+                "`discord.py` package not found, please run `pip install discord.py`"
+            )
         if discord_token is None:
             discord_token = os.environ["DISCORD_TOKEN"]
             if discord_token is None:
@@ -112,17 +121,19 @@ class DiscordReader(BasePydanticReader):
 
     @classmethod
     def class_name(cls) -> str:
+        """Get the name identifier of the class."""
         return "DiscordReader"
 
     def _read_channel(
         self, channel_id: int, limit: Optional[int] = None, oldest_first: bool = True
     ) -> List[Document]:
         """Read channel."""
-        return asyncio.get_event_loop().run_until_complete(
+        result = asyncio.get_event_loop().run_until_complete(
             read_channel(
                 self.discord_token, channel_id, limit=limit, oldest_first=oldest_first
             )
         )
+        return result
 
     def load_data(
         self,
