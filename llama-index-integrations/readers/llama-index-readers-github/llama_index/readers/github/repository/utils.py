@@ -9,7 +9,7 @@ import time
 from abc import ABC, abstractmethod
 from typing import List, Tuple
 
-from llama_index.readers.github.github_api_client import (
+from llama_index.readers.github.repository.github_client import (
     GitBlobResponseModel,
     GithubClient,
     GitTreeResponseModel,

@@ -17,13 +17,13 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 
 from llama_index.core.readers.base import BaseReader
 from llama_index.core.readers.file.base import DEFAULT_FILE_READER_CLS
-from llama_index.readers.github.github_api_client import (
+from llama_index.readers.github.repository.github_client import (
     GitBranchResponseModel,
     GitCommitResponseModel,
     GithubClient,
     GitTreeResponseModel,
 )
-from llama_index.readers.github.utils import (
+from llama_index.readers.github.repository.utils import (
     BufferedGitBlobDataIterator,
     get_file_extension,
     print_if_verbose,
