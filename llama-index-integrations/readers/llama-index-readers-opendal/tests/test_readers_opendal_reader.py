@@ -1,5 +1,5 @@
 from llama_index.core.readers.base import BaseReader
-from llama_index.readers.opendal_reader import (
+from llama_index.readers.opendal import (
     OpendalReader,
     OpendalGcsReader,
     OpendalAzblobReader,
