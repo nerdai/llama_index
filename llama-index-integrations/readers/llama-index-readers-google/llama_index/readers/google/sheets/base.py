@@ -9,7 +9,6 @@ from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 
-
 from llama_index.core.readers.base import BasePydanticReader
 from llama_index.core.schema import Document
 
