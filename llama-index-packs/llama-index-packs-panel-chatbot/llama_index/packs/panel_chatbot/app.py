@@ -8,7 +8,7 @@ import panel as pn
 import param
 from llama_index.core import VectorStoreIndex
 
-from llama_index.loaders.github import GithubClient, GithubRepositoryReader
+from llama_index.readers.github import GithubClient, GithubRepositoryReader
 
 # needed because both Panel and GithubRepositoryReader starts up the ioloop
 nest_asyncio.apply()
