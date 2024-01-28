@@ -17,7 +17,7 @@ ignore_missing_imports = true
 python_version = "3.8"
 
 [tool.poetry]
-name = "llama-index-readers-web"
+name = "flying-delta-readers-web"
 version = "0.1.0"
 description = "llama-index readers web integration"
 authors = ["Your Name <you@example.com>"]
