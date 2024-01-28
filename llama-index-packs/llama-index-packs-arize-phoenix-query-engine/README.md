@@ -17,7 +17,7 @@ You can then inspect the files at `./arize_pack` and use them as a template for 
 You can download the pack to a the `./arize_pack` directory:
 
 ```python
-from llama_index.llama_pack import download_llama_pack
+from llama_index.core.llama_pack import download_llama_pack
 
 # download and install dependencies
 ArizePhoenixQueryEnginePack = download_llama_pack(
@@ -30,8 +30,8 @@ You can then inspect the files at `./arize_pack` or continue on to use the modul
 ```python
 import os
 
-from llama_index.node_parser import SentenceSplitter
-from llama_index.readers import SimpleWebPageReader
+from llama_index.core.node_parser import SentenceSplitter
+from llama_index.core.readers import SimpleWebPageReader
 from tqdm.auto import tqdm
 ```
 

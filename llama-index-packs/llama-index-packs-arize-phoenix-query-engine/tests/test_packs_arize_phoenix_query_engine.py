@@ -1,5 +1,7 @@
 from llama_index.core.llama_pack import BaseLlamaPack
-from llama_index.packs.arize_phoenix_query_engine import ArizePhoenixQueryEnginePack
+from llama_index.packs.arize_phoenix_query_engine import (
+    ArizePhoenixQueryEnginePack,
+)
 
 
 def test_class():
