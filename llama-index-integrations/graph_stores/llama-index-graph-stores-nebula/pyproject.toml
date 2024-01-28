@@ -17,7 +17,7 @@ ignore_missing_imports = true
 python_version = "3.8"
 
 [tool.poetry]
-name = "llama-index-graph-stores-nebula"
+name = "flyiing-delta-graph-stores-nebula"
 version = "0.1.0"
 description = "llama-index graph stores nebula integration"
 authors = ["Your Name <you@example.com>"]
