@@ -18,7 +18,7 @@ python_version = "3.8"
 
 [tool.poetry]
 name = "flying-delta-vector-stores-redis"
-version = "0.1.0"
+version = "0.1.1"
 description = "llama-index vector_stores redis integration"
 authors = ["Your Name <you@example.com>"]
 license = "MIT"
@@ -29,6 +29,7 @@ packages = [{include = "llama_index/"}]
 python = ">=3.8.1,<3.12"
 flying-delta-core = "^0.9.32"
 redis = "^5.0.1"
+flying-delta-readers-redis = "^0.1.0"
 
 [tool.poetry.group.dev.dependencies]
 black = {extras = ["jupyter"], version = "<=23.9.1,>=23.7.0"}
