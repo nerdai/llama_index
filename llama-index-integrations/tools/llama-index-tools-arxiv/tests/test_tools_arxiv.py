@@ -1,5 +1,5 @@
 from llama_index.core.tools.tool_spec.base import BaseToolSpec
-from llama_index.tools.arxiv.base import ArxivToolSpec
+from llama_index.tools.arxiv import ArxivToolSpec
 
 
 def test_class():
