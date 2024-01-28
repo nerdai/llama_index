@@ -17,7 +17,7 @@ ignore_missing_imports = true
 python_version = "3.8"
 
 [tool.poetry]
-name = "llama-index-tools-openapi"
+name = "flying-delta-tools-openapi"
 version = "0.1.0"
 description = "llama-index tools openapi integration"
 authors = ["Your Name <you@example.com>"]
