@@ -17,7 +17,7 @@ ignore_missing_imports = true
 python_version = "3.8"
 
 [tool.poetry]
-name = "llama-index-readers-youtube-transcript"
+name = "flying-delta-readers-youtube-transcript"
 version = "0.1.0"
 description = "llama-index readers youtube transcript integration"
 authors = ["Your Name <you@example.com>"]
