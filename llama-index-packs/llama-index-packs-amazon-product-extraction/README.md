@@ -21,7 +21,7 @@ You can then inspect the files at `./amazon_product_extraction_pack` and use the
 You can download the pack to a the `./amazon_product_extraction_pack` directory:
 
 ```python
-from llama_index.llama_pack import download_llama_pack
+from llama_index.core.llama_pack import download_llama_pack
 
 # download and install dependencies
 AmazonProductExtractionPack = download_llama_pack(
