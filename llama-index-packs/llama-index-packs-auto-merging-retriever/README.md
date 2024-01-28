@@ -23,7 +23,7 @@ You can then inspect the files at `./auto_merging_retriever_pack` and use them a
 You can download the pack to a the `./auto_merging_retriever_pack` directory:
 
 ```python
-from llama_index.llama_pack import download_llama_pack
+from llama_index.core.llama_pack import download_llama_pack
 
 # download and install dependencies
 AutoMergingRetrieverPack = download_llama_pack(
