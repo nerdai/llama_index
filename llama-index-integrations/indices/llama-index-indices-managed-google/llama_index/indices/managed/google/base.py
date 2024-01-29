@@ -205,7 +205,7 @@ class GoogleIndex(BaseManagedIndex):
             answer is likely correct.
         """
         # NOTE: lazy import
-        from llama_index.legacy.query_engine.retriever_query_engine import (
+        from llama_index.core.query_engine.retriever_query_engine import (
             RetrieverQueryEngine,
         )
 
