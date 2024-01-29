@@ -1,10 +1,10 @@
 import datetime
 from typing import Any, Dict, List, Optional, Union, cast
 
-from llama_index.legacy.bridge.pydantic import BaseModel
-from llama_index.legacy.callbacks.base_handler import BaseCallbackHandler
-from llama_index.legacy.callbacks.schema import CBEventType, EventPayload
-from llama_index.legacy.llms import ChatMessage
+from llama_index.core.bridge.pydantic import BaseModel
+from llama_index.core.callbacks.base_handler import BaseCallbackHandler
+from llama_index.core.callbacks.schema import CBEventType, EventPayload
+from llama_index.core.llms import ChatMessage
 
 PROMPT_LAYER_CHAT_FUNCTION_NAME = "llamaindex.chat.openai"
 PROMPT_LAYER_COMPLETION_FUNCTION_NAME = "llamaindex.completion.openai"
