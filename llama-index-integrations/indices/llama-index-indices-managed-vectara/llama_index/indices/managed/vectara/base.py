@@ -299,7 +299,7 @@ class VectaraIndex(BaseManagedIndex):
 
     def as_retriever(self, **kwargs: Any) -> BaseRetriever:
         """Return a Retriever for this managed index."""
-        from llama_index.core.indices.managed.vectara.retriever import (
+        from llama_index.indices.managed.vectara.retriever import (
             VectaraRetriever,
         )
 
@@ -307,7 +307,7 @@ class VectaraIndex(BaseManagedIndex):
 
     def as_query_engine(self, **kwargs: Any) -> BaseQueryEngine:
         if kwargs.get("summary_enabled", True):
-            from llama_index.core.indices.managed.vectara.query import (
+            from llama_index.indices.managed.vectara.query import (
                 VectaraQueryEngine,
             )
 
