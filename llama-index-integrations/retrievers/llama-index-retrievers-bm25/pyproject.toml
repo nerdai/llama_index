@@ -17,7 +17,7 @@ ignore_missing_imports = true
 python_version = "3.8"
 
 [tool.poetry]
-name = "llama-index-retrievers-bm25"
+name = "flying-delta-retrievers-bm25"
 version = "0.1.0"
 description = "llama-index retrievers bm25 integration"
 authors = ["Your Name <you@example.com>"]
