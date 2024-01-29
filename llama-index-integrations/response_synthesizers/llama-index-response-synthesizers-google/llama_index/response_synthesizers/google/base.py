@@ -17,7 +17,7 @@ from llama_index.core.prompts.mixin import PromptDictType
 from llama_index.core.response_synthesizers.base import BaseSynthesizer, QueryTextType
 from llama_index.core.schema import MetadataMode, NodeWithScore, TextNode
 from llama_index.core.types import RESPONSE_TEXT_TYPE
-from llama_index.vector_stores.google.generativeai import google_service_context
+from llama_index.vector_stores.google import google_service_context
 
 if TYPE_CHECKING:
     import google.ai.generativelanguage as genai

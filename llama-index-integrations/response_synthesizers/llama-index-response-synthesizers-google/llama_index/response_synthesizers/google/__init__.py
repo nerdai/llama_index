@@ -1,6 +1,5 @@
-from llama_index.vector_stores.google.generativeai import set_google_config
-
-from .base import (
+from llama_index.vector_stores.google import set_google_config
+from llama_index.response_synthesizers.google.base import (
     GoogleTextSynthesizer,
     SynthesizedResponse,
 )
