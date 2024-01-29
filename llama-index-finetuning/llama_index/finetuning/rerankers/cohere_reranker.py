@@ -3,8 +3,8 @@ import importlib.util
 import os
 from typing import Optional
 
-from llama_index.legacy.finetuning.types import BaseCohereRerankerFinetuningEngine
-from llama_index.legacy.indices.postprocessor import CohereRerank
+from llama_index.finetuning.types import BaseCohereRerankerFinetuningEngine
+from llama_index.postprocessor.cohere_rerank import CohereRerank
 
 
 class CohereRerankerFinetuneEngine(BaseCohereRerankerFinetuningEngine):
