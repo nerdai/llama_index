@@ -7,7 +7,7 @@ import json
 import logging
 from typing import Any, Dict, List, Optional, cast
 
-from llama_index.readers.myscale import (
+from llama_index.readers.myscale.base import (
     MyScaleSettings,
     escape_str,
     format_list_to_string,
