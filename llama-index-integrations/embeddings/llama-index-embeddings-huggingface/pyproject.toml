@@ -17,7 +17,7 @@ ignore_missing_imports = true
 python_version = "3.8"
 
 [tool.poetry]
-name = "llama-index-embeddings-huggingface"
+name = "flying-delta-embeddings-huggingface"
 version = "0.1.0"
 description = "llama-index embeddings huggingface integration"
 authors = ["Your Name <you@example.com>"]
