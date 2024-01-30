@@ -1,4 +1,5 @@
 # agent runner + agent worker
+from llama_index.core.agent.custom.pipeline_worker import QueryPipelineAgentWorker
 from llama_index.core.agent.custom.simple import CustomSimpleAgentWorker
 from llama_index.core.agent.legacy.context_retriever_agent import (
     ContextRetrieverOpenAIAgent,
@@ -10,6 +11,7 @@ from llama_index.core.agent.openai.base import OpenAIAgent
 from llama_index.core.agent.openai.step import OpenAIAgentWorker
 from llama_index.core.agent.openai_assistant_agent import OpenAIAssistantAgent
 from llama_index.core.agent.react.base import ReActAgent
+from llama_index.core.agent.react.formatter import ReActChatFormatter
 from llama_index.core.agent.react.step import ReActAgentWorker
 from llama_index.core.agent.react_multimodal.step import MultimodalReActAgentWorker
 from llama_index.core.agent.runner.base import AgentRunner
@@ -32,6 +34,8 @@ __all__ = [
     "RetrieverOpenAIAgent",  # for backwards compatibility
     "ContextRetrieverOpenAIAgent",
     "CustomSimpleAgentWorker",
+    "QueryPipelineAgentWorker",
+    "ReActChatFormatter",
     # beta
     "MultimodalReActAgentWorker",
     # schema-related
