@@ -5,11 +5,12 @@ from llama_index.core.embeddings.utils import resolve_embed_model
 from llama_index.core.indices.query.embedding_utils import get_top_k_embeddings
 from llama_index.core.prompts.mixin import PromptDictType
 from llama_index.core.schema import QueryBundle
-from llama_index.core.selectors.types import (
+from llama_index.core.base_selector import (
     BaseSelector,
     SelectorResult,
     SingleSelection,
 )
+from llama_index.core.tools.types import ToolMetadata
 from llama_index.core.tools.types import ToolMetadata
 
 

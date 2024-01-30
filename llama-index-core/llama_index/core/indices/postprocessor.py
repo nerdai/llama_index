@@ -17,6 +17,12 @@ from llama_index.core.postprocessor import (
     SimilarityPostprocessor,
     TimeWeightedPostprocessor,
 )
+<<<<<<< HEAD:llama-index-core/llama_index/core/indices/postprocessor.py
+=======
+from llama_index.postprocessor.rankGPT_rerank import RankGPTRerank
+from llama_index.postprocessor.sbert_rerank import SentenceTransformerRerank
+from llama_index.postprocessor.types import BaseNodePostprocessor
+>>>>>>> main:llama_index/postprocessor/__init__.py
 
 __all__ = [
     "SimilarityPostprocessor",
@@ -35,4 +41,10 @@ __all__ = [
     "MetadataReplacementPostProcessor",
     "LongContextReorder",
     "LongLLMLinguaPostprocessor",
+<<<<<<< HEAD:llama-index-core/llama_index/core/indices/postprocessor.py
+=======
+    "FlagEmbeddingReranker",
+    "RankGPTRerank",
+    "BaseNodePostprocessor",
+>>>>>>> main:llama_index/postprocessor/__init__.py
 ]

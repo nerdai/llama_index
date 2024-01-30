@@ -12,6 +12,7 @@ from llama_index.core.prompts.default_prompt_selectors import (
     DEFAULT_TREE_SUMMARIZE_PROMPT_SEL,
 )
 from llama_index.core.prompts.mixin import PromptMixinType
+from llama_index.core.base_selector import BaseSelector
 from llama_index.core.response.schema import (
     RESPONSE_TYPE,
     PydanticResponse,
@@ -26,6 +27,11 @@ from llama_index.core.service_context import ServiceContext
 from llama_index.core.tools.query_engine import QueryEngineTool
 from llama_index.core.tools.types import ToolMetadata
 from llama_index.core.utils import print_text
+from llama_index.core.objects.base import ObjectRetriever
+from llama_index.core.prompts.default_prompt_selectors import (
+    DEFAULT_TREE_SUMMARIZE_PROMPT_SEL,
+)
+from llama_index.core.prompts.mixin import PromptMixinType
 
 logger = logging.getLogger(__name__)
 

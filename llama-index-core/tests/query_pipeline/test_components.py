@@ -2,8 +2,18 @@
 from typing import Any, List, Sequence
 
 import pytest
+<<<<<<< HEAD:llama-index-core/tests/query_pipeline/test_components.py
 from llama_index.core.prompts.mixin import PromptDictType
 from llama_index.core.query_pipeline.components.argpacks import (
+=======
+from llama_index.core.base_selector import (
+    BaseSelector,
+    MultiSelection,
+    SelectorResult,
+    SingleSelection,
+)
+from llama_index.core.query_pipeline.components import (
+>>>>>>> main:tests/query_pipeline/test_components.py
     ArgPackComponent,
     KwargPackComponent,
 )
@@ -13,6 +23,7 @@ from llama_index.core.query_pipeline.components.router import (
     RouterComponent,
     SelectorComponent,
 )
+<<<<<<< HEAD:llama-index-core/tests/query_pipeline/test_components.py
 from llama_index.core.query_pipeline.query import QueryPipeline
 from llama_index.core.schema import QueryBundle
 from llama_index.core.selectors.types import (
@@ -22,6 +33,11 @@ from llama_index.core.selectors.types import (
     SingleSelection,
 )
 from llama_index.core.tools.types import ToolMetadata
+=======
+from llama_index.query_pipeline.query import QueryPipeline
+from llama_index.schema import QueryBundle
+from llama_index.tools.types import ToolMetadata
+>>>>>>> main:tests/query_pipeline/test_components.py
 
 
 def foo_fn(a: int, b: int = 1, c: int = 2) -> int:

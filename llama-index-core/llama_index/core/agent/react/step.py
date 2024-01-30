@@ -51,6 +51,11 @@ from llama_index.core.objects.base import ObjectRetriever
 from llama_index.core.tools import BaseTool, ToolOutput, adapt_to_async_tool
 from llama_index.core.tools.types import AsyncBaseTool
 from llama_index.core.utils import print_text, unit_generator
+from llama_index.core.prompts.base import PromptTemplate
+from llama_index.core.prompts.mixin import PromptDictType
+from llama_index.core.tools import BaseTool, ToolOutput, adapt_to_async_tool
+from llama_index.core.tools.types import AsyncBaseTool
+from llama_index.core.utils import print_text, unit_generator
 
 DEFAULT_MODEL_NAME = "gpt-3.5-turbo-0613"
 
@@ -140,6 +145,19 @@ class ReActAgentWorker(BaseAgentWorker):
             callback_manager=callback_manager,
             verbose=verbose,
         )
+
+    def _get_prompts(self) -> PromptDictType:
+        """Get prompts."""
+        # TODO: the ReAct formatter does not explicitly specify PromptTemplate
+        # objects, but wrap it in this to obey the interface
+        sys_header = self._react_chat_formatter.system_header
+        return {"system_prompt": PromptTemplate(sys_header)}
+
+    def _update_prompts(self, prompts: PromptDictType) -> None:
+        """Update prompts."""
+        if "system_prompt" in prompts:
+            sys_prompt = cast(PromptTemplate, prompts["system_prompt"])
+            self._react_chat_formatter.system_header = sys_prompt.template
 
     def initialize_step(self, task: Task, **kwargs: Any) -> TaskStep:
         """Initialize step from task."""

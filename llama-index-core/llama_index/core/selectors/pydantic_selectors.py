@@ -17,6 +17,12 @@ from llama_index.core.selectors.types import (
 )
 from llama_index.core.tools.types import ToolMetadata
 from llama_index.core.types import BasePydanticProgram
+from llama_index.core.base_selector import (
+    BaseSelector,
+    MultiSelection,
+    SelectorResult,
+    SingleSelection,
+)
 
 
 def _pydantic_output_to_selector_result(output: Any) -> SelectorResult:

@@ -2,6 +2,7 @@ from typing import Any, Callable, List, Optional, Sequence, TypedDict
 
 import numpy as np
 
+<<<<<<< HEAD:llama-index-core/llama_index/core/node_parser/text/semantic_splitter.py
 from llama_index.core.bridge.pydantic import Field
 from llama_index.core.callbacks.base import CallbackManager
 from llama_index.core.embeddings.base import BaseEmbedding
@@ -12,6 +13,18 @@ from llama_index.core.node_parser.node_utils import build_nodes_from_splits
 from llama_index.core.node_parser.text.utils import split_by_sentence_tokenizer
 from llama_index.core.schema import BaseNode, Document
 from llama_index.core.utils import get_tqdm_iterable
+=======
+from llama_index.bridge.pydantic import Field
+from llama_index.callbacks.base import CallbackManager
+from llama_index.embeddings.base import BaseEmbedding
+from llama_index.embeddings.openai import OpenAIEmbedding
+from llama_index.node_parser import NodeParser
+from llama_index.node_parser.interface import NodeParser
+from llama_index.node_parser.node_utils import build_nodes_from_splits, default_id_func
+from llama_index.node_parser.text.utils import split_by_sentence_tokenizer
+from llama_index.schema import BaseNode, Document
+from llama_index.utils import get_tqdm_iterable
+>>>>>>> main:llama_index/node_parser/text/semantic_splitter.py
 
 DEFAULT_OG_TEXT_METADATA_KEY = "original_text"
 
@@ -79,11 +92,14 @@ class SemanticSplitterNodeParser(NodeParser):
         include_metadata: bool = True,
         include_prev_next_rel: bool = True,
         callback_manager: Optional[CallbackManager] = None,
+        id_func: Optional[Callable[[int, Document], str]] = None,
     ) -> "SemanticSplitterNodeParser":
         callback_manager = callback_manager or CallbackManager([])
 
         sentence_splitter = sentence_splitter or split_by_sentence_tokenizer()
         embed_model = embed_model or OpenAIEmbedding()
+
+        id_func = id_func or default_id_func
 
         return cls(
             embed_model=embed_model,
@@ -94,6 +110,7 @@ class SemanticSplitterNodeParser(NodeParser):
             include_metadata=include_metadata,
             include_prev_next_rel=include_prev_next_rel,
             callback_manager=callback_manager,
+            id_func=id_func,
         )
 
     def _parse_nodes(

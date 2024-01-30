@@ -1,6 +1,6 @@
 """Base agent type."""
 import uuid
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 from typing import Any, Dict, List, Optional
 
 from llama_index.core.base_query_engine import BaseQueryEngine
@@ -173,11 +173,24 @@ class Task(BaseModel):
     )
 
 
-class BaseAgentWorker(ABC):
+class BaseAgentWorker(PromptMixin):
     """Base agent worker."""
 
     class Config:
         arbitrary_types_allowed = True
+
+    def _get_prompts(self) -> PromptDictType:
+        """Get prompts."""
+        # TODO: the ReAct agent does not explicitly specify prompts, would need a
+        # refactor to expose those prompts
+        return {}
+
+    def _get_prompt_modules(self) -> PromptMixinType:
+        """Get prompt modules."""
+        return {}
+
+    def _update_prompts(self, prompts: PromptDictType) -> None:
+        """Update prompts."""
 
     @abstractmethod
     def initialize_step(self, task: Task, **kwargs: Any) -> TaskStep:
