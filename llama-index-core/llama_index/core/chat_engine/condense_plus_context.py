@@ -3,24 +3,24 @@ import logging
 from threading import Thread
 from typing import Any, List, Optional, Tuple
 
-from llama_index.callbacks import CallbackManager, trace_method
-from llama_index.chat_engine.types import (
+from llama_index.core.callbacks import CallbackManager, trace_method
+from llama_index.core.chat_engine.types import (
     AgentChatResponse,
     BaseChatEngine,
     StreamingAgentChatResponse,
     ToolOutput,
 )
+from llama_index.core.indices.base_retriever import BaseRetriever
+from llama_index.core.indices.query.schema import QueryBundle
+from llama_index.core.indices.service_context import ServiceContext
+from llama_index.core.llms.generic_utils import messages_to_history_str
+from llama_index.core.llms.llm import LLM
 from llama_index.core.llms.types import ChatMessage, MessageRole
-from llama_index.indices.base_retriever import BaseRetriever
-from llama_index.indices.query.schema import QueryBundle
-from llama_index.indices.service_context import ServiceContext
-from llama_index.llms.generic_utils import messages_to_history_str
-from llama_index.llms.llm import LLM
-from llama_index.memory import BaseMemory, ChatMemoryBuffer
-from llama_index.postprocessor.types import BaseNodePostprocessor
-from llama_index.prompts.base import PromptTemplate
-from llama_index.schema import MetadataMode, NodeWithScore
-from llama_index.utilities.token_counting import TokenCounter
+from llama_index.core.memory import BaseMemory, ChatMemoryBuffer
+from llama_index.core.postprocessor.types import BaseNodePostprocessor
+from llama_index.core.prompts.base import PromptTemplate
+from llama_index.core.schema import MetadataMode, NodeWithScore
+from llama_index.core.utilities.token_counting import TokenCounter
 
 logger = logging.getLogger(__name__)
 
@@ -185,7 +185,7 @@ class CondensePlusContextChatEngine(BaseChatEngine):
         chat_history = self._memory.get()
 
         # Condense conversation history and latest message to a standalone question
-        condensed_question = self._condense_question(chat_history, message)
+        condensed_question = self._condense_question(chat_history, message)  # type: ignore
         logger.info(f"Condensed question: {condensed_question}")
         if self._verbose:
             print(f"Condensed question: {condensed_question}")
@@ -232,7 +232,7 @@ class CondensePlusContextChatEngine(BaseChatEngine):
         chat_history = self._memory.get()
 
         # Condense conversation history and latest message to a standalone question
-        condensed_question = await self._acondense_question(chat_history, message)
+        condensed_question = await self._acondense_question(chat_history, message)  # type: ignore
         logger.info(f"Condensed question: {condensed_question}")
         if self._verbose:
             print(f"Condensed question: {condensed_question}")

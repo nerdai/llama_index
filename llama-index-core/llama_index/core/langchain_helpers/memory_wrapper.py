@@ -2,17 +2,17 @@
 
 from typing import Any, Dict, List, Optional
 
-from llama_index.bridge.langchain import (
+from llama_index.core.bridge.langchain import (
     AIMessage,
     BaseChatMemory,
     BaseMessage,
     HumanMessage,
 )
-from llama_index.bridge.langchain import BaseMemory as Memory
-from llama_index.bridge.pydantic import Field
-from llama_index.indices.base import BaseIndex
-from llama_index.schema import Document
-from llama_index.utils import get_new_id
+from llama_index.core.bridge.langchain import BaseMemory as Memory
+from llama_index.core.bridge.pydantic import Field
+from llama_index.core.indices.base import BaseIndex
+from llama_index.core.schema import Document
+from llama_index.core.utils import get_new_id
 
 
 def get_prompt_input_key(inputs: Dict[str, Any], memory_variables: List[str]) -> str:

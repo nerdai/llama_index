@@ -5,10 +5,10 @@ import asyncio
 import re
 from typing import Any, Callable, Optional, Sequence, Tuple
 
-from llama_index import ServiceContext
-from llama_index.evaluation.base import BaseEvaluator, EvaluationResult
-from llama_index.prompts import BasePromptTemplate, PromptTemplate
-from llama_index.prompts.mixin import PromptDictType
+from llama_index.core import ServiceContext
+from llama_index.core.evaluation.base import BaseEvaluator, EvaluationResult
+from llama_index.core.prompts import BasePromptTemplate, PromptTemplate
+from llama_index.core.prompts.mixin import PromptDictType
 
 DEFAULT_EVAL_TEMPLATE = PromptTemplate(
     "Your task is to evaluate if the response is relevant to the query.\n"

@@ -1,13 +1,12 @@
 import json
 from typing import Any, Callable, Dict, List, Optional
 
-from llama_index.bridge.pydantic import Field, root_validator
+from llama_index.core.bridge.pydantic import Field, root_validator
+from llama_index.core.llms.llm import LLM
 from llama_index.core.llms.types import ChatMessage, MessageRole
-from llama_index.llms.llm import LLM
-from llama_index.llms.types import ChatMessage, MessageRole
-from llama_index.memory.types import DEFAULT_CHAT_STORE_KEY, BaseMemory
-from llama_index.storage.chat_store import BaseChatStore, SimpleChatStore
-from llama_index.utils import get_tokenizer
+from llama_index.core.memory.types import DEFAULT_CHAT_STORE_KEY, BaseMemory
+from llama_index.core.storage.chat_store import BaseChatStore, SimpleChatStore
+from llama_index.core.utils import get_tokenizer
 
 DEFAULT_TOKEN_LIMIT_RATIO = 0.75
 DEFAULT_TOKEN_LIMIT = 3000
@@ -88,7 +87,7 @@ class ChatMemoryBuffer(BaseMemory):
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any], **kwargs: Any) -> "ChatMemoryBuffer":
-        from llama_index.storage.chat_store.loading import load_chat_store
+        from llama_index.core.storage.chat_store.loading import load_chat_store
 
         # NOTE: this handles backwards compatibility with the old chat history
         if "chat_history" in data:

@@ -1,5 +1,5 @@
 # for backward compatibility
-from llama_index.postprocessor import (
+from llama_index.core.postprocessor import (
     AutoPrevNextNodePostprocessor,
     CohereRerank,
     EmbeddingRecencyPostprocessor,

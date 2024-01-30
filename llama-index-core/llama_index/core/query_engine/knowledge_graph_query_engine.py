@@ -3,83 +3,28 @@
 import logging
 from typing import Any, Dict, List, Optional, Sequence
 
-from llama_index.callbacks.schema import CBEventType, EventPayload
 from llama_index.core.base_query_engine import BaseQueryEngine
-from llama_index.core.response.schema import RESPONSE_TYPE
-from llama_index.graph_stores.registry import (
+from llama_index.core.callbacks.schema import CBEventType, EventPayload
+from llama_index.core.graph_stores.registry import (
     GRAPH_STORE_CLASS_TO_GRAPH_STORE_TYPE,
-    GraphStoreType,
 )
-from llama_index.prompts.base import BasePromptTemplate, PromptTemplate, PromptType
-from llama_index.prompts.mixin import PromptDictType, PromptMixinType
-from llama_index.response_synthesizers import BaseSynthesizer, get_response_synthesizer
-from llama_index.schema import NodeWithScore, QueryBundle, TextNode
-from llama_index.service_context import ServiceContext
-from llama_index.storage.storage_context import StorageContext
-from llama_index.utils import print_text
+from llama_index.core.prompts.base import (
+    BasePromptTemplate,
+    PromptTemplate,
+    PromptType,
+)
+from llama_index.core.prompts.mixin import PromptDictType, PromptMixinType
+from llama_index.core.response.schema import RESPONSE_TYPE
+from llama_index.core.response_synthesizers import (
+    BaseSynthesizer,
+    get_response_synthesizer,
+)
+from llama_index.core.schema import NodeWithScore, QueryBundle, TextNode
+from llama_index.core.service_context import ServiceContext
+from llama_index.core.storage.storage_context import StorageContext
+from llama_index.core.utils import print_text
 
 logger = logging.getLogger(__name__)
-
-# Prompt
-DEFAULT_NEBULAGRAPH_NL2CYPHER_PROMPT_TMPL = """
-Generate NebulaGraph query from natural language.
-Use only the provided relationship types and properties in the schema.
-Do not use any other relationship types or properties that are not provided.
-Schema:
----
-{schema}
----
-Note: NebulaGraph speaks a dialect of Cypher, comparing to standard Cypher:
-
-1. it uses double equals sign for comparison: `==` rather than `=`
-2. it needs explicit label specification when referring to node properties, i.e.
-v is a variable of a node, and we know its label is Foo, v.`foo`.name is correct
-while v.name is not.
-
-For example, see this diff between standard and NebulaGraph Cypher dialect:
-```diff
-< MATCH (p:person)-[:directed]->(m:movie) WHERE m.name = 'The Godfather'
-< RETURN p.name;
----
-> MATCH (p:`person`)-[:directed]->(m:`movie`) WHERE m.`movie`.`name` == 'The Godfather'
-> RETURN p.`person`.`name`;
-```
-
-Question: {query_str}
-
-NebulaGraph Cypher dialect query:
-"""
-DEFAULT_NEBULAGRAPH_NL2CYPHER_PROMPT = PromptTemplate(
-    DEFAULT_NEBULAGRAPH_NL2CYPHER_PROMPT_TMPL,
-    prompt_type=PromptType.TEXT_TO_GRAPH_QUERY,
-)
-
-# Prompt
-DEFAULT_NEO4J_NL2CYPHER_PROMPT_TMPL = (
-    "Task:Generate Cypher statement to query a graph database.\n"
-    "Instructions:\n"
-    "Use only the provided relationship types and properties in the schema.\n"
-    "Do not use any other relationship types or properties that are not provided.\n"
-    "Schema:\n"
-    "{schema}\n"
-    "Note: Do not include any explanations or apologies in your responses.\n"
-    "Do not respond to any questions that might ask anything else than for you "
-    "to construct a Cypher statement. \n"
-    "Do not include any text except the generated Cypher statement.\n"
-    "\n"
-    "The question is:\n"
-    "{query_str}\n"
-)
-
-DEFAULT_NEO4J_NL2CYPHER_PROMPT = PromptTemplate(
-    DEFAULT_NEO4J_NL2CYPHER_PROMPT_TMPL,
-    prompt_type=PromptType.TEXT_TO_GRAPH_QUERY,
-)
-
-DEFAULT_NL2GRAPH_PROMPT_MAP = {
-    GraphStoreType.NEBULA: DEFAULT_NEBULAGRAPH_NL2CYPHER_PROMPT,
-    GraphStoreType.NEO4J: DEFAULT_NEO4J_NL2CYPHER_PROMPT,
-}
 
 DEFAULT_KG_RESPONSE_ANSWER_PROMPT_TMPL = """
 The original question is given below.
@@ -145,10 +90,7 @@ class KnowledgeGraphQueryEngine(BaseQueryEngine):
         self._graph_schema = self.graph_store.get_schema(refresh=refresh_schema)
 
         # Get graph store query synthesis prompt
-        self._graph_query_synthesis_prompt = (
-            graph_query_synthesis_prompt
-            or DEFAULT_NL2GRAPH_PROMPT_MAP[self._graph_store_type]
-        )
+        self._graph_query_synthesis_prompt = graph_query_synthesis_prompt
 
         self._graph_response_answer_prompt = (
             graph_response_answer_prompt or DEFAULT_KG_RESPONSE_ANSWER_PROMPT

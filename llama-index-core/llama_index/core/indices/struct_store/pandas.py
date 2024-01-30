@@ -7,9 +7,9 @@ import pandas as pd
 
 from llama_index.core.base_query_engine import BaseQueryEngine
 from llama_index.core.base_retriever import BaseRetriever
-from llama_index.data_structs.table import PandasStructTable
-from llama_index.indices.struct_store.base import BaseStructStoreIndex
-from llama_index.schema import BaseNode
+from llama_index.core.data_structs.table import PandasStructTable
+from llama_index.core.indices.struct_store.base import BaseStructStoreIndex
+from llama_index.core.schema import BaseNode
 
 logger = logging.getLogger(__name__)
 
@@ -62,7 +62,7 @@ class PandasIndex(BaseStructStoreIndex[PandasStructTable]):
 
     def as_query_engine(self, **kwargs: Any) -> BaseQueryEngine:
         # NOTE: lazy import
-        from llama_index.query_engine.pandas.pandas_query_engine import (
+        from llama_index.core.query_engine.pandas.pandas_query_engine import (
             PandasQueryEngine,
         )
 

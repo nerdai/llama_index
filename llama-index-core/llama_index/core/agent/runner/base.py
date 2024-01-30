@@ -3,30 +3,30 @@ from abc import abstractmethod
 from collections import deque
 from typing import Any, Deque, Dict, List, Optional, Union, cast
 
-from llama_index.agent.types import (
+from llama_index.core.agent.types import (
     BaseAgent,
     BaseAgentWorker,
     Task,
     TaskStep,
     TaskStepOutput,
 )
-from llama_index.bridge.pydantic import BaseModel, Field
-from llama_index.callbacks import (
+from llama_index.core.bridge.pydantic import BaseModel, Field
+from llama_index.core.callbacks import (
     CallbackManager,
     CBEventType,
     EventPayload,
     trace_method,
 )
-from llama_index.chat_engine.types import (
+from llama_index.core.chat_engine.types import (
     AGENT_CHAT_RESPONSE_TYPE,
     AgentChatResponse,
     ChatResponseMode,
     StreamingAgentChatResponse,
 )
-from llama_index.llms.base import ChatMessage
-from llama_index.llms.llm import LLM
-from llama_index.memory import BaseMemory, ChatMemoryBuffer
-from llama_index.memory.types import BaseMemory
+from llama_index.core.llms.base import ChatMessage
+from llama_index.core.llms.llm import LLM
+from llama_index.core.memory import BaseMemory, ChatMemoryBuffer
+from llama_index.core.memory.types import BaseMemory
 
 
 class BaseAgentRunner(BaseAgent):

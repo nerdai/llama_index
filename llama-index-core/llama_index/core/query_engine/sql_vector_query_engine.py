@@ -3,25 +3,27 @@
 import logging
 from typing import Any, Optional, Union
 
-from llama_index.callbacks.base import CallbackManager
-from llama_index.indices.struct_store.sql_query import (
+from llama_index.core.callbacks.base import CallbackManager
+from llama_index.core.indices.struct_store.sql_query import (
     BaseSQLTableQueryEngine,
     NLSQLTableQueryEngine,
 )
-from llama_index.indices.vector_store.retrievers.auto_retriever import (
+from llama_index.core.indices.vector_store.retrievers.auto_retriever import (
     VectorIndexAutoRetriever,
 )
-from llama_index.prompts.base import BasePromptTemplate, PromptTemplate
-from llama_index.prompts.mixin import PromptDictType, PromptMixinType
-from llama_index.query_engine.retriever_query_engine import RetrieverQueryEngine
-from llama_index.query_engine.sql_join_query_engine import (
+from llama_index.core.prompts.base import BasePromptTemplate, PromptTemplate
+from llama_index.core.prompts.mixin import PromptDictType, PromptMixinType
+from llama_index.core.query_engine.retriever_query_engine import (
+    RetrieverQueryEngine,
+)
+from llama_index.core.query_engine.sql_join_query_engine import (
     SQLAugmentQueryTransform,
     SQLJoinQueryEngine,
 )
-from llama_index.selectors.llm_selectors import LLMSingleSelector
-from llama_index.selectors.pydantic_selectors import PydanticSingleSelector
-from llama_index.service_context import ServiceContext
-from llama_index.tools.query_engine import QueryEngineTool
+from llama_index.core.selectors.llm_selectors import LLMSingleSelector
+from llama_index.core.selectors.pydantic_selectors import PydanticSingleSelector
+from llama_index.core.service_context import ServiceContext
+from llama_index.core.tools.query_engine import QueryEngineTool
 
 logger = logging.getLogger(__name__)
 

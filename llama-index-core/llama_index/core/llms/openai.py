@@ -21,10 +21,33 @@ from openai.types.chat.chat_completion_chunk import (
     ChoiceDeltaToolCall,
 )
 
-from llama_index.bridge.pydantic import Field, PrivateAttr
-from llama_index.callbacks import CallbackManager
-from llama_index.constants import (
+from llama_index.core.bridge.pydantic import Field, PrivateAttr
+from llama_index.core.callbacks import CallbackManager
+from llama_index.core.constants import (
     DEFAULT_TEMPERATURE,
+)
+from llama_index.core.llms.callbacks import (
+    llm_chat_callback,
+    llm_completion_callback,
+)
+from llama_index.core.llms.generic_utils import (
+    achat_to_completion_decorator,
+    acompletion_to_chat_decorator,
+    astream_chat_to_completion_decorator,
+    astream_completion_to_chat_decorator,
+    chat_to_completion_decorator,
+    completion_to_chat_decorator,
+    stream_chat_to_completion_decorator,
+    stream_completion_to_chat_decorator,
+)
+from llama_index.core.llms.llm import LLM
+from llama_index.core.llms.openai_utils import (
+    from_openai_message,
+    is_chat_model,
+    is_function_calling_model,
+    openai_modelname_to_contextsize,
+    resolve_openai_credentials,
+    to_openai_message_dicts,
 )
 from llama_index.core.llms.types import (
     ChatMessage,
@@ -37,30 +60,7 @@ from llama_index.core.llms.types import (
     LLMMetadata,
     MessageRole,
 )
-from llama_index.llms.base import (
-    llm_chat_callback,
-    llm_completion_callback,
-)
-from llama_index.llms.generic_utils import (
-    achat_to_completion_decorator,
-    acompletion_to_chat_decorator,
-    astream_chat_to_completion_decorator,
-    astream_completion_to_chat_decorator,
-    chat_to_completion_decorator,
-    completion_to_chat_decorator,
-    stream_chat_to_completion_decorator,
-    stream_completion_to_chat_decorator,
-)
-from llama_index.llms.llm import LLM
-from llama_index.llms.openai_utils import (
-    from_openai_message,
-    is_chat_model,
-    is_function_calling_model,
-    openai_modelname_to_contextsize,
-    resolve_openai_credentials,
-    to_openai_message_dicts,
-)
-from llama_index.types import BaseOutputParser, PydanticProgramMode
+from llama_index.core.types import BaseOutputParser, PydanticProgramMode
 
 DEFAULT_OPENAI_MODEL = "gpt-3.5-turbo"
 

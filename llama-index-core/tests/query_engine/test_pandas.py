@@ -7,14 +7,14 @@ from typing import Any, Dict, cast
 
 import pandas as pd
 import pytest
-from llama_index.core.response.schema import Response
-from llama_index.indices.query.schema import QueryBundle
-from llama_index.indices.service_context import ServiceContext
-from llama_index.prompts.default_prompts import DEFAULT_PANDAS_PROMPT
-from llama_index.query_engine.pandas.output_parser import PandasInstructionParser
-from llama_index.query_engine.pandas.pandas_query_engine import (
+from llama_index.core.indices.query.schema import QueryBundle
+from llama_index.core.indices.service_context import ServiceContext
+from llama_index.core.prompts.default_prompts import DEFAULT_PANDAS_PROMPT
+from llama_index.core.query_engine.pandas.output_parser import PandasInstructionParser
+from llama_index.core.query_engine.pandas.pandas_query_engine import (
     PandasQueryEngine,
 )
+from llama_index.core.response.schema import Response
 
 
 def test_pandas_query_engine(mock_service_context: ServiceContext) -> None:
@@ -127,7 +127,7 @@ def test_default_output_processor_e2e(tmp_path: Path) -> None:
     import sys
 
     import pandas as pd
-    from llama_index.query_engine import PandasQueryEngine
+    from llama_index.core.query_engine import PandasQueryEngine
 
     logging.basicConfig(stream=sys.stdout, level=logging.INFO)
     logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))

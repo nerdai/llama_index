@@ -1,14 +1,14 @@
 import logging
 from typing import Any, Dict, Generator, List, Optional, Tuple, Type, Union, cast
 
-from llama_index.agent.openai.utils import resolve_tool_choice
-from llama_index.llms.llm import LLM
-from llama_index.llms.openai import OpenAI
-from llama_index.llms.openai_utils import OpenAIToolCall, to_openai_tool
-from llama_index.program.llm_prompt_program import BaseLLMFunctionProgram
-from llama_index.program.utils import create_list_model
-from llama_index.prompts.base import BasePromptTemplate, PromptTemplate
-from llama_index.types import Model
+from llama_index.core.agent.openai.utils import resolve_tool_choice
+from llama_index.core.llms.llm import LLM
+from llama_index.core.llms.openai import OpenAI
+from llama_index.core.llms.openai_utils import OpenAIToolCall, to_openai_tool
+from llama_index.core.program.llm_prompt_program import BaseLLMFunctionProgram
+from llama_index.core.program.utils import create_list_model
+from llama_index.core.prompts.base import BasePromptTemplate, PromptTemplate
+from llama_index.core.types import Model
 
 _logger = logging.getLogger(__name__)
 

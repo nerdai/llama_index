@@ -5,7 +5,7 @@ import logging
 import uuid
 from typing import List, Optional, Protocol, runtime_checkable
 
-from llama_index.schema import (
+from llama_index.core.schema import (
     BaseNode,
     Document,
     ImageDocument,
@@ -13,7 +13,7 @@ from llama_index.schema import (
     NodeRelationship,
     TextNode,
 )
-from llama_index.utils import truncate_text
+from llama_index.core.utils import truncate_text
 
 logger = logging.getLogger(__name__)
 

@@ -10,8 +10,15 @@ from typing import (
     runtime_checkable,
 )
 
-from llama_index.bridge.pydantic import BaseModel, Field, validator
-from llama_index.callbacks import CBEventType, EventPayload
+from llama_index.core.bridge.pydantic import BaseModel, Field, validator
+from llama_index.core.callbacks import CBEventType, EventPayload
+from llama_index.core.llms.base import BaseLLM
+from llama_index.core.llms.generic_utils import (
+    messages_to_prompt as generic_messages_to_prompt,
+)
+from llama_index.core.llms.generic_utils import (
+    prompt_to_messages,
+)
 from llama_index.core.llms.types import (
     ChatMessage,
     ChatResponseAsyncGen,
@@ -20,22 +27,15 @@ from llama_index.core.llms.types import (
     CompletionResponseGen,
     MessageRole,
 )
-from llama_index.core.query_pipeline.query_component import (
+from llama_index.core.prompts import BasePromptTemplate, PromptTemplate
+from llama_index.core.query_pipeline.components.query import (
     InputKeys,
     OutputKeys,
     QueryComponent,
     StringableInput,
     validate_and_convert_stringable,
 )
-from llama_index.llms.base import BaseLLM
-from llama_index.llms.generic_utils import (
-    messages_to_prompt as generic_messages_to_prompt,
-)
-from llama_index.llms.generic_utils import (
-    prompt_to_messages,
-)
-from llama_index.prompts import BasePromptTemplate, PromptTemplate
-from llama_index.types import (
+from llama_index.core.types import (
     BaseOutputParser,
     PydanticProgramMode,
     TokenAsyncGen,
@@ -192,7 +192,7 @@ class LLM(BaseLLM):
         prompt: PromptTemplate,
         **prompt_args: Any,
     ) -> BaseModel:
-        from llama_index.program.utils import get_program_for_llm
+        from llama_index.core.program.utils import get_program_for_llm
 
         program = get_program_for_llm(
             output_cls,
@@ -209,7 +209,7 @@ class LLM(BaseLLM):
         prompt: PromptTemplate,
         **prompt_args: Any,
     ) -> BaseModel:
-        from llama_index.program.utils import get_program_for_llm
+        from llama_index.core.program.utils import get_program_for_llm
 
         program = get_program_for_llm(
             output_cls,

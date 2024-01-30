@@ -9,12 +9,12 @@ from enum import Enum
 from typing import Any, Dict, Optional, Sequence, Union
 
 from llama_index.core.base_retriever import BaseRetriever
-from llama_index.data_structs.data_structs import IndexList
-from llama_index.indices.base import BaseIndex
-from llama_index.schema import BaseNode, IndexNode
-from llama_index.service_context import ServiceContext
-from llama_index.storage.docstore.types import RefDocInfo
-from llama_index.utils import get_tqdm_iterable
+from llama_index.core.data_structs.data_structs import IndexList
+from llama_index.core.indices.base import BaseIndex
+from llama_index.core.schema import BaseNode, IndexNode
+from llama_index.core.service_context import ServiceContext
+from llama_index.core.storage.docstore.types import RefDocInfo
+from llama_index.core.utils import get_tqdm_iterable
 
 
 class ListRetrieverMode(str, Enum):
@@ -68,7 +68,7 @@ class SummaryIndex(BaseIndex[IndexList]):
         retriever_mode: Union[str, ListRetrieverMode] = ListRetrieverMode.DEFAULT,
         **kwargs: Any,
     ) -> BaseRetriever:
-        from llama_index.indices.list.retrievers import (
+        from llama_index.core.indices.list.retrievers import (
             SummaryIndexEmbeddingRetriever,
             SummaryIndexLLMRetriever,
             SummaryIndexRetriever,

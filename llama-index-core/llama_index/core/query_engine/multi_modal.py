@@ -1,18 +1,18 @@
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
-from llama_index.callbacks.base import CallbackManager
-from llama_index.callbacks.schema import CBEventType, EventPayload
+from llama_index.core.callbacks.base import CallbackManager
+from llama_index.core.callbacks.schema import CBEventType, EventPayload
+from llama_index.core.indices.multi_modal import MultiModalVectorIndexRetriever
+from llama_index.core.indices.query.base import BaseQueryEngine
+from llama_index.core.indices.query.schema import QueryBundle, QueryType
+from llama_index.core.multi_modal_llms.base import MultiModalLLM
+from llama_index.core.multi_modal_llms.openai import OpenAIMultiModal
+from llama_index.core.postprocessor.types import BaseNodePostprocessor
+from llama_index.core.prompts import BasePromptTemplate
+from llama_index.core.prompts.default_prompts import DEFAULT_TEXT_QA_PROMPT
+from llama_index.core.prompts.mixin import PromptMixinType
 from llama_index.core.response.schema import RESPONSE_TYPE, Response
-from llama_index.indices.multi_modal import MultiModalVectorIndexRetriever
-from llama_index.indices.query.base import BaseQueryEngine
-from llama_index.indices.query.schema import QueryBundle, QueryType
-from llama_index.multi_modal_llms.base import MultiModalLLM
-from llama_index.multi_modal_llms.openai import OpenAIMultiModal
-from llama_index.postprocessor.types import BaseNodePostprocessor
-from llama_index.prompts import BasePromptTemplate
-from llama_index.prompts.default_prompts import DEFAULT_TEXT_QA_PROMPT
-from llama_index.prompts.mixin import PromptMixinType
-from llama_index.schema import ImageNode, NodeWithScore
+from llama_index.core.schema import ImageNode, NodeWithScore
 
 
 def _get_image_and_text_nodes(

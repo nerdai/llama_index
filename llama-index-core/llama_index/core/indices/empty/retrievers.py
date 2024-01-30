@@ -1,12 +1,12 @@
 """Default query for EmptyIndex."""
 from typing import Any, List, Optional
 
-from llama_index.callbacks.base import CallbackManager
 from llama_index.core.base_retriever import BaseRetriever
-from llama_index.indices.empty.base import EmptyIndex
-from llama_index.prompts import BasePromptTemplate
-from llama_index.prompts.default_prompts import DEFAULT_SIMPLE_INPUT_PROMPT
-from llama_index.schema import NodeWithScore, QueryBundle
+from llama_index.core.callbacks.base import CallbackManager
+from llama_index.core.indices.empty.base import EmptyIndex
+from llama_index.core.prompts import BasePromptTemplate
+from llama_index.core.prompts.default_prompts import DEFAULT_SIMPLE_INPUT_PROMPT
+from llama_index.core.schema import NodeWithScore, QueryBundle
 
 
 class EmptyIndexRetriever(BaseRetriever):

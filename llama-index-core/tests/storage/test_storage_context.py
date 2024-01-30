@@ -1,6 +1,6 @@
-from llama_index.data_structs.data_structs import IndexDict
-from llama_index.schema import TextNode
-from llama_index.storage.storage_context import StorageContext
+from llama_index.core.data_structs.data_structs import IndexDict
+from llama_index.core.schema import TextNode
+from llama_index.core.storage.storage_context import StorageContext
 
 
 def test_storage_context_dict() -> None:

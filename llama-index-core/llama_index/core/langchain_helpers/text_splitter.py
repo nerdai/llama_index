@@ -1,2 +1,2 @@
 # backward compatibility
-from llama_index.text_splitter import *
+from llama_index.core.text_splitter import *

@@ -2,17 +2,17 @@
 import asyncio
 from typing import Any, Callable, Optional, Sequence, Tuple, Union
 
-from llama_index.evaluation.base import BaseEvaluator, EvaluationResult
-from llama_index.evaluation.eval_utils import default_parser
-from llama_index.prompts import (
+from llama_index.core.evaluation.base import BaseEvaluator, EvaluationResult
+from llama_index.core.evaluation.eval_utils import default_parser
+from llama_index.core.prompts import (
     BasePromptTemplate,
     ChatMessage,
     ChatPromptTemplate,
     MessageRole,
     PromptTemplate,
 )
-from llama_index.prompts.mixin import PromptDictType
-from llama_index.service_context import ServiceContext
+from llama_index.core.prompts.mixin import PromptDictType
+from llama_index.core.service_context import ServiceContext
 
 DEFAULT_SYSTEM_TEMPLATE = """
 You are an expert evaluation system for a question answering chatbot.

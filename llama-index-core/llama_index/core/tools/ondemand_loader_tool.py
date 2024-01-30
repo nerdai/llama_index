@@ -7,14 +7,14 @@ Tool that wraps any data loader, and is able to load data on-demand.
 
 from typing import Any, Callable, Dict, List, Optional, Tuple, Type
 
-from llama_index.bridge.pydantic import BaseModel
-from llama_index.indices.base import BaseIndex
-from llama_index.indices.vector_store import VectorStoreIndex
-from llama_index.readers.base import BaseReader
-from llama_index.readers.schema.base import Document
-from llama_index.tools.function_tool import FunctionTool
-from llama_index.tools.types import AsyncBaseTool, ToolMetadata, ToolOutput
-from llama_index.tools.utils import create_schema_from_function
+from llama_index.core.bridge.pydantic import BaseModel
+from llama_index.core.indices.base import BaseIndex
+from llama_index.core.indices.vector_store import VectorStoreIndex
+from llama_index.core.readers.base import BaseReader
+from llama_index.core.schema import Document
+from llama_index.core.tools.function_tool import FunctionTool
+from llama_index.core.tools.types import AsyncBaseTool, ToolMetadata, ToolOutput
+from llama_index.core.tools.utils import create_schema_from_function
 
 
 class OnDemandLoaderTool(AsyncBaseTool):

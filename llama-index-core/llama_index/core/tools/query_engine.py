@@ -3,10 +3,10 @@ from typing import TYPE_CHECKING, Any, Optional
 from llama_index.core.base_query_engine import BaseQueryEngine
 
 if TYPE_CHECKING:
-    from llama_index.langchain_helpers.agents.tools import (
+    from llama_index.core.langchain_helpers.agents.tools import (
         LlamaIndexTool,
     )
-from llama_index.tools.types import AsyncBaseTool, ToolMetadata, ToolOutput
+from llama_index.core.tools.types import AsyncBaseTool, ToolMetadata, ToolOutput
 
 DEFAULT_NAME = "query_engine_tool"
 DEFAULT_DESCRIPTION = """Useful for running a natural language query
@@ -101,7 +101,7 @@ class QueryEngineTool(AsyncBaseTool):
         )
 
     def as_langchain_tool(self) -> "LlamaIndexTool":
-        from llama_index.langchain_helpers.agents.tools import (
+        from llama_index.core.langchain_helpers.agents.tools import (
             IndexToolConfig,
             LlamaIndexTool,
         )

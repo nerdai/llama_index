@@ -2,22 +2,22 @@ import logging
 from threading import Thread
 from typing import Any, List, Optional, Type
 
-from llama_index.callbacks import CallbackManager, trace_method
-from llama_index.chat_engine.types import (
+from llama_index.core.base_query_engine import BaseQueryEngine
+from llama_index.core.callbacks import CallbackManager, trace_method
+from llama_index.core.chat_engine.types import (
     AgentChatResponse,
     BaseChatEngine,
     StreamingAgentChatResponse,
 )
-from llama_index.chat_engine.utils import response_gen_from_query_engine
-from llama_index.core.base_query_engine import BaseQueryEngine
+from llama_index.core.chat_engine.utils import response_gen_from_query_engine
+from llama_index.core.llms.generic_utils import messages_to_history_str
 from llama_index.core.llms.types import ChatMessage, MessageRole
+from llama_index.core.memory import BaseMemory, ChatMemoryBuffer
+from llama_index.core.prompts.base import BasePromptTemplate, PromptTemplate
 from llama_index.core.response.schema import RESPONSE_TYPE, StreamingResponse
-from llama_index.llm_predictor.base import LLMPredictorType
-from llama_index.llms.generic_utils import messages_to_history_str
-from llama_index.memory import BaseMemory, ChatMemoryBuffer
-from llama_index.prompts.base import BasePromptTemplate, PromptTemplate
-from llama_index.service_context import ServiceContext
-from llama_index.tools import ToolOutput
+from llama_index.core.service_context import ServiceContext
+from llama_index.core.service_context_elements.llm_predictor import LLMPredictorType
+from llama_index.core.tools import ToolOutput
 
 logger = logging.getLogger(__name__)
 
@@ -168,7 +168,9 @@ class CondenseQuestionChatEngine(BaseChatEngine):
         # TODO: right now, query engine uses class attribute to configure streaming,
         #       we are moving towards separate streaming and non-streaming methods.
         #       In the meanwhile, use this hack to toggle streaming.
-        from llama_index.query_engine.retriever_query_engine import RetrieverQueryEngine
+        from llama_index.core.query_engine.retriever_query_engine import (
+            RetrieverQueryEngine,
+        )
 
         if isinstance(self._query_engine, RetrieverQueryEngine):
             is_streaming = self._query_engine._response_synthesizer._streaming
@@ -210,7 +212,9 @@ class CondenseQuestionChatEngine(BaseChatEngine):
         # TODO: right now, query engine uses class attribute to configure streaming,
         #       we are moving towards separate streaming and non-streaming methods.
         #       In the meanwhile, use this hack to toggle streaming.
-        from llama_index.query_engine.retriever_query_engine import RetrieverQueryEngine
+        from llama_index.core.query_engine.retriever_query_engine import (
+            RetrieverQueryEngine,
+        )
 
         if isinstance(self._query_engine, RetrieverQueryEngine):
             is_streaming = self._query_engine._response_synthesizer._streaming
@@ -263,7 +267,9 @@ class CondenseQuestionChatEngine(BaseChatEngine):
         # TODO: right now, query engine uses class attribute to configure streaming,
         #       we are moving towards separate streaming and non-streaming methods.
         #       In the meanwhile, use this hack to toggle streaming.
-        from llama_index.query_engine.retriever_query_engine import RetrieverQueryEngine
+        from llama_index.core.query_engine.retriever_query_engine import (
+            RetrieverQueryEngine,
+        )
 
         if isinstance(self._query_engine, RetrieverQueryEngine):
             is_streaming = self._query_engine._response_synthesizer._streaming
@@ -305,7 +311,9 @@ class CondenseQuestionChatEngine(BaseChatEngine):
         # TODO: right now, query engine uses class attribute to configure streaming,
         #       we are moving towards separate streaming and non-streaming methods.
         #       In the meanwhile, use this hack to toggle streaming.
-        from llama_index.query_engine.retriever_query_engine import RetrieverQueryEngine
+        from llama_index.core.query_engine.retriever_query_engine import (
+            RetrieverQueryEngine,
+        )
 
         if isinstance(self._query_engine, RetrieverQueryEngine):
             is_streaming = self._query_engine._response_synthesizer._streaming

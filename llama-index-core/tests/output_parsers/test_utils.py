@@ -1,4 +1,4 @@
-from llama_index.output_parsers.utils import extract_json_str
+from llama_index.core.output_parsers.utils import extract_json_str
 
 
 def test_extract_json_str() -> None:

@@ -4,8 +4,8 @@ from pprint import pprint
 from typing import Any, Dict
 
 from llama_index.core.response.schema import Response
-from llama_index.schema import NodeWithScore
-from llama_index.utils import truncate_text
+from llama_index.core.schema import NodeWithScore
+from llama_index.core.utils import truncate_text
 
 
 def pprint_metadata(metadata: Dict[str, Any]) -> None:

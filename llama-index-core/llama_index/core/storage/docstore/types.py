@@ -6,8 +6,8 @@ from typing import Any, Dict, List, Optional, Sequence
 import fsspec
 from dataclasses_json import DataClassJsonMixin
 
-from llama_index.schema import BaseNode
-from llama_index.storage.kvstore.types import DEFAULT_BATCH_SIZE
+from llama_index.core.schema import BaseNode
+from llama_index.core.storage.kvstore.types import DEFAULT_BATCH_SIZE
 
 DEFAULT_PERSIST_FNAME = "docstore.json"
 DEFAULT_PERSIST_DIR = "./storage"

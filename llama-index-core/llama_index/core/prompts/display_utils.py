@@ -1,6 +1,6 @@
 """Prompt display utils."""
 
-from llama_index.prompts.mixin import PromptDictType
+from llama_index.core.prompts.mixin import PromptDictType
 
 
 # define prompt viewing function

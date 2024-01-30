@@ -9,11 +9,11 @@ from typing import Any, Dict, Optional, Sequence
 
 from llama_index.core.base_query_engine import BaseQueryEngine
 from llama_index.core.base_retriever import BaseRetriever
-from llama_index.data_structs.data_structs import EmptyIndexStruct
-from llama_index.indices.base import BaseIndex
-from llama_index.schema import BaseNode
-from llama_index.service_context import ServiceContext
-from llama_index.storage.docstore.types import RefDocInfo
+from llama_index.core.data_structs.data_structs import EmptyIndexStruct
+from llama_index.core.indices.base import BaseIndex
+from llama_index.core.schema import BaseNode
+from llama_index.core.service_context import ServiceContext
+from llama_index.core.storage.docstore.types import RefDocInfo
 
 
 class EmptyIndex(BaseIndex[EmptyIndexStruct]):
@@ -45,7 +45,7 @@ class EmptyIndex(BaseIndex[EmptyIndexStruct]):
 
     def as_retriever(self, **kwargs: Any) -> BaseRetriever:
         # NOTE: lazy import
-        from llama_index.indices.empty.retrievers import EmptyIndexRetriever
+        from llama_index.core.indices.empty.retrievers import EmptyIndexRetriever
 
         return EmptyIndexRetriever(self)
 

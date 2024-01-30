@@ -3,8 +3,8 @@ from typing import Any, Callable, Dict, List, Literal, Optional, Type
 
 import numpy as np
 
-from llama_index.bridge.pydantic import Field, PrivateAttr
-from llama_index.evaluation.retrieval.metrics_base import (
+from llama_index.core.bridge.pydantic import Field, PrivateAttr
+from llama_index.core.evaluation.retrieval.metrics_base import (
     BaseRetrievalMetric,
     RetrievalMetricResult,
 )

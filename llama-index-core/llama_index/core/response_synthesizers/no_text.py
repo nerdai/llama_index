@@ -1,8 +1,8 @@
 from typing import Any, Sequence
 
-from llama_index.prompts.mixin import PromptDictType
-from llama_index.response_synthesizers.base import BaseSynthesizer
-from llama_index.types import RESPONSE_TEXT_TYPE
+from llama_index.core.prompts.mixin import PromptDictType
+from llama_index.core.response_synthesizers.base import BaseSynthesizer
+from llama_index.core.types import RESPONSE_TEXT_TYPE
 
 
 class NoText(BaseSynthesizer):

@@ -4,23 +4,25 @@ from collections import defaultdict
 from enum import Enum
 from typing import Any, Callable, Dict, List, Optional, Set, Tuple
 
-from llama_index.callbacks.base import CallbackManager
 from llama_index.core.base_retriever import BaseRetriever
-from llama_index.indices.keyword_table.utils import extract_keywords_given_response
-from llama_index.indices.knowledge_graph.base import KnowledgeGraphIndex
-from llama_index.indices.query.embedding_utils import get_top_k_embeddings
-from llama_index.prompts import BasePromptTemplate, PromptTemplate, PromptType
-from llama_index.prompts.default_prompts import DEFAULT_QUERY_KEYWORD_EXTRACT_TEMPLATE
-from llama_index.schema import (
+from llama_index.core.callbacks.base import CallbackManager
+from llama_index.core.indices.keyword_table.utils import extract_keywords_given_response
+from llama_index.core.indices.knowledge_graph.base import KnowledgeGraphIndex
+from llama_index.core.indices.query.embedding_utils import get_top_k_embeddings
+from llama_index.core.prompts import BasePromptTemplate, PromptTemplate, PromptType
+from llama_index.core.prompts.default_prompts import (
+    DEFAULT_QUERY_KEYWORD_EXTRACT_TEMPLATE,
+)
+from llama_index.core.schema import (
     BaseNode,
     MetadataMode,
     NodeWithScore,
     QueryBundle,
     TextNode,
 )
-from llama_index.service_context import ServiceContext
-from llama_index.storage.storage_context import StorageContext
-from llama_index.utils import print_text, truncate_text
+from llama_index.core.service_context import ServiceContext
+from llama_index.core.storage.storage_context import StorageContext
+from llama_index.core.utils import print_text, truncate_text
 
 DQKET = DEFAULT_QUERY_KEYWORD_EXTRACT_TEMPLATE
 DEFAULT_NODE_SCORE = 1000.0
@@ -451,7 +453,7 @@ class KnowledgeGraphRAGRetriever(BaseRetriever):
         self._retriever_mode = retriever_mode
         self._with_nl2graphquery = with_nl2graphquery
         if self._with_nl2graphquery:
-            from llama_index.query_engine.knowledge_graph_query_engine import (
+            from llama_index.core.query_engine.knowledge_graph_query_engine import (
                 KnowledgeGraphQueryEngine,
             )
 

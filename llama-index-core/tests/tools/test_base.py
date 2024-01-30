@@ -3,8 +3,8 @@ import json
 from typing import List, Optional
 
 import pytest
-from llama_index.bridge.pydantic import BaseModel
-from llama_index.tools.function_tool import FunctionTool
+from llama_index.core.bridge.pydantic import BaseModel
+from llama_index.core.tools.function_tool import FunctionTool
 
 try:
     import langchain
@@ -150,13 +150,13 @@ async def test_function_tool_async_defaults_langchain() -> None:
     assert result == "1"
 
 
-from llama_index import (
+from llama_index.core import (
     ServiceContext,
     VectorStoreIndex,
 )
-from llama_index.schema import Document
-from llama_index.token_counter.mock_embed_model import MockEmbedding
-from llama_index.tools import RetrieverTool, ToolMetadata
+from llama_index.core.embeddings.mock_embed_model import MockEmbedding
+from llama_index.core.schema import Document
+from llama_index.core.tools import RetrieverTool, ToolMetadata
 
 
 def test_retreiver_tool() -> None:

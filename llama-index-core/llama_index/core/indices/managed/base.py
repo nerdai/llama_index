@@ -7,12 +7,12 @@ from abc import ABC, abstractmethod
 from typing import Any, Dict, Optional, Sequence, Type
 
 from llama_index.core.base_retriever import BaseRetriever
-from llama_index.data_structs.data_structs import IndexDict
-from llama_index.indices.base import BaseIndex, IndexType
-from llama_index.schema import BaseNode, Document
-from llama_index.service_context import ServiceContext
-from llama_index.storage.docstore.types import RefDocInfo
-from llama_index.storage.storage_context import StorageContext
+from llama_index.core.data_structs.data_structs import IndexDict
+from llama_index.core.indices.base import BaseIndex, IndexType
+from llama_index.core.schema import BaseNode, Document
+from llama_index.core.service_context import ServiceContext
+from llama_index.core.storage.docstore.types import RefDocInfo
+from llama_index.core.storage.storage_context import StorageContext
 
 
 class BaseManagedIndex(BaseIndex[IndexDict], ABC):

@@ -1,12 +1,12 @@
 """Code splitter."""
 from typing import Any, Callable, List, Optional
 
-from llama_index.bridge.pydantic import Field, PrivateAttr
-from llama_index.callbacks.base import CallbackManager
-from llama_index.callbacks.schema import CBEventType, EventPayload
-from llama_index.node_parser.interface import TextSplitter
-from llama_index.node_parser.node_utils import default_id_func
-from llama_index.schema import Document
+from llama_index.core.bridge.pydantic import Field, PrivateAttr
+from llama_index.core.callbacks.base import CallbackManager
+from llama_index.core.callbacks.schema import CBEventType, EventPayload
+from llama_index.core.node_parser.interface import TextSplitter
+from llama_index.core.node_parser.node_utils import default_id_func
+from llama_index.core.schema import Document
 
 DEFAULT_CHUNK_LINES = 40
 DEFAULT_LINES_OVERLAP = 15

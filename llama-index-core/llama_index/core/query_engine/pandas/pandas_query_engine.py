@@ -13,16 +13,18 @@ from typing import Any, Dict, Optional
 import pandas as pd
 
 from llama_index.core.base_query_engine import BaseQueryEngine
+from llama_index.core.indices.struct_store.pandas import PandasIndex
+from llama_index.core.llms.utils import LLMType
+from llama_index.core.prompts import BasePromptTemplate, PromptTemplate
+from llama_index.core.prompts.default_prompts import DEFAULT_PANDAS_PROMPT
+from llama_index.core.prompts.mixin import PromptDictType, PromptMixinType
+from llama_index.core.query_engine.pandas.output_parser import (
+    PandasInstructionParser,
+)
 from llama_index.core.response.schema import Response
-from llama_index.indices.struct_store.pandas import PandasIndex
-from llama_index.llms.utils import LLMType
-from llama_index.prompts import BasePromptTemplate, PromptTemplate
-from llama_index.prompts.default_prompts import DEFAULT_PANDAS_PROMPT
-from llama_index.prompts.mixin import PromptDictType, PromptMixinType
-from llama_index.query_engine.pandas.output_parser import PandasInstructionParser
-from llama_index.schema import QueryBundle
-from llama_index.service_context import ServiceContext
-from llama_index.utils import print_text
+from llama_index.core.schema import QueryBundle
+from llama_index.core.service_context import ServiceContext
+from llama_index.core.utils import print_text
 
 logger = logging.getLogger(__name__)
 

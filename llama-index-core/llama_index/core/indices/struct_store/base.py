@@ -3,13 +3,13 @@
 import re
 from typing import Any, Callable, Dict, Generic, Optional, Sequence, TypeVar
 
-from llama_index.data_structs.table import BaseStructTable
-from llama_index.indices.base import BaseIndex
-from llama_index.prompts import BasePromptTemplate
-from llama_index.prompts.default_prompts import DEFAULT_SCHEMA_EXTRACT_PROMPT
-from llama_index.schema import BaseNode
-from llama_index.service_context import ServiceContext
-from llama_index.storage.docstore.types import RefDocInfo
+from llama_index.core.data_structs.table import BaseStructTable
+from llama_index.core.indices.base import BaseIndex
+from llama_index.core.prompts import BasePromptTemplate
+from llama_index.core.prompts.default_prompts import DEFAULT_SCHEMA_EXTRACT_PROMPT
+from llama_index.core.schema import BaseNode
+from llama_index.core.service_context import ServiceContext
+from llama_index.core.storage.docstore.types import RefDocInfo
 
 BST = TypeVar("BST", bound=BaseStructTable)
 

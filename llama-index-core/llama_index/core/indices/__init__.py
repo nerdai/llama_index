@@ -1,47 +1,43 @@
 """LlamaIndex data structures."""
 
 # indices
-from llama_index.indices.composability.graph import ComposableGraph
-from llama_index.indices.document_summary import (
+from llama_index.core.indices.composability.graph import ComposableGraph
+from llama_index.core.indices.document_summary import (
     DocumentSummaryIndex,
     GPTDocumentSummaryIndex,
 )
-from llama_index.indices.document_summary.base import DocumentSummaryIndex
-from llama_index.indices.empty.base import EmptyIndex, GPTEmptyIndex
-from llama_index.indices.keyword_table.base import (
+from llama_index.core.indices.document_summary.base import DocumentSummaryIndex
+from llama_index.core.indices.empty.base import EmptyIndex, GPTEmptyIndex
+from llama_index.core.indices.keyword_table.base import (
     GPTKeywordTableIndex,
     KeywordTableIndex,
 )
-from llama_index.indices.keyword_table.rake_base import (
+from llama_index.core.indices.keyword_table.rake_base import (
     GPTRAKEKeywordTableIndex,
     RAKEKeywordTableIndex,
 )
-from llama_index.indices.keyword_table.simple_base import (
+from llama_index.core.indices.keyword_table.simple_base import (
     GPTSimpleKeywordTableIndex,
     SimpleKeywordTableIndex,
 )
-from llama_index.indices.knowledge_graph import (
-    GPTKnowledgeGraphIndex,
+from llama_index.core.indices.knowledge_graph import (
     KnowledgeGraphIndex,
 )
-from llama_index.indices.list import GPTListIndex, ListIndex, SummaryIndex
-from llama_index.indices.list.base import GPTListIndex, ListIndex, SummaryIndex
-from llama_index.indices.loading import (
+from llama_index.core.indices.list import GPTListIndex, ListIndex, SummaryIndex
+from llama_index.core.indices.list.base import GPTListIndex, ListIndex, SummaryIndex
+from llama_index.core.indices.loading import (
     load_graph_from_storage,
     load_index_from_storage,
     load_indices_from_storage,
 )
-from llama_index.indices.managed.colbert_index import ColbertIndex
-from llama_index.indices.managed.vectara import VectaraIndex
-from llama_index.indices.managed.zilliz import ZillizCloudPipelineIndex
-from llama_index.indices.multi_modal import MultiModalVectorStoreIndex
-from llama_index.indices.struct_store.pandas import GPTPandasIndex, PandasIndex
-from llama_index.indices.struct_store.sql import (
+from llama_index.core.indices.multi_modal import MultiModalVectorStoreIndex
+from llama_index.core.indices.struct_store.pandas import GPTPandasIndex, PandasIndex
+from llama_index.core.indices.struct_store.sql import (
     GPTSQLStructStoreIndex,
     SQLStructStoreIndex,
 )
-from llama_index.indices.tree.base import GPTTreeIndex, TreeIndex
-from llama_index.indices.vector_store import GPTVectorStoreIndex, VectorStoreIndex
+from llama_index.core.indices.tree.base import GPTTreeIndex, TreeIndex
+from llama_index.core.indices.vector_store import GPTVectorStoreIndex, VectorStoreIndex
 
 __all__ = [
     "load_graph_from_storage",
@@ -52,9 +48,6 @@ __all__ = [
     "RAKEKeywordTableIndex",
     "SummaryIndex",
     "TreeIndex",
-    "VectaraIndex",
-    "ColbertIndex",
-    "ZillizCloudPipelineIndex",
     "DocumentSummaryIndex",
     "KnowledgeGraphIndex",
     "PandasIndex",

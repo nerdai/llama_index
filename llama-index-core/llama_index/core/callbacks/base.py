@@ -4,10 +4,10 @@ from abc import ABC
 from collections import defaultdict
 from contextlib import contextmanager
 from contextvars import ContextVar
-from typing import Any, Dict, Generator, List, Optional
+from typing import Any, Dict, Generator, List, Optional, cast
 
-from llama_index.callbacks.base_handler import BaseCallbackHandler
-from llama_index.callbacks.schema import (
+from llama_index.core.callbacks.base_handler import BaseCallbackHandler
+from llama_index.core.callbacks.schema import (
     BASE_TRACE_EVENT,
     LEAF_EVENTS,
     CBEventType,
@@ -51,7 +51,7 @@ class CallbackManager(BaseCallbackHandler, ABC):
 
     def __init__(self, handlers: Optional[List[BaseCallbackHandler]] = None):
         """Initialize the manager with a list of handlers."""
-        from llama_index import global_handler
+        from llama_index.core import global_handler
 
         handlers = handlers or []
 
@@ -88,7 +88,7 @@ class CallbackManager(BaseCallbackHandler, ABC):
         except IndexError:
             self.start_trace("llama-index")
             parent_id = global_stack_trace.get()[-1]
-
+        parent_id = cast(str, parent_id)
         self._trace_map[parent_id].append(event_id)
         for handler in self.handlers:
             if event_type not in handler.event_starts_to_ignore:

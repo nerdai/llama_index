@@ -1,5 +1,5 @@
-from llama_index.prompts.base import PromptTemplate
-from llama_index.prompts.prompt_type import PromptType
+from llama_index.core.prompts.base import PromptTemplate
+from llama_index.core.prompts.prompt_type import PromptType
 
 """Single select prompt.
 

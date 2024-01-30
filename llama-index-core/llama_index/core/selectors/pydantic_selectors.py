@@ -1,22 +1,22 @@
 from typing import Any, Dict, Optional, Sequence
 
-from llama_index.llms.openai import OpenAI
-from llama_index.program.openai_program import OpenAIPydanticProgram
-from llama_index.prompts.mixin import PromptDictType
-from llama_index.schema import QueryBundle
-from llama_index.selectors.llm_selectors import _build_choices_text
-from llama_index.selectors.prompts import (
+from llama_index.core.llms.openai import OpenAI
+from llama_index.core.program.openai_program import OpenAIPydanticProgram
+from llama_index.core.prompts.mixin import PromptDictType
+from llama_index.core.schema import QueryBundle
+from llama_index.core.selectors.llm_selectors import _build_choices_text
+from llama_index.core.selectors.prompts import (
     DEFAULT_MULTI_PYD_SELECT_PROMPT_TMPL,
     DEFAULT_SINGLE_PYD_SELECT_PROMPT_TMPL,
 )
-from llama_index.selectors.types import (
+from llama_index.core.selectors.types import (
     BaseSelector,
     MultiSelection,
     SelectorResult,
     SingleSelection,
 )
-from llama_index.tools.types import ToolMetadata
-from llama_index.types import BasePydanticProgram
+from llama_index.core.tools.types import ToolMetadata
+from llama_index.core.types import BasePydanticProgram
 
 
 def _pydantic_output_to_selector_result(output: Any) -> SelectorResult:

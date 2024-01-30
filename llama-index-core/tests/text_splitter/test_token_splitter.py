@@ -2,9 +2,9 @@
 from typing import List
 
 import tiktoken
-from llama_index.node_parser.text import TokenTextSplitter
-from llama_index.node_parser.text.utils import truncate_text
-from llama_index.schema import Document, MetadataMode, TextNode
+from llama_index.core.node_parser.text import TokenTextSplitter
+from llama_index.core.node_parser.text.utils import truncate_text
+from llama_index.core.schema import Document, MetadataMode, TextNode
 
 
 def test_split_token() -> None:

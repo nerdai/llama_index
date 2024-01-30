@@ -11,10 +11,11 @@ import logging
 from abc import abstractmethod
 from typing import Any, Dict, Generator, List, Optional, Sequence, Union
 
-from llama_index.bridge.pydantic import BaseModel, Field
-from llama_index.callbacks.base import CallbackManager
-from llama_index.callbacks.schema import CBEventType, EventPayload
-from llama_index.core.query_pipeline.query_component import (
+from llama_index.core.bridge.pydantic import BaseModel, Field
+from llama_index.core.callbacks.base import CallbackManager
+from llama_index.core.callbacks.schema import CBEventType, EventPayload
+from llama_index.core.prompts.mixin import PromptMixin
+from llama_index.core.query_pipeline.components.query import (
     ChainableMixin,
     InputKeys,
     OutputKeys,
@@ -27,10 +28,9 @@ from llama_index.core.response.schema import (
     Response,
     StreamingResponse,
 )
-from llama_index.prompts.mixin import PromptMixin
-from llama_index.schema import BaseNode, MetadataMode, NodeWithScore, QueryBundle
-from llama_index.service_context import ServiceContext
-from llama_index.types import RESPONSE_TEXT_TYPE
+from llama_index.core.schema import BaseNode, MetadataMode, NodeWithScore, QueryBundle
+from llama_index.core.service_context import ServiceContext
+from llama_index.core.types import RESPONSE_TEXT_TYPE
 
 logger = logging.getLogger(__name__)
 

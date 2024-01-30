@@ -1,15 +1,15 @@
 from typing import Any, Callable, Optional, Sequence
 
-from llama_index.callbacks import CallbackManager
+from llama_index.core.callbacks import CallbackManager
+from llama_index.core.llms.callbacks import llm_completion_callback
+from llama_index.core.llms.custom import CustomLLM
 from llama_index.core.llms.types import (
     ChatMessage,
     CompletionResponse,
     CompletionResponseGen,
     LLMMetadata,
 )
-from llama_index.llms.base import llm_completion_callback
-from llama_index.llms.custom import CustomLLM
-from llama_index.types import PydanticProgramMode
+from llama_index.core.types import PydanticProgramMode
 
 
 class MockLLM(CustomLLM):

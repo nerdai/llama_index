@@ -1,6 +1,6 @@
 import pytest
-from llama_index.output_parsers.base import StructuredOutput
-from llama_index.output_parsers.selection import SelectionOutputParser
+from llama_index.core.output_parsers.base import StructuredOutput
+from llama_index.core.output_parsers.selection import SelectionOutputParser
 
 
 @pytest.fixture()

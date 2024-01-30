@@ -12,10 +12,10 @@ from llama_index.core.llms.types import (
     ChatResponseAsyncGen,
     ChatResponseGen,
 )
+from llama_index.core.memory import BaseMemory
 from llama_index.core.response.schema import Response, StreamingResponse
-from llama_index.memory import BaseMemory
-from llama_index.schema import NodeWithScore
-from llama_index.tools import ToolOutput
+from llama_index.core.schema import NodeWithScore
+from llama_index.core.tools import ToolOutput
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.WARNING)

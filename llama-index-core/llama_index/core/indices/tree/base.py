@@ -5,19 +5,19 @@ from typing import Any, Dict, Optional, Sequence, Union
 
 from llama_index.core.base_retriever import BaseRetriever
 
-# from llama_index.data_structs.data_structs import IndexGraph
-from llama_index.data_structs.data_structs import IndexGraph
-from llama_index.indices.base import BaseIndex
-from llama_index.indices.common_tree.base import GPTTreeIndexBuilder
-from llama_index.indices.tree.inserter import TreeIndexInserter
-from llama_index.prompts import BasePromptTemplate
-from llama_index.prompts.default_prompts import (
+# from llama_index.core.data_structs.data_structs import IndexGraph
+from llama_index.core.data_structs.data_structs import IndexGraph
+from llama_index.core.indices.base import BaseIndex
+from llama_index.core.indices.common_tree.base import GPTTreeIndexBuilder
+from llama_index.core.indices.tree.inserter import TreeIndexInserter
+from llama_index.core.prompts import BasePromptTemplate
+from llama_index.core.prompts.default_prompts import (
     DEFAULT_INSERT_PROMPT,
     DEFAULT_SUMMARY_PROMPT,
 )
-from llama_index.schema import BaseNode, IndexNode
-from llama_index.service_context import ServiceContext
-from llama_index.storage.docstore.types import RefDocInfo
+from llama_index.core.schema import BaseNode, IndexNode
+from llama_index.core.service_context import ServiceContext
+from llama_index.core.storage.docstore.types import RefDocInfo
 
 
 class TreeRetrieverMode(str, Enum):
@@ -94,14 +94,16 @@ class TreeIndex(BaseIndex[IndexGraph]):
         **kwargs: Any,
     ) -> BaseRetriever:
         # NOTE: lazy import
-        from llama_index.indices.tree.all_leaf_retriever import TreeAllLeafRetriever
-        from llama_index.indices.tree.select_leaf_embedding_retriever import (
+        from llama_index.core.indices.tree.all_leaf_retriever import (
+            TreeAllLeafRetriever,
+        )
+        from llama_index.core.indices.tree.select_leaf_embedding_retriever import (
             TreeSelectLeafEmbeddingRetriever,
         )
-        from llama_index.indices.tree.select_leaf_retriever import (
+        from llama_index.core.indices.tree.select_leaf_retriever import (
             TreeSelectLeafRetriever,
         )
-        from llama_index.indices.tree.tree_root_retriever import TreeRootRetriever
+        from llama_index.core.indices.tree.tree_root_retriever import TreeRootRetriever
 
         self._validate_build_tree_required(TreeRetrieverMode(retriever_mode))
 

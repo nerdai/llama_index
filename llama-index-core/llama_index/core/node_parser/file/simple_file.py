@@ -1,13 +1,13 @@
 """Simple file node parser."""
 from typing import Any, Dict, List, Optional, Sequence, Type
 
-from llama_index.callbacks.base import CallbackManager
-from llama_index.node_parser.file.html import HTMLNodeParser
-from llama_index.node_parser.file.json import JSONNodeParser
-from llama_index.node_parser.file.markdown import MarkdownNodeParser
-from llama_index.node_parser.interface import NodeParser
-from llama_index.schema import BaseNode
-from llama_index.utils import get_tqdm_iterable
+from llama_index.core.callbacks.base import CallbackManager
+from llama_index.core.node_parser.file.html import HTMLNodeParser
+from llama_index.core.node_parser.file.json import JSONNodeParser
+from llama_index.core.node_parser.file.markdown import MarkdownNodeParser
+from llama_index.core.node_parser.interface import NodeParser
+from llama_index.core.schema import BaseNode
+from llama_index.core.utils import get_tqdm_iterable
 
 FILE_NODE_PARSERS: Dict[str, Type[NodeParser]] = {
     ".md": MarkdownNodeParser,

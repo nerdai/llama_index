@@ -1,15 +1,11 @@
-from llama_index.multi_modal_llms.base import (
+from llama_index.core.multi_modal_llms.base import (
     MultiModalLLM,
     MultiModalLLMMetadata,
 )
-from llama_index.multi_modal_llms.gemini import GeminiMultiModal
-from llama_index.multi_modal_llms.openai import OpenAIMultiModal
-from llama_index.multi_modal_llms.replicate_multi_modal import ReplicateMultiModal
+from llama_index.core.multi_modal_llms.openai import OpenAIMultiModal
 
 __all__ = [
-    "ReplicateMultiModal",
     "MultiModalLLMMetadata",
     "MultiModalLLM",
     "OpenAIMultiModal",
-    "GeminiMultiModal",
 ]

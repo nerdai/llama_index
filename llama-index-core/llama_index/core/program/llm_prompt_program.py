@@ -2,9 +2,9 @@
 from abc import abstractmethod
 from typing import Any, Generic, Optional, Type, TypeVar
 
-from llama_index.bridge.pydantic import BaseModel
-from llama_index.prompts.base import PromptTemplate
-from llama_index.types import BasePydanticProgram, Model
+from llama_index.core.bridge.pydantic import BaseModel
+from llama_index.core.prompts.base import PromptTemplate
+from llama_index.core.types import BasePydanticProgram, Model
 
 LM = TypeVar("LM")
 

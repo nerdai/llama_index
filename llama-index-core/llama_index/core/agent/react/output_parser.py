@@ -5,13 +5,13 @@ import json
 import re
 from typing import Tuple
 
-from llama_index.agent.react.types import (
+from llama_index.core.agent.react.types import (
     ActionReasoningStep,
     BaseReasoningStep,
     ResponseReasoningStep,
 )
-from llama_index.output_parsers.utils import extract_json_str
-from llama_index.types import BaseOutputParser
+from llama_index.core.output_parsers.utils import extract_json_str
+from llama_index.core.types import BaseOutputParser
 
 
 def extract_tool_use(input_text: str) -> Tuple[str, str, str]:

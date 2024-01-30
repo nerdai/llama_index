@@ -5,21 +5,25 @@ import asyncio
 import re
 from typing import List
 
-from llama_index import Document, ServiceContext, SummaryIndex
-from llama_index.async_utils import DEFAULT_NUM_WORKERS, run_jobs
-from llama_index.core.response.schema import RESPONSE_TYPE
-from llama_index.ingestion import run_transformations
-from llama_index.llama_dataset import (
+from llama_index.core import Document, ServiceContext, SummaryIndex
+from llama_index.core.async_utils import DEFAULT_NUM_WORKERS, run_jobs
+from llama_index.core.ingestion import run_transformations
+from llama_index.core.llama_dataset import (
     CreatedBy,
     CreatedByType,
     LabelledRagDataExample,
     LabelledRagDataset,
 )
-from llama_index.postprocessor.node import KeywordNodePostprocessor
-from llama_index.prompts.base import BasePromptTemplate, PromptTemplate
-from llama_index.prompts.default_prompts import DEFAULT_TEXT_QA_PROMPT
-from llama_index.prompts.mixin import PromptDictType, PromptMixin, PromptMixinType
-from llama_index.schema import BaseNode, MetadataMode, NodeWithScore
+from llama_index.core.postprocessor.node import KeywordNodePostprocessor
+from llama_index.core.prompts.base import BasePromptTemplate, PromptTemplate
+from llama_index.core.prompts.default_prompts import DEFAULT_TEXT_QA_PROMPT
+from llama_index.core.prompts.mixin import (
+    PromptDictType,
+    PromptMixin,
+    PromptMixinType,
+)
+from llama_index.core.response.schema import RESPONSE_TYPE
+from llama_index.core.schema import BaseNode, MetadataMode, NodeWithScore
 
 DEFAULT_QUESTION_GENERATION_PROMPT = """\
 Context information is below.

@@ -7,19 +7,19 @@ Build a KG by extracting triplets, and leveraging the KG during query-time.
 import logging
 from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple
 
-from llama_index.constants import GRAPH_STORE_KEY
 from llama_index.core.base_retriever import BaseRetriever
-from llama_index.data_structs.data_structs import KG
-from llama_index.graph_stores.simple import SimpleGraphStore
-from llama_index.graph_stores.types import GraphStore
-from llama_index.indices.base import BaseIndex
-from llama_index.prompts import BasePromptTemplate
-from llama_index.prompts.default_prompts import DEFAULT_KG_TRIPLET_EXTRACT_PROMPT
-from llama_index.schema import BaseNode, IndexNode, MetadataMode
-from llama_index.service_context import ServiceContext
-from llama_index.storage.docstore.types import RefDocInfo
-from llama_index.storage.storage_context import StorageContext
-from llama_index.utils import get_tqdm_iterable
+from llama_index.core.constants import GRAPH_STORE_KEY
+from llama_index.core.data_structs.data_structs import KG
+from llama_index.core.graph_stores.simple import SimpleGraphStore
+from llama_index.core.graph_stores.types import GraphStore
+from llama_index.core.indices.base import BaseIndex
+from llama_index.core.prompts import BasePromptTemplate
+from llama_index.core.prompts.default_prompts import DEFAULT_KG_TRIPLET_EXTRACT_PROMPT
+from llama_index.core.schema import BaseNode, IndexNode, MetadataMode
+from llama_index.core.service_context import ServiceContext
+from llama_index.core.storage.docstore.types import RefDocInfo
+from llama_index.core.storage.storage_context import StorageContext
+from llama_index.core.utils import get_tqdm_iterable
 
 logger = logging.getLogger(__name__)
 
@@ -103,7 +103,7 @@ class KnowledgeGraphIndex(BaseIndex[KG]):
         return self._graph_store
 
     def as_retriever(self, **kwargs: Any) -> BaseRetriever:
-        from llama_index.indices.knowledge_graph.retrievers import (
+        from llama_index.core.indices.knowledge_graph.retrievers import (
             KGRetrieverMode,
             KGTableRetriever,
         )
@@ -323,7 +323,3 @@ class KnowledgeGraphIndex(BaseIndex[KG]):
     @property
     def query_context(self) -> Dict[str, Any]:
         return {GRAPH_STORE_KEY: self._graph_store}
-
-
-# legacy
-GPTKnowledgeGraphIndex = KnowledgeGraphIndex

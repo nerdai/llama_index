@@ -1,13 +1,12 @@
 from typing import Any, List
 from unittest.mock import patch
 
-from llama_index.indices.list.base import SummaryIndex
-from llama_index.indices.list.retrievers import SummaryIndexEmbeddingRetriever
-from llama_index.llms.mock import MockLLM
-from llama_index.prompts import BasePromptTemplate
-from llama_index.schema import Document
-from llama_index.service_context import ServiceContext
-
+from llama_index.core.indices.list.base import SummaryIndex
+from llama_index.core.indices.list.retrievers import SummaryIndexEmbeddingRetriever
+from llama_index.core.llms.mock import MockLLM
+from llama_index.core.prompts import BasePromptTemplate
+from llama_index.core.schema import Document
+from llama_index.core.service_context import ServiceContext
 from tests.indices.list.test_index import _get_embeddings
 
 

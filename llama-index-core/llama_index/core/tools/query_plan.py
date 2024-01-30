@@ -2,11 +2,14 @@
 
 from typing import Any, Dict, List, Optional
 
-from llama_index.bridge.pydantic import BaseModel, Field
-from llama_index.response_synthesizers import BaseSynthesizer, get_response_synthesizer
-from llama_index.schema import NodeWithScore, TextNode
-from llama_index.tools.types import BaseTool, ToolMetadata, ToolOutput
-from llama_index.utils import print_text
+from llama_index.core.bridge.pydantic import BaseModel, Field
+from llama_index.core.response_synthesizers import (
+    BaseSynthesizer,
+    get_response_synthesizer,
+)
+from llama_index.core.schema import NodeWithScore, TextNode
+from llama_index.core.tools.types import BaseTool, ToolMetadata, ToolOutput
+from llama_index.core.utils import print_text
 
 DEFAULT_NAME = "query_plan_tool"
 

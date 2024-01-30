@@ -1,8 +1,8 @@
 from abc import abstractmethod
 from typing import Any, Optional, Sequence
 
-from llama_index.bridge.pydantic import BaseModel, Field
-from llama_index.constants import (
+from llama_index.core.bridge.pydantic import BaseModel, Field
+from llama_index.core.constants import (
     DEFAULT_CONTEXT_WINDOW,
     DEFAULT_NUM_INPUT_FILES,
     DEFAULT_NUM_OUTPUTS,
@@ -16,7 +16,7 @@ from llama_index.core.llms.types import (
     CompletionResponseAsyncGen,
     CompletionResponseGen,
 )
-from llama_index.schema import BaseComponent, ImageDocument
+from llama_index.core.schema import BaseComponent, ImageDocument
 
 
 class MultiModalLLMMetadata(BaseModel):

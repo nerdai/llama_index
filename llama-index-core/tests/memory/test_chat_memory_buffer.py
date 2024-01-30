@@ -1,9 +1,9 @@
 import pickle
 
 import pytest
-from llama_index.llms import ChatMessage, MessageRole
-from llama_index.memory.chat_memory_buffer import ChatMemoryBuffer
-from llama_index.utils import get_tokenizer
+from llama_index.core.llms import ChatMessage, MessageRole
+from llama_index.core.memory.chat_memory_buffer import ChatMemoryBuffer
+from llama_index.core.utils import get_tokenizer
 
 tokenizer = get_tokenizer()
 

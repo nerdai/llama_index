@@ -2,13 +2,13 @@
 import pickle
 from typing import Any, List, cast
 
-from llama_index.indices.loading import load_index_from_storage
-from llama_index.indices.vector_store.base import VectorStoreIndex
-from llama_index.llms import OpenAI
-from llama_index.schema import Document
-from llama_index.service_context import ServiceContext
-from llama_index.storage.storage_context import StorageContext
-from llama_index.vector_stores.simple import SimpleVectorStore
+from llama_index.core.indices.loading import load_index_from_storage
+from llama_index.core.indices.vector_store.base import VectorStoreIndex
+from llama_index.core.llms.openai import OpenAI
+from llama_index.core.schema import Document
+from llama_index.core.service_context import ServiceContext
+from llama_index.core.storage.storage_context import StorageContext
+from llama_index.core.vector_stores.simple import SimpleVectorStore
 
 
 def test_build_simple(

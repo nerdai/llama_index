@@ -3,19 +3,14 @@ import os
 from typing import TYPE_CHECKING, List, Optional, Union
 
 if TYPE_CHECKING:
-    from llama_index.bridge.langchain import Embeddings as LCEmbeddings
-from llama_index.embeddings.base import BaseEmbedding
-from llama_index.embeddings.clip import ClipEmbedding
-from llama_index.embeddings.huggingface import HuggingFaceEmbedding
-from llama_index.embeddings.huggingface_utils import (
-    INSTRUCTOR_MODELS,
-)
-from llama_index.embeddings.instructor import InstructorEmbedding
-from llama_index.embeddings.langchain import LangchainEmbedding
-from llama_index.embeddings.openai import OpenAIEmbedding
-from llama_index.llms.openai_utils import validate_openai_api_key
-from llama_index.token_counter.mock_embed_model import MockEmbedding
-from llama_index.utils import get_cache_dir
+    from llama_index.core.bridge.langchain import Embeddings as LCEmbeddings
+from llama_index.core.embeddings.base import BaseEmbedding
+from llama_index.core.embeddings.clip import ClipEmbedding
+from llama_index.core.embeddings.langchain import LangchainEmbedding
+from llama_index.core.embeddings.mock_embed_model import MockEmbedding
+from llama_index.core.embeddings.openai import OpenAIEmbedding
+from llama_index.core.llms.openai_utils import validate_openai_api_key
+from llama_index.core.utils import get_cache_dir
 
 EmbedType = Union[BaseEmbedding, "LCEmbeddings", str]
 
@@ -38,7 +33,7 @@ def load_embedding(file_path: str) -> List[float]:
 def resolve_embed_model(embed_model: Optional[EmbedType] = None) -> BaseEmbedding:
     """Resolve embed model."""
     try:
-        from llama_index.bridge.langchain import Embeddings as LCEmbeddings
+        from llama_index.core.bridge.langchain import Embeddings as LCEmbeddings
     except ImportError:
         LCEmbeddings = None  # type: ignore
 
@@ -65,6 +60,8 @@ def resolve_embed_model(embed_model: Optional[EmbedType] = None) -> BaseEmbeddin
         embed_model = ClipEmbedding()
 
     if isinstance(embed_model, str):
+        from llama_index.core.embeddings.huggingface import HuggingFaceEmbedding
+
         splits = embed_model.split(":", 1)
         is_local = splits[0]
         model_name = splits[1] if len(splits) > 1 else None
@@ -76,14 +73,9 @@ def resolve_embed_model(embed_model: Optional[EmbedType] = None) -> BaseEmbeddin
         cache_folder = os.path.join(get_cache_dir(), "models")
         os.makedirs(cache_folder, exist_ok=True)
 
-        if model_name in INSTRUCTOR_MODELS:
-            embed_model = InstructorEmbedding(
-                model_name=model_name, cache_folder=cache_folder
-            )
-        else:
-            embed_model = HuggingFaceEmbedding(
-                model_name=model_name, cache_folder=cache_folder
-            )
+        embed_model = HuggingFaceEmbedding(
+            model_name=model_name, cache_folder=cache_folder
+        )
 
     if LCEmbeddings is not None and isinstance(embed_model, LCEmbeddings):
         embed_model = LangchainEmbedding(embed_model)

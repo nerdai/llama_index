@@ -1,11 +1,11 @@
 from typing import Any, Dict, Optional, Sequence, Type, cast
 
-from llama_index.bridge.pydantic import BaseModel
-from llama_index.multi_modal_llms import MultiModalLLM, OpenAIMultiModal
-from llama_index.output_parsers.pydantic import PydanticOutputParser
-from llama_index.prompts.base import BasePromptTemplate, PromptTemplate
-from llama_index.schema import ImageDocument
-from llama_index.types import BasePydanticProgram
+from llama_index.core.bridge.pydantic import BaseModel
+from llama_index.core.multi_modal_llms import MultiModalLLM, OpenAIMultiModal
+from llama_index.core.output_parsers.pydantic import PydanticOutputParser
+from llama_index.core.prompts.base import BasePromptTemplate, PromptTemplate
+from llama_index.core.schema import ImageDocument
+from llama_index.core.types import BasePydanticProgram
 
 
 class MultiModalLLMCompletionProgram(BasePydanticProgram[BaseModel]):

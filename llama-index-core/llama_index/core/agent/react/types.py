@@ -3,7 +3,7 @@
 from abc import abstractmethod
 from typing import Dict
 
-from llama_index.bridge.pydantic import BaseModel
+from llama_index.core.bridge.pydantic import BaseModel
 
 
 class BaseReasoningStep(BaseModel):

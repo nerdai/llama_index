@@ -1,6 +1,8 @@
-from llama_index.constants import DATA_KEY, TYPE_KEY
-from llama_index.data_structs.data_structs import IndexStruct
-from llama_index.data_structs.registry import INDEX_STRUCT_TYPE_TO_INDEX_STRUCT_CLASS
+from llama_index.core.constants import DATA_KEY, TYPE_KEY
+from llama_index.core.data_structs.data_structs import IndexStruct
+from llama_index.core.data_structs.registry import (
+    INDEX_STRUCT_TYPE_TO_INDEX_STRUCT_CLASS,
+)
 
 
 def index_struct_to_json(index_struct: IndexStruct) -> dict:

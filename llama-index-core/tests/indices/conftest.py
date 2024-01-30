@@ -1,7 +1,12 @@
 from typing import List
 
 import pytest
-from llama_index.schema import Document, NodeRelationship, RelatedNodeInfo, TextNode
+from llama_index.core.schema import (
+    Document,
+    NodeRelationship,
+    RelatedNodeInfo,
+    TextNode,
+)
 
 
 @pytest.fixture()

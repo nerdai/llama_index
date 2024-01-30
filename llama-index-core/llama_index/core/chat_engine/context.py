@@ -2,20 +2,20 @@ import asyncio
 from threading import Thread
 from typing import Any, List, Optional, Tuple
 
-from llama_index.callbacks import CallbackManager, trace_method
-from llama_index.chat_engine.types import (
+from llama_index.core.base_retriever import BaseRetriever
+from llama_index.core.callbacks import CallbackManager, trace_method
+from llama_index.core.chat_engine.types import (
     AgentChatResponse,
     BaseChatEngine,
     StreamingAgentChatResponse,
     ToolOutput,
 )
-from llama_index.core.base_retriever import BaseRetriever
+from llama_index.core.llms.llm import LLM
 from llama_index.core.llms.types import ChatMessage, MessageRole
-from llama_index.llms.llm import LLM
-from llama_index.memory import BaseMemory, ChatMemoryBuffer
-from llama_index.postprocessor.types import BaseNodePostprocessor
-from llama_index.schema import MetadataMode, NodeWithScore, QueryBundle
-from llama_index.service_context import ServiceContext
+from llama_index.core.memory import BaseMemory, ChatMemoryBuffer
+from llama_index.core.postprocessor.types import BaseNodePostprocessor
+from llama_index.core.schema import MetadataMode, NodeWithScore, QueryBundle
+from llama_index.core.service_context import ServiceContext
 
 DEFAULT_CONTEXT_TEMPLATE = (
     "Context information is below."

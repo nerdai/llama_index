@@ -1,9 +1,9 @@
 from typing import Any
 
-from llama_index.output_parsers.base import StructuredOutput
-from llama_index.output_parsers.utils import parse_json_markdown
-from llama_index.question_gen.types import SubQuestion
-from llama_index.types import BaseOutputParser
+from llama_index.core.output_parsers.base import StructuredOutput
+from llama_index.core.output_parsers.utils import parse_json_markdown
+from llama_index.core.question_gen.types import SubQuestion
+from llama_index.core.types import BaseOutputParser
 
 
 class SubQuestionOutputParser(BaseOutputParser):

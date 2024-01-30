@@ -7,35 +7,35 @@ import uuid
 from threading import Thread
 from typing import Any, Dict, List, Optional, Tuple, Union, cast, get_args
 
-from llama_index.agent.openai.utils import resolve_tool_choice
-from llama_index.agent.types import (
+from llama_index.core.agent.openai.utils import resolve_tool_choice
+from llama_index.core.agent.types import (
     BaseAgentWorker,
     Task,
     TaskStep,
     TaskStepOutput,
 )
-from llama_index.agent.utils import add_user_step_to_memory
-from llama_index.callbacks import (
+from llama_index.core.agent.utils import add_user_step_to_memory
+from llama_index.core.callbacks import (
     CallbackManager,
     CBEventType,
     EventPayload,
     trace_method,
 )
-from llama_index.chat_engine.types import (
+from llama_index.core.chat_engine.types import (
     AGENT_CHAT_RESPONSE_TYPE,
     AgentChatResponse,
     ChatResponseMode,
     StreamingAgentChatResponse,
 )
+from llama_index.core.llms.base import ChatMessage, ChatResponse
+from llama_index.core.llms.llm import LLM
+from llama_index.core.llms.openai import OpenAI
+from llama_index.core.llms.openai_utils import OpenAIToolCall
 from llama_index.core.llms.types import MessageRole
-from llama_index.llms.base import ChatMessage, ChatResponse
-from llama_index.llms.llm import LLM
-from llama_index.llms.openai import OpenAI
-from llama_index.llms.openai_utils import OpenAIToolCall
-from llama_index.memory import BaseMemory, ChatMemoryBuffer
-from llama_index.memory.types import BaseMemory
-from llama_index.objects.base import ObjectRetriever
-from llama_index.tools import BaseTool, ToolOutput, adapt_to_async_tool
+from llama_index.core.memory import BaseMemory, ChatMemoryBuffer
+from llama_index.core.memory.types import BaseMemory
+from llama_index.core.objects.base import ObjectRetriever
+from llama_index.core.tools import BaseTool, ToolOutput, adapt_to_async_tool
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.WARNING)

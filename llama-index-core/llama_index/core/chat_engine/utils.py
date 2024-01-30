@@ -4,7 +4,7 @@ from llama_index.core.llms.types import (
     ChatResponseGen,
     MessageRole,
 )
-from llama_index.types import TokenGen
+from llama_index.core.types import TokenGen
 
 
 def response_gen_from_query_engine(response_gen: TokenGen) -> ChatResponseGen:

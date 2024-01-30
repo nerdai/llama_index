@@ -1,8 +1,8 @@
 from typing import Any, List
 
-from llama_index.ingestion import IngestionCache
-from llama_index.ingestion.pipeline import get_transformation_hash
-from llama_index.schema import BaseNode, TextNode, TransformComponent
+from llama_index.core.ingestion import IngestionCache
+from llama_index.core.ingestion.pipeline import get_transformation_hash
+from llama_index.core.schema import BaseNode, TextNode, TransformComponent
 
 
 class DummyTransform(TransformComponent):

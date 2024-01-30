@@ -4,24 +4,24 @@ import logging
 from abc import abstractmethod
 from typing import Any, Callable, Dict, List, Optional, Sequence, cast
 
-from llama_index.callbacks.schema import CBEventType, EventPayload
-from llama_index.data_structs.table import StructDatapoint
-from llama_index.llm_predictor.base import LLMPredictorType
-from llama_index.node_parser.interface import TextSplitter
-from llama_index.prompts import BasePromptTemplate
-from llama_index.prompts.default_prompt_selectors import (
+from llama_index.core.callbacks.schema import CBEventType, EventPayload
+from llama_index.core.data_structs.table import StructDatapoint
+from llama_index.core.node_parser.interface import TextSplitter
+from llama_index.core.prompts import BasePromptTemplate
+from llama_index.core.prompts.default_prompt_selectors import (
     DEFAULT_REFINE_TABLE_CONTEXT_PROMPT_SEL,
 )
-from llama_index.prompts.default_prompts import (
+from llama_index.core.prompts.default_prompts import (
     DEFAULT_TABLE_CONTEXT_PROMPT,
     DEFAULT_TABLE_CONTEXT_QUERY,
 )
-from llama_index.prompts.prompt_type import PromptType
-from llama_index.response_synthesizers import get_response_synthesizer
-from llama_index.schema import BaseNode, MetadataMode
-from llama_index.service_context import ServiceContext
-from llama_index.utilities.sql_wrapper import SQLDatabase
-from llama_index.utils import truncate_text
+from llama_index.core.prompts.prompt_type import PromptType
+from llama_index.core.response_synthesizers import get_response_synthesizer
+from llama_index.core.schema import BaseNode, MetadataMode
+from llama_index.core.service_context import ServiceContext
+from llama_index.core.service_context_elements.llm_predictor import LLMPredictorType
+from llama_index.core.utilities.sql_wrapper import SQLDatabase
+from llama_index.core.utils import truncate_text
 
 logger = logging.getLogger(__name__)
 

@@ -2,21 +2,24 @@ import asyncio
 import logging
 from typing import List, Optional, Sequence, cast
 
-from llama_index.async_utils import run_async_tasks
-from llama_index.bridge.pydantic import BaseModel, Field
-from llama_index.callbacks.base import CallbackManager
-from llama_index.callbacks.schema import CBEventType, EventPayload
+from llama_index.core.async_utils import run_async_tasks
 from llama_index.core.base_query_engine import BaseQueryEngine
+from llama_index.core.bridge.pydantic import BaseModel, Field
+from llama_index.core.callbacks.base import CallbackManager
+from llama_index.core.callbacks.schema import CBEventType, EventPayload
+from llama_index.core.prompts.mixin import PromptMixinType
+from llama_index.core.question_gen.llm_generators import LLMQuestionGenerator
+from llama_index.core.question_gen.openai_generator import OpenAIQuestionGenerator
+from llama_index.core.question_gen.types import BaseQuestionGenerator, SubQuestion
 from llama_index.core.response.schema import RESPONSE_TYPE
-from llama_index.prompts.mixin import PromptMixinType
-from llama_index.question_gen.llm_generators import LLMQuestionGenerator
-from llama_index.question_gen.openai_generator import OpenAIQuestionGenerator
-from llama_index.question_gen.types import BaseQuestionGenerator, SubQuestion
-from llama_index.response_synthesizers import BaseSynthesizer, get_response_synthesizer
-from llama_index.schema import NodeWithScore, QueryBundle, TextNode
-from llama_index.service_context import ServiceContext
-from llama_index.tools.query_engine import QueryEngineTool
-from llama_index.utils import get_color_mapping, print_text
+from llama_index.core.response_synthesizers import (
+    BaseSynthesizer,
+    get_response_synthesizer,
+)
+from llama_index.core.schema import NodeWithScore, QueryBundle, TextNode
+from llama_index.core.service_context import ServiceContext
+from llama_index.core.tools.query_engine import QueryEngineTool
+from llama_index.core.utils import get_color_mapping, print_text
 
 logger = logging.getLogger(__name__)
 

@@ -1,16 +1,16 @@
 from typing import List
 
-from llama_index.extractors import (
+from llama_index.core.embeddings.mock_embed_model import MockEmbedding
+from llama_index.core.extractors import (
     QuestionsAnsweredExtractor,
     SummaryExtractor,
     TitleExtractor,
 )
-from llama_index.indices.prompt_helper import PromptHelper
-from llama_index.llms import MockLLM
-from llama_index.node_parser import SentenceSplitter
-from llama_index.schema import TransformComponent
-from llama_index.service_context import ServiceContext
-from llama_index.token_counter.mock_embed_model import MockEmbedding
+from llama_index.core.indices.prompt_helper import PromptHelper
+from llama_index.core.llms.mock import MockLLM
+from llama_index.core.node_parser import SentenceSplitter
+from llama_index.core.schema import TransformComponent
+from llama_index.core.service_context import ServiceContext
 
 
 def test_service_context_serialize() -> None:

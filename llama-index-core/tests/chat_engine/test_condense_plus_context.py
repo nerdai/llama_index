@@ -1,13 +1,15 @@
 from typing import Any, List
 from unittest.mock import Mock, patch
 
-from llama_index.chat_engine.condense_plus_context import CondensePlusContextChatEngine
-from llama_index.indices.base_retriever import BaseRetriever
-from llama_index.indices.service_context import ServiceContext
-from llama_index.llms.mock import MockLLM
-from llama_index.memory.chat_memory_buffer import ChatMemoryBuffer
-from llama_index.prompts import BasePromptTemplate
-from llama_index.schema import NodeWithScore, TextNode
+from llama_index.core.chat_engine.condense_plus_context import (
+    CondensePlusContextChatEngine,
+)
+from llama_index.core.indices.base_retriever import BaseRetriever
+from llama_index.core.indices.service_context import ServiceContext
+from llama_index.core.llms.mock import MockLLM
+from llama_index.core.memory.chat_memory_buffer import ChatMemoryBuffer
+from llama_index.core.prompts import BasePromptTemplate
+from llama_index.core.schema import NodeWithScore, TextNode
 
 
 def override_predict(self: Any, prompt: BasePromptTemplate, **prompt_args: Any) -> str:

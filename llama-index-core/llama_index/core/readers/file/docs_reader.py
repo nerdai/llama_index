@@ -8,8 +8,8 @@ import zlib
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from llama_index.readers.base import BaseReader
-from llama_index.schema import Document
+from llama_index.core.readers.base import BaseReader
+from llama_index.core.schema import Document
 
 
 class PDFReader(BaseReader):

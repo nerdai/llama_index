@@ -3,11 +3,16 @@
 from typing import Any, Dict, List, Optional, Sequence, Type, cast
 
 from llama_index.core.base_query_engine import BaseQueryEngine
-from llama_index.data_structs.data_structs import IndexStruct
-from llama_index.indices.base import BaseIndex
-from llama_index.schema import IndexNode, NodeRelationship, ObjectType, RelatedNodeInfo
-from llama_index.service_context import ServiceContext
-from llama_index.storage.storage_context import StorageContext
+from llama_index.core.data_structs.data_structs import IndexStruct
+from llama_index.core.indices.base import BaseIndex
+from llama_index.core.schema import (
+    IndexNode,
+    NodeRelationship,
+    ObjectType,
+    RelatedNodeInfo,
+)
+from llama_index.core.service_context import ServiceContext
+from llama_index.core.storage.storage_context import StorageContext
 
 
 class ComposableGraph:
@@ -121,7 +126,7 @@ class ComposableGraph:
 
     def as_query_engine(self, **kwargs: Any) -> BaseQueryEngine:
         # NOTE: lazy import
-        from llama_index.query_engine.graph_query_engine import (
+        from llama_index.core.query_engine.graph_query_engine import (
             ComposableGraphQueryEngine,
         )
 

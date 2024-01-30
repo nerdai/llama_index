@@ -2,11 +2,23 @@ import logging
 from threading import Thread
 from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional, Sequence, Union
 
-from llama_index.bridge.pydantic import Field, PrivateAttr
-from llama_index.callbacks import CallbackManager
-from llama_index.constants import (
+from llama_index.core.bridge.pydantic import Field, PrivateAttr
+from llama_index.core.callbacks import CallbackManager
+from llama_index.core.constants import (
     DEFAULT_CONTEXT_WINDOW,
     DEFAULT_NUM_OUTPUTS,
+)
+from llama_index.core.llms.callbacks import (
+    llm_chat_callback,
+    llm_completion_callback,
+)
+from llama_index.core.llms.custom import CustomLLM
+from llama_index.core.llms.generic_utils import (
+    completion_response_to_chat_response,
+    stream_completion_response_to_chat_response,
+)
+from llama_index.core.llms.generic_utils import (
+    messages_to_prompt as generic_messages_to_prompt,
 )
 from llama_index.core.llms.types import (
     ChatMessage,
@@ -19,20 +31,8 @@ from llama_index.core.llms.types import (
     LLMMetadata,
     MessageRole,
 )
-from llama_index.llms.base import (
-    llm_chat_callback,
-    llm_completion_callback,
-)
-from llama_index.llms.custom import CustomLLM
-from llama_index.llms.generic_utils import (
-    completion_response_to_chat_response,
-    stream_completion_response_to_chat_response,
-)
-from llama_index.llms.generic_utils import (
-    messages_to_prompt as generic_messages_to_prompt,
-)
-from llama_index.prompts.base import PromptTemplate
-from llama_index.types import BaseOutputParser, PydanticProgramMode
+from llama_index.core.prompts.base import PromptTemplate
+from llama_index.core.types import BaseOutputParser, PydanticProgramMode
 
 DEFAULT_HUGGINGFACE_MODEL = "StabilityAI/stablelm-tuned-alpha-3b"
 if TYPE_CHECKING:

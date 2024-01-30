@@ -2,9 +2,9 @@
 from typing import Type, cast
 
 import pytest
-from llama_index.bridge.pydantic import BaseModel
-from llama_index.query_engine.custom import CustomQueryEngine
-from llama_index.tools.query_engine import QueryEngineTool
+from llama_index.core.bridge.pydantic import BaseModel
+from llama_index.core.query_engine.custom import CustomQueryEngine
+from llama_index.core.tools.query_engine import QueryEngineTool
 
 
 class MockQueryEngine(CustomQueryEngine):

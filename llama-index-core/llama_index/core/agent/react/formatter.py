@@ -3,14 +3,17 @@
 from abc import abstractmethod
 from typing import List, Optional, Sequence
 
-from llama_index.agent.react.prompts import (
+from llama_index.core.agent.react.prompts import (
     CONTEXT_REACT_CHAT_SYSTEM_HEADER,
     REACT_CHAT_SYSTEM_HEADER,
 )
-from llama_index.agent.react.types import BaseReasoningStep, ObservationReasoningStep
-from llama_index.bridge.pydantic import BaseModel
+from llama_index.core.agent.react.types import (
+    BaseReasoningStep,
+    ObservationReasoningStep,
+)
+from llama_index.core.bridge.pydantic import BaseModel
 from llama_index.core.llms.types import ChatMessage, MessageRole
-from llama_index.tools import BaseTool
+from llama_index.core.tools import BaseTool
 
 
 def get_react_tool_descriptions(tools: Sequence[BaseTool]) -> List[str]:

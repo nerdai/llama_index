@@ -4,14 +4,14 @@ from typing import Any, Dict, List, Optional, Sequence, Tuple, cast
 import pandas as pd
 from tqdm import tqdm
 
-from llama_index.bridge.pydantic import BaseModel, Field, ValidationError
-from llama_index.callbacks.base import CallbackManager
+from llama_index.core.bridge.pydantic import BaseModel, Field, ValidationError
+from llama_index.core.callbacks.base import CallbackManager
+from llama_index.core.llms.llm import LLM
+from llama_index.core.llms.openai import OpenAI
+from llama_index.core.node_parser.interface import NodeParser
 from llama_index.core.response.schema import PydanticResponse
-from llama_index.llms.llm import LLM
-from llama_index.llms.openai import OpenAI
-from llama_index.node_parser.interface import NodeParser
-from llama_index.schema import BaseNode, Document, IndexNode, TextNode
-from llama_index.utils import get_tqdm_iterable
+from llama_index.core.schema import BaseNode, Document, IndexNode, TextNode
+from llama_index.core.utils import get_tqdm_iterable
 
 DEFAULT_SUMMARY_QUERY_STR = """\
 What is this table about? Give a very concise summary (imagine you are adding a caption), \
@@ -124,8 +124,8 @@ class BaseElementNodeParser(NodeParser):
 
     def extract_table_summaries(self, elements: List[Element]) -> None:
         """Go through elements, extract out summaries that are tables."""
-        from llama_index.indices.list.base import SummaryIndex
-        from llama_index.service_context import ServiceContext
+        from llama_index.core.indices.list.base import SummaryIndex
+        from llama_index.core.service_context import ServiceContext
 
         llm = self.llm or OpenAI()
         llm = cast(LLM, llm)
@@ -203,7 +203,7 @@ class BaseElementNodeParser(NodeParser):
 
     def get_nodes_from_elements(self, elements: List[Element]) -> List[BaseNode]:
         """Get nodes and mappings."""
-        from llama_index.node_parser import SentenceSplitter
+        from llama_index.core.node_parser import SentenceSplitter
 
         node_parser = SentenceSplitter()
 

@@ -1,5 +1,5 @@
-from llama_index.node_parser.file.html import HTMLNodeParser
-from llama_index.schema import Document
+from llama_index.core.node_parser.file.html import HTMLNodeParser
+from llama_index.core.schema import Document
 
 
 def test_no_splits() -> None:

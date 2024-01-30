@@ -5,12 +5,11 @@ from typing import Any, List, Optional
 
 import openai
 import pytest
+from llama_index.core.llms.mock import MockLLM
 from llama_index.core.llms.types import LLMMetadata
-from llama_index.llm_predictor.base import LLMPredictor
-from llama_index.llms.mock import MockLLM
-from llama_index.node_parser.text import SentenceSplitter, TokenTextSplitter
-from llama_index.service_context import ServiceContext
-
+from llama_index.core.node_parser.text import SentenceSplitter, TokenTextSplitter
+from llama_index.core.service_context import ServiceContext
+from llama_index.core.service_context_elements.llm_predictor import LLMPredictor
 from tests.indices.vector_store.mock_services import MockEmbedding
 from tests.mock_utils.mock_predict import (
     patch_llmpredictor_apredict,

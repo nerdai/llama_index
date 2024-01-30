@@ -11,44 +11,46 @@ from typing import (
     cast,
 )
 
-from llama_index.agent.react.formatter import ReActChatFormatter
-from llama_index.agent.react.output_parser import ReActOutputParser
-from llama_index.agent.react.types import (
+from llama_index.core.agent.react.formatter import ReActChatFormatter
+from llama_index.core.agent.react.output_parser import ReActOutputParser
+from llama_index.core.agent.react.types import (
     ActionReasoningStep,
     BaseReasoningStep,
     ObservationReasoningStep,
     ResponseReasoningStep,
 )
-from llama_index.agent.react_multimodal.prompts import REACT_MM_CHAT_SYSTEM_HEADER
-from llama_index.agent.types import (
+from llama_index.core.agent.react_multimodal.prompts import (
+    REACT_MM_CHAT_SYSTEM_HEADER,
+)
+from llama_index.core.agent.types import (
     BaseAgentWorker,
     Task,
     TaskStep,
     TaskStepOutput,
 )
-from llama_index.callbacks import (
+from llama_index.core.callbacks import (
     CallbackManager,
     CBEventType,
     EventPayload,
     trace_method,
 )
-from llama_index.chat_engine.types import (
+from llama_index.core.chat_engine.types import (
     AGENT_CHAT_RESPONSE_TYPE,
     AgentChatResponse,
 )
+from llama_index.core.llms.base import ChatMessage, ChatResponse
 from llama_index.core.llms.types import MessageRole
-from llama_index.llms.base import ChatMessage, ChatResponse
-from llama_index.memory.chat_memory_buffer import ChatMemoryBuffer
-from llama_index.memory.types import BaseMemory
-from llama_index.multi_modal_llms.base import MultiModalLLM
-from llama_index.multi_modal_llms.openai import OpenAIMultiModal
-from llama_index.multi_modal_llms.openai_utils import (
+from llama_index.core.memory.chat_memory_buffer import ChatMemoryBuffer
+from llama_index.core.memory.types import BaseMemory
+from llama_index.core.multi_modal_llms.base import MultiModalLLM
+from llama_index.core.multi_modal_llms.openai import OpenAIMultiModal
+from llama_index.core.multi_modal_llms.openai_utils import (
     generate_openai_multi_modal_chat_message,
 )
-from llama_index.objects.base import ObjectRetriever
-from llama_index.tools import BaseTool, ToolOutput, adapt_to_async_tool
-from llama_index.tools.types import AsyncBaseTool
-from llama_index.utils import print_text
+from llama_index.core.objects.base import ObjectRetriever
+from llama_index.core.tools import BaseTool, ToolOutput, adapt_to_async_tool
+from llama_index.core.tools.types import AsyncBaseTool
+from llama_index.core.utils import print_text
 
 DEFAULT_MODEL_NAME = "gpt-3.5-turbo-0613"
 

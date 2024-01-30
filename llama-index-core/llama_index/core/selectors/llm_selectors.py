@@ -1,21 +1,25 @@
 from typing import Any, Dict, List, Optional, Sequence, cast
 
-from llama_index.llm_predictor.base import LLMPredictorType
-from llama_index.output_parsers.base import StructuredOutput
-from llama_index.output_parsers.selection import Answer, SelectionOutputParser
-from llama_index.prompts.mixin import PromptDictType
-from llama_index.prompts.prompt_type import PromptType
-from llama_index.schema import QueryBundle
-from llama_index.selectors.prompts import (
+from llama_index.core.output_parsers.base import StructuredOutput
+from llama_index.core.output_parsers.selection import Answer, SelectionOutputParser
+from llama_index.core.prompts.mixin import PromptDictType
+from llama_index.core.prompts.prompt_type import PromptType
+from llama_index.core.schema import QueryBundle
+from llama_index.core.selectors.prompts import (
     DEFAULT_MULTI_SELECT_PROMPT_TMPL,
     DEFAULT_SINGLE_SELECT_PROMPT_TMPL,
     MultiSelectPrompt,
     SingleSelectPrompt,
 )
-from llama_index.selectors.types import BaseSelector, SelectorResult, SingleSelection
-from llama_index.service_context import ServiceContext
-from llama_index.tools.types import ToolMetadata
-from llama_index.types import BaseOutputParser
+from llama_index.core.selectors.types import (
+    BaseSelector,
+    SelectorResult,
+    SingleSelection,
+)
+from llama_index.core.service_context import ServiceContext
+from llama_index.core.service_context_elements.llm_predictor import LLMPredictorType
+from llama_index.core.tools.types import ToolMetadata
+from llama_index.core.types import BaseOutputParser
 
 
 def _build_choices_text(choices: Sequence[ToolMetadata]) -> str:

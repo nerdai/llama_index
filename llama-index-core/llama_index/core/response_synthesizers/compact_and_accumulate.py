@@ -1,8 +1,8 @@
 from typing import Any, Sequence
 
-from llama_index.response_synthesizers import Accumulate
-from llama_index.types import RESPONSE_TEXT_TYPE
-from llama_index.utils import temp_set_attrs
+from llama_index.core.response_synthesizers import Accumulate
+from llama_index.core.types import RESPONSE_TEXT_TYPE
+from llama_index.core.utils import temp_set_attrs
 
 
 class CompactAndAccumulate(Accumulate):

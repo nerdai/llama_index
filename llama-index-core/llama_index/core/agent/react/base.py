@@ -4,7 +4,7 @@ Simple wrapper around AgentRunner + ReActAgentWorker.
 
 For the legacy implementation see:
 ```python
-from llama_index.agent.legacy.react.base import ReActAgent
+from llama_index.core.agent.legacy.react.base import ReActAgent
 ```
 
 """
@@ -16,20 +16,20 @@ from typing import (
     Type,
 )
 
-from llama_index.agent.react.formatter import ReActChatFormatter
-from llama_index.agent.react.output_parser import ReActOutputParser
-from llama_index.agent.react.step import ReActAgentWorker
-from llama_index.agent.runner.base import AgentRunner
-from llama_index.callbacks import (
+from llama_index.core.agent.react.formatter import ReActChatFormatter
+from llama_index.core.agent.react.output_parser import ReActOutputParser
+from llama_index.core.agent.react.step import ReActAgentWorker
+from llama_index.core.agent.runner.base import AgentRunner
+from llama_index.core.callbacks import (
     CallbackManager,
 )
+from llama_index.core.llms.llm import LLM
+from llama_index.core.llms.openai import OpenAI
 from llama_index.core.llms.types import ChatMessage
-from llama_index.llms.llm import LLM
-from llama_index.llms.openai import OpenAI
-from llama_index.memory.chat_memory_buffer import ChatMemoryBuffer
-from llama_index.memory.types import BaseMemory
-from llama_index.objects.base import ObjectRetriever
-from llama_index.tools import BaseTool
+from llama_index.core.memory.chat_memory_buffer import ChatMemoryBuffer
+from llama_index.core.memory.types import BaseMemory
+from llama_index.core.objects.base import ObjectRetriever
+from llama_index.core.tools import BaseTool
 
 DEFAULT_MODEL_NAME = "gpt-3.5-turbo-0613"
 
@@ -41,7 +41,7 @@ class ReActAgent(AgentRunner):
 
     For the legacy implementation see:
     ```python
-    from llama_index.agent.legacy.react.base import ReActAgent
+    from llama_index.core.agent.legacy.react.base import ReActAgent
     ```
 
     """

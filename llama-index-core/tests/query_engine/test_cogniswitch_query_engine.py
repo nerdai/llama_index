@@ -2,8 +2,10 @@ from typing import Any
 from unittest.mock import patch
 
 import pytest
+from llama_index.core.query_engine.cogniswitch_query_engine import (
+    CogniswitchQueryEngine,
+)
 from llama_index.core.response.schema import Response
-from llama_index.query_engine.cogniswitch_query_engine import CogniswitchQueryEngine
 
 
 @pytest.fixture()

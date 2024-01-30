@@ -4,14 +4,14 @@ from typing import Any, Dict, Optional, cast
 
 from sqlalchemy import Table
 
-from llama_index.data_structs.table import StructDatapoint
-from llama_index.indices.common.struct_store.base import (
+from llama_index.core.data_structs.table import StructDatapoint
+from llama_index.core.indices.common.struct_store.base import (
     OUTPUT_PARSER_TYPE,
     BaseStructDatapointExtractor,
 )
-from llama_index.llm_predictor.base import LLMPredictorType
-from llama_index.prompts import BasePromptTemplate
-from llama_index.utilities.sql_wrapper import SQLDatabase
+from llama_index.core.prompts import BasePromptTemplate
+from llama_index.core.service_context_elements.llm_predictor import LLMPredictorType
+from llama_index.core.utilities.sql_wrapper import SQLDatabase
 
 
 class SQLStructDatapointExtractor(BaseStructDatapointExtractor):

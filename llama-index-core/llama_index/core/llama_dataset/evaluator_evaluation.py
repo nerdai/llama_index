@@ -6,13 +6,13 @@ from typing import List, Optional
 
 from pandas import DataFrame as PandasDataFrame
 
-from llama_index.bridge.pydantic import Field
-from llama_index.evaluation import (
+from llama_index.core.bridge.pydantic import Field
+from llama_index.core.evaluation import (
     BaseEvaluator,
     EvaluationResult,
 )
-from llama_index.evaluation.pairwise import EvaluationSource
-from llama_index.llama_dataset.base import (
+from llama_index.core.evaluation.pairwise import EvaluationSource
+from llama_index.core.llama_dataset.base import (
     BaseLlamaDataExample,
     BaseLlamaDataset,
     BaseLlamaExamplePrediction,

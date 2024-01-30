@@ -4,27 +4,15 @@
 from typing import Any
 
 import pytest
+from llama_index.core.llms.mock import MockLLM
 from llama_index.core.llms.types import ChatMessage, MessageRole
-from llama_index.llms import MockLLM
-from llama_index.prompts import (
+from llama_index.core.prompts import (
     ChatPromptTemplate,
-    LangchainPromptTemplate,
     PromptTemplate,
     SelectorPromptTemplate,
 )
-from llama_index.prompts.prompt_type import PromptType
-from llama_index.types import BaseOutputParser
-
-try:
-    import langchain
-    from llama_index.bridge.langchain import BaseLanguageModel, FakeListLLM
-    from llama_index.bridge.langchain import (
-        ConditionalPromptSelector as LangchainSelector,
-    )
-    from llama_index.bridge.langchain import PromptTemplate as LangchainTemplate
-    from llama_index.llms.langchain import LangChainLLM
-except ImportError:
-    langchain = None  # type: ignore
+from llama_index.core.prompts.prompt_type import PromptType
+from llama_index.core.types import BaseOutputParser
 
 
 class MockOutputParser(BaseOutputParser):
@@ -145,52 +133,6 @@ def test_selector_template() -> None:
     assert messages[0] == ChatMessage(
         content="This is a system message with a sys_arg", role=MessageRole.SYSTEM
     )
-
-
-@pytest.mark.skipif(langchain is None, reason="langchain not installed")
-def test_langchain_template() -> None:
-    lc_template = LangchainTemplate.from_template("hello {text} {foo}")
-    template = LangchainPromptTemplate(lc_template)
-
-    template_fmt = template.partial_format(foo="bar")
-    assert isinstance(template, LangchainPromptTemplate)
-
-    assert template_fmt.format(text="world") == "hello world bar"
-
-    assert template_fmt.format_messages(text="world") == [
-        ChatMessage(content="hello world bar", role=MessageRole.USER)
-    ]
-
-    ## check with more fields set + partial format
-    template_2 = LangchainPromptTemplate(
-        lc_template, template_var_mappings={"text2": "text"}
-    )
-    template_2_partial = template_2.partial_format(foo="bar")
-    assert template_2_partial.format(text2="world2") == "hello world2 bar"
-
-
-@pytest.mark.skipif(langchain is None, reason="langchain not installed")
-def test_langchain_selector_template() -> None:
-    lc_llm = FakeListLLM(responses=["test"])
-    mock_llm = LangChainLLM(llm=lc_llm)
-
-    def is_mock(llm: BaseLanguageModel) -> bool:
-        return llm == lc_llm
-
-    default_lc_template = LangchainTemplate.from_template("hello {text} {foo}")
-    conditionals = [
-        (is_mock, LangchainTemplate.from_template("hello {text} {foo} mock")),
-    ]
-
-    lc_selector = LangchainSelector(
-        default_prompt=default_lc_template, conditionals=conditionals
-    )
-    template = LangchainPromptTemplate(selector=lc_selector)
-
-    template_fmt = template.partial_format(foo="bar")
-    assert isinstance(template, LangchainPromptTemplate)
-
-    assert template_fmt.format(llm=mock_llm, text="world") == "hello world bar mock"
 
 
 def test_template_var_mappings() -> None:

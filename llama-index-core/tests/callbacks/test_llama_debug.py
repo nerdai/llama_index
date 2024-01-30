@@ -1,8 +1,8 @@
 """Embeddings."""
 
-from llama_index.callbacks.base import CallbackManager
-from llama_index.callbacks.llama_debug import LlamaDebugHandler
-from llama_index.callbacks.schema import CBEventType
+from llama_index.core.callbacks.base import CallbackManager
+from llama_index.core.callbacks.llama_debug import LlamaDebugHandler
+from llama_index.core.callbacks.schema import CBEventType
 
 TEST_PAYLOAD = {"one": 1, "two": 2}
 TEST_ID = "my id"

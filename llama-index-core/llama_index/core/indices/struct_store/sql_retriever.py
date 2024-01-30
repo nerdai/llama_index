@@ -7,20 +7,20 @@ from typing import Any, Callable, Dict, List, Optional, Tuple, Union, cast
 
 from sqlalchemy import Table
 
-from llama_index.callbacks.base import CallbackManager
 from llama_index.core.base_retriever import BaseRetriever
-from llama_index.embeddings.base import BaseEmbedding
-from llama_index.llms.utils import LLMType
-from llama_index.objects.base import ObjectRetriever
-from llama_index.objects.table_node_mapping import SQLTableSchema
-from llama_index.prompts import BasePromptTemplate
-from llama_index.prompts.default_prompts import (
+from llama_index.core.callbacks.base import CallbackManager
+from llama_index.core.embeddings.base import BaseEmbedding
+from llama_index.core.llms.utils import LLMType
+from llama_index.core.objects.base import ObjectRetriever
+from llama_index.core.objects.table_node_mapping import SQLTableSchema
+from llama_index.core.prompts import BasePromptTemplate
+from llama_index.core.prompts.default_prompts import (
     DEFAULT_TEXT_TO_SQL_PROMPT,
 )
-from llama_index.prompts.mixin import PromptDictType, PromptMixin, PromptMixinType
-from llama_index.schema import NodeWithScore, QueryBundle, QueryType, TextNode
-from llama_index.service_context import ServiceContext
-from llama_index.utilities.sql_wrapper import SQLDatabase
+from llama_index.core.prompts.mixin import PromptDictType, PromptMixin, PromptMixinType
+from llama_index.core.schema import NodeWithScore, QueryBundle, QueryType, TextNode
+from llama_index.core.service_context import ServiceContext
+from llama_index.core.utilities.sql_wrapper import SQLDatabase
 
 logger = logging.getLogger(__name__)
 

@@ -2,13 +2,13 @@
 
 from typing import Any, Dict, List, Tuple
 
-from llama_index.indices.list.base import SummaryIndex
-from llama_index.indices.struct_store.sql import (
+from llama_index.core.indices.list.base import SummaryIndex
+from llama_index.core.indices.struct_store.sql import (
     SQLContextContainerBuilder,
     SQLStructStoreIndex,
 )
-from llama_index.indices.struct_store.sql_query import NLStructStoreQueryEngine
-from llama_index.schema import (
+from llama_index.core.indices.struct_store.sql_query import NLStructStoreQueryEngine
+from llama_index.core.schema import (
     BaseNode,
     Document,
     NodeRelationship,
@@ -16,8 +16,8 @@ from llama_index.schema import (
     RelatedNodeInfo,
     TextNode,
 )
-from llama_index.service_context import ServiceContext
-from llama_index.utilities.sql_wrapper import SQLDatabase
+from llama_index.core.service_context import ServiceContext
+from llama_index.core.utilities.sql_wrapper import SQLDatabase
 from sqlalchemy import (
     Column,
     Integer,
@@ -28,7 +28,6 @@ from sqlalchemy import (
     delete,
     select,
 )
-
 from tests.mock_utils.mock_prompts import MOCK_TABLE_CONTEXT_PROMPT
 
 

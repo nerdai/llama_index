@@ -5,13 +5,13 @@ from abc import abstractmethod
 from enum import Enum
 from typing import Any, Dict, List, Optional, Tuple
 
-from llama_index.bridge.pydantic import BaseModel, Field
-from llama_index.evaluation.retrieval.metrics import resolve_metrics
-from llama_index.evaluation.retrieval.metrics_base import (
+from llama_index.core.bridge.pydantic import BaseModel, Field
+from llama_index.core.evaluation.retrieval.metrics import resolve_metrics
+from llama_index.core.evaluation.retrieval.metrics_base import (
     BaseRetrievalMetric,
     RetrievalMetricResult,
 )
-from llama_index.finetuning.embeddings.common import EmbeddingQAFinetuneDataset
+from llama_index.core.llama_dataset.legacy.embedding import EmbeddingQAFinetuneDataset
 
 
 class RetrievalEvalMode(str, Enum):

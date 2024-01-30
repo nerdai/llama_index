@@ -1,15 +1,17 @@
 import logging
 from typing import Optional
 
-from llama_index.callbacks.base import CallbackManager
 from llama_index.core.base_query_engine import BaseQueryEngine
+from llama_index.core.callbacks.base import CallbackManager
+from llama_index.core.evaluation import BaseEvaluator
+from llama_index.core.indices.list.base import SummaryIndex
+from llama_index.core.prompts.mixin import PromptMixinType
+from llama_index.core.query_engine.retriever_query_engine import (
+    RetrieverQueryEngine,
+)
 from llama_index.core.response.schema import RESPONSE_TYPE, Response
-from llama_index.evaluation import BaseEvaluator
-from llama_index.indices.list.base import SummaryIndex
-from llama_index.prompts.mixin import PromptMixinType
-from llama_index.query_engine.retriever_query_engine import RetrieverQueryEngine
-from llama_index.schema import Document, QueryBundle
-from llama_index.service_context import ServiceContext
+from llama_index.core.schema import Document, QueryBundle
+from llama_index.core.service_context import ServiceContext
 
 logger = logging.getLogger(__name__)
 

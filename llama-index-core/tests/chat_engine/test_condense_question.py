@@ -1,10 +1,10 @@
 from unittest.mock import Mock
 
-from llama_index.chat_engine.condense_question import CondenseQuestionChatEngine
 from llama_index.core.base_query_engine import BaseQueryEngine
+from llama_index.core.chat_engine.condense_question import CondenseQuestionChatEngine
 from llama_index.core.llms.types import ChatMessage, MessageRole
 from llama_index.core.response.schema import Response
-from llama_index.service_context import ServiceContext
+from llama_index.core.service_context import ServiceContext
 
 
 def test_condense_question_chat_engine(

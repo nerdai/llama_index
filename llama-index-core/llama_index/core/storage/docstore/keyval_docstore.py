@@ -2,13 +2,13 @@
 
 from typing import Dict, List, Optional, Sequence, Tuple
 
-from llama_index.schema import BaseNode, TextNode
-from llama_index.storage.docstore.types import (
+from llama_index.core.schema import BaseNode, TextNode
+from llama_index.core.storage.docstore.types import (
     BaseDocumentStore,
     RefDocInfo,
 )
-from llama_index.storage.docstore.utils import doc_to_json, json_to_doc
-from llama_index.storage.kvstore.types import DEFAULT_BATCH_SIZE, BaseKVStore
+from llama_index.core.storage.docstore.utils import doc_to_json, json_to_doc
+from llama_index.core.storage.kvstore.types import DEFAULT_BATCH_SIZE, BaseKVStore
 
 DEFAULT_NAMESPACE = "docstore"
 

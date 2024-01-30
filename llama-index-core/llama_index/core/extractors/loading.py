@@ -1,6 +1,5 @@
-from llama_index.extractors.metadata_extractors import (
+from llama_index.core.extractors.metadata_extractors import (
     BaseExtractor,
-    EntityExtractor,
     KeywordExtractor,
     QuestionsAnsweredExtractor,
     SummaryExtractor,
@@ -22,8 +21,6 @@ def load_extractor(
         return SummaryExtractor.from_dict(data)
     elif extractor_name == QuestionsAnsweredExtractor.class_name():
         return QuestionsAnsweredExtractor.from_dict(data)
-    elif extractor_name == EntityExtractor.class_name():
-        return EntityExtractor.from_dict(data)
     elif extractor_name == TitleExtractor.class_name():
         return TitleExtractor.from_dict(data)
     elif extractor_name == KeywordExtractor.class_name():
