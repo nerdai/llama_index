@@ -1,6 +1,8 @@
 """Finetuning modules."""
 
-from llama_index.finetuning.embeddings.adapter import EmbeddingAdapterFinetuneEngine
+from llama_index.finetuning.embeddings.adapter import (
+    EmbeddingAdapterFinetuneEngine,
+)
 from llama_index.finetuning.embeddings.common import (
     EmbeddingQAFinetuneDataset,
     generate_qa_embedding_pairs,
