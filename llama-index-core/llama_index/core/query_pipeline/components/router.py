@@ -15,7 +15,6 @@ from llama_index.core.query_pipeline.components.query import (
 )
 from llama_index.core.base_selector import BaseSelector
 from llama_index.core.utils import print_text
-from llama_index.core.utils import print_text
 
 
 class SelectorComponent(QueryComponent):
