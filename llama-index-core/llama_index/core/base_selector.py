@@ -107,6 +107,8 @@ class BaseSelector(PromptMixin, ChainableMixin):
 
     def _as_query_component(self, **kwargs: Any) -> QueryComponent:
         """As query component."""
-        from llama_index.core.query_pipeline.components.router import SelectorComponent
+        from llama_index.core.query_pipeline.components.router import (
+            SelectorComponent,
+        )
 
         return SelectorComponent(selector=self)

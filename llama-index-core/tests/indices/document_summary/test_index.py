@@ -1,14 +1,9 @@
 """Test document summary index."""
 from typing import List
 
-<<<<<<< HEAD:llama-index-core/tests/indices/document_summary/test_index.py
+import pytest
 from llama_index.core.indices.document_summary.base import DocumentSummaryIndex
 from llama_index.core.schema import Document
-=======
-import pytest
-from llama_index.indices.document_summary.base import DocumentSummaryIndex
-from llama_index.schema import Document
->>>>>>> main:tests/indices/document_summary/test_index.py
 
 
 def test_build_index(

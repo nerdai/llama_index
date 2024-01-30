@@ -1,7 +1,9 @@
 from typing import Any, Generator, Optional, Sequence, cast
 
 from llama_index.core.prompts import BasePromptTemplate
-from llama_index.core.prompts.default_prompt_selectors import DEFAULT_TEXT_QA_PROMPT_SEL
+from llama_index.core.prompts.default_prompt_selectors import (
+    DEFAULT_TEXT_QA_PROMPT_SEL,
+)
 from llama_index.core.prompts.mixin import PromptDictType
 from llama_index.core.response_synthesizers.base import BaseSynthesizer
 from llama_index.core.service_context import ServiceContext

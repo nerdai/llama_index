@@ -4,7 +4,10 @@ from llama_index.core.indices.vector_store.retrievers.auto_retriever.output_pars
     VectorStoreQueryOutputParser,
 )
 from llama_index.core.output_parsers.base import StructuredOutput
-from llama_index.core.vector_stores.types import ExactMatchFilter, VectorStoreQuerySpec
+from llama_index.core.vector_stores.types import (
+    ExactMatchFilter,
+    VectorStoreQuerySpec,
+)
 
 
 def test_output_parser() -> None:

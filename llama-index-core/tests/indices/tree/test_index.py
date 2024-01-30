@@ -89,7 +89,8 @@ OUTPUTS = [
 
 
 @patch(
-    "llama_index.core.indices.common_tree.base.run_async_tasks", side_effect=[OUTPUTS]
+    "llama_index.core.indices.common_tree.base.run_async_tasks",
+    side_effect=[OUTPUTS],
 )
 def test_build_tree_async(
     _mock_run_async_tasks: Any,

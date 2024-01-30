@@ -7,7 +7,9 @@ import pytest
 from llama_index.core.data_structs.data_structs import IndexStruct
 from llama_index.core.embeddings.base import BaseEmbedding
 from llama_index.core.indices.composability.graph import ComposableGraph
-from llama_index.core.indices.keyword_table.simple_base import SimpleKeywordTableIndex
+from llama_index.core.indices.keyword_table.simple_base import (
+    SimpleKeywordTableIndex,
+)
 from llama_index.core.indices.vector_store.base import VectorStoreIndex
 from llama_index.core.schema import Document
 from llama_index.core.service_context import ServiceContext

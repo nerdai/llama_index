@@ -14,7 +14,9 @@ from llama_index.core.graph_stores.simple import SimpleGraphStore
 from llama_index.core.graph_stores.types import GraphStore
 from llama_index.core.indices.base import BaseIndex
 from llama_index.core.prompts import BasePromptTemplate
-from llama_index.core.prompts.default_prompts import DEFAULT_KG_TRIPLET_EXTRACT_PROMPT
+from llama_index.core.prompts.default_prompts import (
+    DEFAULT_KG_TRIPLET_EXTRACT_PROMPT,
+)
 from llama_index.core.schema import BaseNode, IndexNode, MetadataMode
 from llama_index.core.service_context import ServiceContext
 from llama_index.core.storage.docstore.types import RefDocInfo

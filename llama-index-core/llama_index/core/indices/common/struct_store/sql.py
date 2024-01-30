@@ -10,7 +10,9 @@ from llama_index.core.indices.common.struct_store.base import (
     BaseStructDatapointExtractor,
 )
 from llama_index.core.prompts import BasePromptTemplate
-from llama_index.core.service_context_elements.llm_predictor import LLMPredictorType
+from llama_index.core.service_context_elements.llm_predictor import (
+    LLMPredictorType,
+)
 from llama_index.core.utilities.sql_wrapper import SQLDatabase
 
 

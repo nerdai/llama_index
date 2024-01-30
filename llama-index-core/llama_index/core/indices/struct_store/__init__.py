@@ -1,7 +1,10 @@
 """Structured store indices."""
 
 from llama_index.core.indices.struct_store.json_query import JSONQueryEngine
-from llama_index.core.indices.struct_store.pandas import GPTPandasIndex, PandasIndex
+from llama_index.core.indices.struct_store.pandas import (
+    GPTPandasIndex,
+    PandasIndex,
+)
 from llama_index.core.indices.struct_store.sql import (
     GPTSQLStructStoreIndex,
     SQLContextContainerBuilder,

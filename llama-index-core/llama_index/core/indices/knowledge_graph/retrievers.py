@@ -6,7 +6,9 @@ from typing import Any, Callable, Dict, List, Optional, Set, Tuple
 
 from llama_index.core.base_retriever import BaseRetriever
 from llama_index.core.callbacks.base import CallbackManager
-from llama_index.core.indices.keyword_table.utils import extract_keywords_given_response
+from llama_index.core.indices.keyword_table.utils import (
+    extract_keywords_given_response,
+)
 from llama_index.core.indices.knowledge_graph.base import KnowledgeGraphIndex
 from llama_index.core.indices.query.embedding_utils import get_top_k_embeddings
 from llama_index.core.prompts import BasePromptTemplate, PromptTemplate, PromptType

@@ -13,7 +13,7 @@ class StringIterableReader(BasePydanticReader):
     Example:
         .. code-block:: python
 
-            from llama_index.legacy import StringIterableReader, TreeIndex
+            from llama_index.core.legacy import StringIterableReader, TreeIndex
 
             documents = StringIterableReader().load_data(
                 texts=["I went to the store", "I bought an apple"]

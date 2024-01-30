@@ -12,7 +12,7 @@ from llama_index.core.chat_engine.types import (
 )
 from llama_index.core.llms.types import ChatMessage
 from llama_index.core.memory.types import BaseMemory
-from llama_index.core.prompts.mixin import PromptDictType, PromptMixinType
+from llama_index.core.prompts.mixin import PromptDictType, PromptMixin, PromptMixinType
 from llama_index.core.response.schema import RESPONSE_TYPE, Response
 from llama_index.core.schema import QueryBundle
 

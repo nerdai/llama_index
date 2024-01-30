@@ -7,7 +7,11 @@ from llama_index.core.embeddings.base import BaseEmbedding
 from llama_index.core.indices.list.base import SummaryIndex
 from llama_index.core.indices.tree.base import TreeIndex
 from llama_index.core.indices.vector_store.base import VectorStoreIndex
-from llama_index.core.playground import DEFAULT_INDEX_CLASSES, DEFAULT_MODES, Playground
+from llama_index.core.playground import (
+    DEFAULT_INDEX_CLASSES,
+    DEFAULT_MODES,
+    Playground,
+)
 from llama_index.core.schema import Document
 from llama_index.core.service_context import ServiceContext
 

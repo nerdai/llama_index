@@ -22,7 +22,10 @@ from llama_index.core.query_pipeline.components.query import (
     validate_and_convert_stringable,
 )
 from llama_index.core.schema import QueryType
-from llama_index.core.storage.storage_context import DEFAULT_PERSIST_DIR, StorageContext
+from llama_index.core.storage.storage_context import (
+    DEFAULT_PERSIST_DIR,
+    StorageContext,
+)
 
 OT = TypeVar("OT")
 

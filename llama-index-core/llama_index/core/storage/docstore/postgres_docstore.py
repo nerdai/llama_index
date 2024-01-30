@@ -1,8 +1,8 @@
 from typing import Optional
 
-from llama_index.storage.docstore.keyval_docstore import KVDocumentStore
-from llama_index.storage.docstore.types import DEFAULT_BATCH_SIZE
-from llama_index.storage.kvstore.postgres_kvstore import PostgresKVStore
+from llama_index.core.storage.docstore.keyval_docstore import KVDocumentStore
+from llama_index.core.storage.docstore.types import DEFAULT_BATCH_SIZE
+from llama_index.core.storage.kvstore.postgres_kvstore import PostgresKVStore
 
 
 class PostgresDocumentStore(KVDocumentStore):

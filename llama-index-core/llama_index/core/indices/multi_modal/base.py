@@ -8,7 +8,10 @@ from typing import Any, List, Optional, Sequence, cast
 
 from llama_index.core.base_query_engine import BaseQueryEngine
 from llama_index.core.base_retriever import BaseRetriever
-from llama_index.core.data_structs.data_structs import IndexDict, MultiModelIndexDict
+from llama_index.core.data_structs.data_structs import (
+    IndexDict,
+    MultiModelIndexDict,
+)
 from llama_index.core.embeddings.multi_modal_base import MultiModalEmbedding
 from llama_index.core.embeddings.utils import EmbedType, resolve_embed_model
 from llama_index.core.indices.utils import (

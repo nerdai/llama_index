@@ -15,7 +15,9 @@ from llama_index.core.response_synthesizers.base import BaseSynthesizer
 from llama_index.core.response_synthesizers.compact_and_accumulate import (
     CompactAndAccumulate,
 )
-from llama_index.core.response_synthesizers.compact_and_refine import CompactAndRefine
+from llama_index.core.response_synthesizers.compact_and_refine import (
+    CompactAndRefine,
+)
 from llama_index.core.response_synthesizers.generation import Generation
 from llama_index.core.response_synthesizers.no_text import NoText
 from llama_index.core.response_synthesizers.refine import Refine

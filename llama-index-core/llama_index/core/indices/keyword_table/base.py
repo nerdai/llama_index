@@ -16,7 +16,9 @@ from llama_index.core.async_utils import run_async_tasks
 from llama_index.core.base_retriever import BaseRetriever
 from llama_index.core.data_structs.data_structs import KeywordTable
 from llama_index.core.indices.base import BaseIndex
-from llama_index.core.indices.keyword_table.utils import extract_keywords_given_response
+from llama_index.core.indices.keyword_table.utils import (
+    extract_keywords_given_response,
+)
 from llama_index.core.prompts import BasePromptTemplate
 from llama_index.core.prompts.default_prompts import (
     DEFAULT_KEYWORD_EXTRACT_TEMPLATE,

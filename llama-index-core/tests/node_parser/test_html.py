@@ -1,13 +1,7 @@
-<<<<<<< HEAD:llama-index-core/tests/node_parser/test_html.py
+import pytest
 from llama_index.core.node_parser.file.html import HTMLNodeParser
 from llama_index.core.schema import Document
-=======
 import importlib.util
-
-import pytest
-from llama_index.node_parser.file.html import HTMLNodeParser
-from llama_index.schema import Document
->>>>>>> main:tests/node_parser/test_html.py
 
 
 @pytest.mark.xfail(

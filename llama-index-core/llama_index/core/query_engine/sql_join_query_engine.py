@@ -19,7 +19,9 @@ from llama_index.core.selectors.llm_selectors import LLMSingleSelector
 from llama_index.core.selectors.pydantic_selectors import PydanticSingleSelector
 from llama_index.core.selectors.utils import get_selector_from_context
 from llama_index.core.service_context import ServiceContext
-from llama_index.core.service_context_elements.llm_predictor import LLMPredictorType
+from llama_index.core.service_context_elements.llm_predictor import (
+    LLMPredictorType,
+)
 from llama_index.core.tools.query_engine import QueryEngineTool
 from llama_index.core.utils import print_text
 

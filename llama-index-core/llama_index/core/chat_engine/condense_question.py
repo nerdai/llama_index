@@ -16,7 +16,9 @@ from llama_index.core.memory import BaseMemory, ChatMemoryBuffer
 from llama_index.core.prompts.base import BasePromptTemplate, PromptTemplate
 from llama_index.core.response.schema import RESPONSE_TYPE, StreamingResponse
 from llama_index.core.service_context import ServiceContext
-from llama_index.core.service_context_elements.llm_predictor import LLMPredictorType
+from llama_index.core.service_context_elements.llm_predictor import (
+    LLMPredictorType,
+)
 from llama_index.core.tools import ToolOutput
 
 logger = logging.getLogger(__name__)

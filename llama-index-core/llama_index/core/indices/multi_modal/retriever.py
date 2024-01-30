@@ -13,7 +13,12 @@ from llama_index.core.embeddings.base import BaseEmbedding
 from llama_index.core.embeddings.multi_modal_base import MultiModalEmbedding
 from llama_index.core.indices.multi_modal.base import MultiModalVectorStoreIndex
 from llama_index.core.indices.utils import log_vector_store_query_result
-from llama_index.core.schema import NodeWithScore, ObjectType, QueryBundle, QueryType
+from llama_index.core.schema import (
+    NodeWithScore,
+    ObjectType,
+    QueryBundle,
+    QueryType,
+)
 from llama_index.core.vector_stores.types import (
     MetadataFilters,
     VectorStore,

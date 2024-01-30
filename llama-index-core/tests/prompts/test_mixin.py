@@ -2,7 +2,11 @@
 
 
 from llama_index.core.prompts.base import PromptTemplate
-from llama_index.core.prompts.mixin import PromptDictType, PromptMixin, PromptMixinType
+from llama_index.core.prompts.mixin import (
+    PromptDictType,
+    PromptMixin,
+    PromptMixinType,
+)
 
 
 class MockObject2(PromptMixin):

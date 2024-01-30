@@ -9,7 +9,9 @@ from llama_index.core.base_query_engine import BaseQueryEngine
 from llama_index.core.base_retriever import BaseRetriever
 from llama_index.core.data_structs.table import SQLStructTable
 from llama_index.core.indices.common.struct_store.schema import SQLContextContainer
-from llama_index.core.indices.common.struct_store.sql import SQLStructDatapointExtractor
+from llama_index.core.indices.common.struct_store.sql import (
+    SQLStructDatapointExtractor,
+)
 from llama_index.core.indices.struct_store.base import BaseStructStoreIndex
 from llama_index.core.indices.struct_store.container_builder import (
     SQLContextContainerBuilder,

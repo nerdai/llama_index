@@ -17,7 +17,9 @@ from llama_index.core.selectors.prompts import (
     SingleSelectPrompt,
 )
 from llama_index.core.service_context import ServiceContext
-from llama_index.core.service_context_elements.llm_predictor import LLMPredictorType
+from llama_index.core.service_context_elements.llm_predictor import (
+    LLMPredictorType,
+)
 from llama_index.core.tools.types import ToolMetadata
 from llama_index.core.types import BaseOutputParser
 

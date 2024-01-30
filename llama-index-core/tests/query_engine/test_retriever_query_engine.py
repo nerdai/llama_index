@@ -7,7 +7,9 @@ from llama_index.core.indices.tree.select_leaf_retriever import (
     TreeSelectLeafRetriever,
 )
 from llama_index.core.llms.openai import OpenAI
-from llama_index.core.query_engine.retriever_query_engine import RetrieverQueryEngine
+from llama_index.core.query_engine.retriever_query_engine import (
+    RetrieverQueryEngine,
+)
 
 
 def test_query_engine_falls_back_to_inheriting_retrievers_service_context() -> None:

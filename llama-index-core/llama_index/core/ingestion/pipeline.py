@@ -17,9 +17,17 @@ from llama_index.core.embeddings.utils import resolve_embed_model
 from llama_index.core.ingestion.cache import DEFAULT_CACHE_NAME, IngestionCache
 from llama_index.core.node_parser import SentenceSplitter
 from llama_index.core.readers.base import ReaderConfig
-from llama_index.core.schema import BaseNode, Document, MetadataMode, TransformComponent
+from llama_index.core.schema import (
+    BaseNode,
+    Document,
+    MetadataMode,
+    TransformComponent,
+)
 from llama_index.core.service_context import ServiceContext
-from llama_index.core.storage.docstore import BaseDocumentStore, SimpleDocumentStore
+from llama_index.core.storage.docstore import (
+    BaseDocumentStore,
+    SimpleDocumentStore,
+)
 from llama_index.core.storage.storage_context import DOCSTORE_FNAME
 from llama_index.core.utils import concat_dirs
 from llama_index.core.vector_stores.types import BasePydanticVectorStore

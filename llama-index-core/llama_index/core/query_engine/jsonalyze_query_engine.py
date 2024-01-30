@@ -5,17 +5,17 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 
 from llama_index.core.base_query_engine import BaseQueryEngine
 from llama_index.core.response.schema import Response
-from llama_index.indices.struct_store.sql_retriever import (
+from llama_index.core.indices.struct_store.sql_retriever import (
     BaseSQLParser,
     DefaultSQLParser,
 )
-from llama_index.prompts import BasePromptTemplate, PromptTemplate
-from llama_index.prompts.default_prompts import DEFAULT_JSONALYZE_PROMPT
-from llama_index.prompts.mixin import PromptDictType, PromptMixinType
-from llama_index.prompts.prompt_type import PromptType
-from llama_index.schema import QueryBundle
-from llama_index.service_context import ServiceContext
-from llama_index.utils import print_text
+from llama_index.core.prompts import BasePromptTemplate, PromptTemplate
+from llama_index.core.prompts.default_prompts import DEFAULT_JSONALYZE_PROMPT
+from llama_index.core.prompts.mixin import PromptDictType, PromptMixinType
+from llama_index.core.prompts.prompt_type import PromptType
+from llama_index.core.schema import QueryBundle
+from llama_index.core.service_context import ServiceContext
+from llama_index.core.utils import print_text
 
 logger = logging.getLogger(__name__)
 

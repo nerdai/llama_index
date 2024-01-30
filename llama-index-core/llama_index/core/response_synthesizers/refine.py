@@ -12,7 +12,9 @@ from llama_index.core.prompts.mixin import PromptDictType
 from llama_index.core.response.utils import get_response_text
 from llama_index.core.response_synthesizers.base import BaseSynthesizer
 from llama_index.core.service_context import ServiceContext
-from llama_index.core.service_context_elements.llm_predictor import LLMPredictorType
+from llama_index.core.service_context_elements.llm_predictor import (
+    LLMPredictorType,
+)
 from llama_index.core.types import RESPONSE_TEXT_TYPE, BasePydanticProgram
 
 logger = logging.getLogger(__name__)

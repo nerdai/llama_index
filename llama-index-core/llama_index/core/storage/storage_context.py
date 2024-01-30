@@ -21,7 +21,9 @@ from llama_index.core.storage.docstore.types import (
     DEFAULT_PERSIST_FNAME as DOCSTORE_FNAME,
 )
 from llama_index.core.storage.docstore.types import BaseDocumentStore
-from llama_index.core.storage.index_store.simple_index_store import SimpleIndexStore
+from llama_index.core.storage.index_store.simple_index_store import (
+    SimpleIndexStore,
+)
 from llama_index.core.storage.index_store.types import (
     DEFAULT_PERSIST_FNAME as INDEX_STORE_FNAME,
 )
@@ -35,7 +37,10 @@ from llama_index.core.vector_stores.simple import (
     NAMESPACE_SEP,
     SimpleVectorStore,
 )
-from llama_index.core.vector_stores.types import BasePydanticVectorStore, VectorStore
+from llama_index.core.vector_stores.types import (
+    BasePydanticVectorStore,
+    VectorStore,
+)
 
 DEFAULT_PERSIST_DIR = "./storage"
 IMAGE_STORE_FNAME = "image_store.json"

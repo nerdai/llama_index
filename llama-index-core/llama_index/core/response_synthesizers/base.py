@@ -28,7 +28,12 @@ from llama_index.core.response.schema import (
     Response,
     StreamingResponse,
 )
-from llama_index.core.schema import BaseNode, MetadataMode, NodeWithScore, QueryBundle
+from llama_index.core.schema import (
+    BaseNode,
+    MetadataMode,
+    NodeWithScore,
+    QueryBundle,
+)
 from llama_index.core.service_context import ServiceContext
 from llama_index.core.types import RESPONSE_TEXT_TYPE
 

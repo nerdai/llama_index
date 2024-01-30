@@ -13,7 +13,9 @@ from llama_index.core.indices.utils import (
     get_sorted_node_list,
 )
 from llama_index.core.prompts import BasePromptTemplate
-from llama_index.core.prompts.default_prompt_selectors import DEFAULT_REFINE_PROMPT_SEL
+from llama_index.core.prompts.default_prompt_selectors import (
+    DEFAULT_REFINE_PROMPT_SEL,
+)
 from llama_index.core.prompts.default_prompts import (
     DEFAULT_QUERY_PROMPT,
     DEFAULT_QUERY_PROMPT_MULTIPLE,
@@ -21,7 +23,12 @@ from llama_index.core.prompts.default_prompts import (
 )
 from llama_index.core.response.schema import Response
 from llama_index.core.response_synthesizers import get_response_synthesizer
-from llama_index.core.schema import BaseNode, MetadataMode, NodeWithScore, QueryBundle
+from llama_index.core.schema import (
+    BaseNode,
+    MetadataMode,
+    NodeWithScore,
+    QueryBundle,
+)
 from llama_index.core.utils import print_text, truncate_text
 
 logger = logging.getLogger(__name__)

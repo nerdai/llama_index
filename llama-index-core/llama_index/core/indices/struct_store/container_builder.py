@@ -4,7 +4,9 @@
 from typing import Any, Dict, List, Optional, Type
 
 from llama_index.core.indices.base import BaseIndex
-from llama_index.core.indices.common.struct_store.base import SQLDocumentContextBuilder
+from llama_index.core.indices.common.struct_store.base import (
+    SQLDocumentContextBuilder,
+)
 from llama_index.core.indices.common.struct_store.schema import SQLContextContainer
 from llama_index.core.readers.base import Document
 from llama_index.core.schema import BaseNode, QueryType

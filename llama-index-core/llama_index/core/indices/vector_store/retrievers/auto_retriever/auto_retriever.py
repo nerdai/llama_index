@@ -14,7 +14,10 @@ from llama_index.core.indices.vector_store.retrievers.auto_retriever.output_pars
 from llama_index.core.indices.vector_store.retrievers.auto_retriever.prompts import (
     DEFAULT_VECTOR_STORE_QUERY_PROMPT_TMPL,
 )
-from llama_index.core.output_parsers.base import OutputParserException, StructuredOutput
+from llama_index.core.output_parsers.base import (
+    OutputParserException,
+    StructuredOutput,
+)
 from llama_index.core.prompts.base import PromptTemplate
 from llama_index.core.prompts.mixin import PromptDictType
 from llama_index.core.schema import IndexNode, QueryBundle

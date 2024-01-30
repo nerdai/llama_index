@@ -29,7 +29,9 @@ from llama_index.core.llms.llm import LLM
 from llama_index.core.llms.utils import resolve_llm
 from llama_index.core.prompts import PromptTemplate
 from llama_index.core.schema import BaseNode, TextNode
-from llama_index.core.service_context_elements.llm_predictor import LLMPredictorType
+from llama_index.core.service_context_elements.llm_predictor import (
+    LLMPredictorType,
+)
 from llama_index.core.types import BasePydanticProgram
 
 DEFAULT_TITLE_NODE_TEMPLATE = """\

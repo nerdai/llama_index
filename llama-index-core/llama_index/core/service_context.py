@@ -134,7 +134,10 @@ class ServiceContext:
             chunk_size_limit (Optional[int]): renamed to chunk_size
 
         """
-        from llama_index.core.embeddings.utils import EmbedType, resolve_embed_model
+        from llama_index.core.embeddings.utils import (
+            EmbedType,
+            resolve_embed_model,
+        )
 
         embed_model = cast(EmbedType, embed_model)
 
@@ -251,7 +254,10 @@ class ServiceContext:
         chunk_size_limit: Optional[int] = None,
     ) -> "ServiceContext":
         """Instantiate a new service context using a previous as the defaults."""
-        from llama_index.core.embeddings.utils import EmbedType, resolve_embed_model
+        from llama_index.core.embeddings.utils import (
+            EmbedType,
+            resolve_embed_model,
+        )
 
         embed_model = cast(EmbedType, embed_model)
 

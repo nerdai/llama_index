@@ -17,7 +17,11 @@ from llama_index.core.prompts import BasePromptTemplate
 from llama_index.core.prompts.default_prompts import (
     DEFAULT_TEXT_TO_SQL_PROMPT,
 )
-from llama_index.core.prompts.mixin import PromptDictType, PromptMixin, PromptMixinType
+from llama_index.core.prompts.mixin import (
+    PromptDictType,
+    PromptMixin,
+    PromptMixinType,
+)
 from llama_index.core.schema import NodeWithScore, QueryBundle, QueryType, TextNode
 from llama_index.core.service_context import ServiceContext
 from llama_index.core.utilities.sql_wrapper import SQLDatabase

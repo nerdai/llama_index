@@ -43,7 +43,9 @@ from llama_index.core.indices import (
 )
 
 # structured
-from llama_index.core.indices.common.struct_store.base import SQLDocumentContextBuilder
+from llama_index.core.indices.common.struct_store.base import (
+    SQLDocumentContextBuilder,
+)
 
 # prompt helper
 from llama_index.core.indices.prompt_helper import PromptHelper

@@ -8,7 +8,9 @@ from llama_index.core.indices.loading import (
     load_indices_from_storage,
 )
 from llama_index.core.indices.vector_store.base import VectorStoreIndex
-from llama_index.core.query_engine.retriever_query_engine import RetrieverQueryEngine
+from llama_index.core.query_engine.retriever_query_engine import (
+    RetrieverQueryEngine,
+)
 from llama_index.core.schema import BaseNode, Document
 from llama_index.core.service_context import ServiceContext
 from llama_index.core.storage.storage_context import StorageContext

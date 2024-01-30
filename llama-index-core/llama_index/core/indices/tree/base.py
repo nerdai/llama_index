@@ -103,7 +103,9 @@ class TreeIndex(BaseIndex[IndexGraph]):
         from llama_index.core.indices.tree.select_leaf_retriever import (
             TreeSelectLeafRetriever,
         )
-        from llama_index.core.indices.tree.tree_root_retriever import TreeRootRetriever
+        from llama_index.core.indices.tree.tree_root_retriever import (
+            TreeRootRetriever,
+        )
 
         self._validate_build_tree_required(TreeRetrieverMode(retriever_mode))
 

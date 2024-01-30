@@ -43,7 +43,9 @@ def get_program_for_llm(
         # in default mode, we try to use the OpenAI program if available else
         # we fall back to the LLM program
         try:
-            from llama_index.core.program.openai_program import OpenAIPydanticProgram
+            from llama_index.core.program.openai_program import (
+                OpenAIPydanticProgram,
+            )
 
             return OpenAIPydanticProgram.from_defaults(
                 output_cls=output_cls,
@@ -52,7 +54,9 @@ def get_program_for_llm(
                 **kwargs,
             )
         except ValueError:
-            from llama_index.core.program.llm_program import LLMTextCompletionProgram
+            from llama_index.core.program.llm_program import (
+                LLMTextCompletionProgram,
+            )
 
             return LLMTextCompletionProgram.from_defaults(
                 output_parser=PydanticOutputParser(output_cls=output_cls),

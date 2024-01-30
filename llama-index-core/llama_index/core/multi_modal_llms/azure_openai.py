@@ -16,7 +16,10 @@ from llama_index.core.llms.openai_utils import (
     refresh_openai_azuread_token,
     resolve_from_aliases,
 )
-from llama_index.core.multi_modal_llms import MultiModalLLMMetadata, OpenAIMultiModal
+from llama_index.core.multi_modal_llms import (
+    MultiModalLLMMetadata,
+    OpenAIMultiModal,
+)
 
 
 class AzureOpenAIMultiModal(OpenAIMultiModal):

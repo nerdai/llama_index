@@ -4,9 +4,13 @@ from llama_index.core.agent.custom.simple import CustomSimpleAgentWorker
 from llama_index.core.agent.legacy.context_retriever_agent import (
     ContextRetrieverOpenAIAgent,
 )
-from llama_index.core.agent.legacy.openai_agent import OpenAIAgent as OldOpenAIAgent
+from llama_index.core.agent.legacy.openai_agent import (
+    OpenAIAgent as OldOpenAIAgent,
+)
 from llama_index.core.agent.legacy.react.base import ReActAgent as OldReActAgent
-from llama_index.core.agent.legacy.retriever_openai_agent import FnRetrieverOpenAIAgent
+from llama_index.core.agent.legacy.retriever_openai_agent import (
+    FnRetrieverOpenAIAgent,
+)
 from llama_index.core.agent.openai.base import OpenAIAgent
 from llama_index.core.agent.openai.step import OpenAIAgentWorker
 from llama_index.core.agent.openai_assistant_agent import OpenAIAssistantAgent

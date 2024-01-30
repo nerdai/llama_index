@@ -21,7 +21,7 @@ from llama_index.core.response.schema import (
 )
 from llama_index.core.response_synthesizers import TreeSummarize
 from llama_index.core.schema import BaseNode, QueryBundle
-from llama_index.core.selectors.types import BaseSelector
+from llama_index.core.base_selector import BaseSelector
 from llama_index.core.selectors.utils import get_selector_from_context
 from llama_index.core.service_context import ServiceContext
 from llama_index.core.tools.query_engine import QueryEngineTool

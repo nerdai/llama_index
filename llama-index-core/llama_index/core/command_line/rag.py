@@ -11,17 +11,17 @@ from llama_index import (
     SimpleDirectoryReader,
     VectorStoreIndex,
 )
-from llama_index.bridge.pydantic import BaseModel, Field, validator
-from llama_index.chat_engine import CondenseQuestionChatEngine
+from llama_index.core.bridge.pydantic import BaseModel, Field, validator
+from llama_index.core.chat_engine import CondenseQuestionChatEngine
 from llama_index.core.response.schema import RESPONSE_TYPE, StreamingResponse
-from llama_index.ingestion import IngestionPipeline
-from llama_index.llms import LLM, OpenAI
-from llama_index.query_engine import CustomQueryEngine
-from llama_index.query_pipeline import FnComponent
-from llama_index.query_pipeline.query import QueryPipeline
-from llama_index.readers.base import BaseReader
-from llama_index.response_synthesizers import CompactAndRefine
-from llama_index.utils import get_cache_dir
+from llama_index.core.ingestion import IngestionPipeline
+from llama_index.core.llms import LLM, OpenAI
+from llama_index.core.query_engine import CustomQueryEngine
+from llama_index.core.query_pipeline import FnComponent
+from llama_index.core.query_pipeline.query import QueryPipeline
+from llama_index.core.readers.base import BaseReader
+from llama_index.core.response_synthesizers import CompactAndRefine
+from llama_index.core.utils import get_cache_dir
 
 
 def default_ragcli_persist_dir() -> str:

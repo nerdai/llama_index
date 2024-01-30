@@ -1,7 +1,10 @@
 from unittest.mock import patch
 
 from llama_index.core.llms import CompletionResponse
-from llama_index.core.selectors.llm_selectors import LLMMultiSelector, LLMSingleSelector
+from llama_index.core.selectors.llm_selectors import (
+    LLMMultiSelector,
+    LLMSingleSelector,
+)
 from llama_index.core.service_context import ServiceContext
 from tests.mock_utils.mock_predict import _mock_single_select
 

@@ -11,7 +11,9 @@ from llama_index.core.evaluation.retrieval.metrics_base import (
     BaseRetrievalMetric,
     RetrievalMetricResult,
 )
-from llama_index.core.llama_dataset.legacy.embedding import EmbeddingQAFinetuneDataset
+from llama_index.core.llama_dataset.legacy.embedding import (
+    EmbeddingQAFinetuneDataset,
+)
 
 
 class RetrievalEvalMode(str, Enum):

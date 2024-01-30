@@ -14,7 +14,12 @@ from llama_index.core.prompts import PromptTemplate
 from llama_index.core.prompts.default_prompts import (
     DEFAULT_CHOICE_SELECT_PROMPT,
 )
-from llama_index.core.schema import BaseNode, MetadataMode, NodeWithScore, QueryBundle
+from llama_index.core.schema import (
+    BaseNode,
+    MetadataMode,
+    NodeWithScore,
+    QueryBundle,
+)
 from llama_index.core.service_context import ServiceContext
 
 logger = logging.getLogger(__name__)

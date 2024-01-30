@@ -3,7 +3,9 @@
 import logging
 from typing import Dict, List, Tuple, cast
 
-from llama_index.core.indices.tree.select_leaf_retriever import TreeSelectLeafRetriever
+from llama_index.core.indices.tree.select_leaf_retriever import (
+    TreeSelectLeafRetriever,
+)
 from llama_index.core.indices.utils import get_sorted_node_list
 from llama_index.core.schema import BaseNode, MetadataMode, QueryBundle
 

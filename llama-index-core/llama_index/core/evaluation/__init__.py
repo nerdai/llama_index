@@ -37,7 +37,9 @@ from llama_index.core.evaluation.retrieval.metrics import (
     RetrievalMetricResult,
     resolve_metrics,
 )
-from llama_index.core.evaluation.semantic_similarity import SemanticSimilarityEvaluator
+from llama_index.core.evaluation.semantic_similarity import (
+    SemanticSimilarityEvaluator,
+)
 
 # import dataset generation too
 from llama_index.core.llama_dataset.legacy.embedding import (

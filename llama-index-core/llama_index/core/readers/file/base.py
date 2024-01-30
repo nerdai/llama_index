@@ -13,7 +13,11 @@ from typing import Any, Callable, Dict, Generator, List, Optional, Type
 from tqdm import tqdm
 
 from llama_index.core.readers.base import BaseReader
-from llama_index.core.readers.file.docs_reader import DocxReader, HWPReader, PDFReader
+from llama_index.core.readers.file.docs_reader import (
+    DocxReader,
+    HWPReader,
+    PDFReader,
+)
 from llama_index.core.readers.file.epub_reader import EpubReader
 from llama_index.core.readers.file.image_reader import ImageReader
 from llama_index.core.readers.file.ipynb_reader import IPYNBReader

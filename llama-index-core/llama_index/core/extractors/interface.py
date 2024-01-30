@@ -7,7 +7,12 @@ from typing import Any, Dict, List, Optional, Sequence, cast
 from typing_extensions import Self
 
 from llama_index.core.bridge.pydantic import Field
-from llama_index.core.schema import BaseNode, MetadataMode, TextNode, TransformComponent
+from llama_index.core.schema import (
+    BaseNode,
+    MetadataMode,
+    TextNode,
+    TransformComponent,
+)
 
 DEFAULT_NODE_TEXT_TEMPLATE = """\
 [Excerpt from document]\n{metadata_str}\n\

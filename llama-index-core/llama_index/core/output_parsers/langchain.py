@@ -6,7 +6,9 @@ from typing import TYPE_CHECKING, Any, Optional
 from llama_index.core.output_parsers.base import ChainableOutputParser
 
 if TYPE_CHECKING:
-    from llama_index.core.bridge.langchain import BaseOutputParser as LCOutputParser
+    from llama_index.core.bridge.langchain import (
+        BaseOutputParser as LCOutputParser,
+    )
 
 
 class LangchainOutputParser(ChainableOutputParser):

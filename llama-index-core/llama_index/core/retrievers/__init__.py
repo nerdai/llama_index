@@ -24,7 +24,9 @@ from llama_index.core.indices.tree.all_leaf_retriever import TreeAllLeafRetrieve
 from llama_index.core.indices.tree.select_leaf_embedding_retriever import (
     TreeSelectLeafEmbeddingRetriever,
 )
-from llama_index.core.indices.tree.select_leaf_retriever import TreeSelectLeafRetriever
+from llama_index.core.indices.tree.select_leaf_retriever import (
+    TreeSelectLeafRetriever,
+)
 from llama_index.core.indices.tree.tree_root_retriever import TreeRootRetriever
 from llama_index.core.indices.vector_store.retrievers import (
     VectorIndexAutoRetriever,

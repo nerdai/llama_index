@@ -5,22 +5,15 @@ import logging
 from typing import List, Optional, Sequence
 
 from llama_index.core.base_retriever import BaseRetriever
-<<<<<<< HEAD:llama-index-core/llama_index/core/retrievers/router_retriever.py
 from llama_index.core.callbacks.schema import CBEventType, EventPayload
 from llama_index.core.prompts.mixin import PromptMixinType
 from llama_index.core.schema import IndexNode, NodeWithScore, QueryBundle
-from llama_index.core.selectors.types import BaseSelector
+from llama_index.core.base_selector import BaseSelector
+from llama_index.core.prompts.mixin import PromptMixinType
+from llama_index.core.schema import IndexNode, NodeWithScore, QueryBundle
 from llama_index.core.selectors.utils import get_selector_from_context
 from llama_index.core.service_context import ServiceContext
 from llama_index.core.tools.retriever_tool import RetrieverTool
-=======
-from llama_index.core.base_selector import BaseSelector
-from llama_index.prompts.mixin import PromptMixinType
-from llama_index.schema import IndexNode, NodeWithScore, QueryBundle
-from llama_index.selectors.utils import get_selector_from_context
-from llama_index.service_context import ServiceContext
-from llama_index.tools.retriever_tool import RetrieverTool
->>>>>>> main:llama_index/retrievers/router_retriever.py
 
 logger = logging.getLogger(__name__)
 

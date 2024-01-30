@@ -4,7 +4,9 @@ from llama_index.core.node_parser.text.semantic_splitter import (
     SemanticSplitterNodeParser,
 )
 from llama_index.core.node_parser.text.sentence import SentenceSplitter
-from llama_index.core.node_parser.text.sentence_window import SentenceWindowNodeParser
+from llama_index.core.node_parser.text.sentence_window import (
+    SentenceWindowNodeParser,
+)
 from llama_index.core.node_parser.text.token import TokenTextSplitter
 
 __all__ = [
