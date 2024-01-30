@@ -9,8 +9,8 @@ from typing import (
     cast,
 )
 
-import marvin
-from marvin import model
+if TYPE_CHECKING:
+    from marvin import ai_model
 
 from llama_index.core.bridge.pydantic import BaseModel, Field
 from llama_index.core.extractors.interface import BaseExtractor
@@ -20,7 +20,7 @@ from llama_index.core.utils import get_tqdm_iterable
 
 class MarvinMetadataExtractor(BaseExtractor):
     # Forward reference to handle circular imports
-    marvin_model: Type["model"] = Field(
+    marvin_model: Type["ai_model"] = Field(
         description="The Marvin model to use for extracting custom metadata"
     )
     llm_model_string: Optional[str] = Field(
@@ -58,8 +58,11 @@ class MarvinMetadataExtractor(BaseExtractor):
         **kwargs: Any,
     ) -> None:
         """Init params."""
-        if not issubclass(marvin_model, model):
-            raise ValueError("marvin_model must be a subclass of model")
+        import marvin
+        from marvin import ai_model
+
+        if not issubclass(marvin_model, ai_model):
+            raise ValueError("marvin_model must be a subclass of ai_model")
 
         if llm_model_string:
             marvin.settings.llm_model = llm_model_string
@@ -73,7 +76,9 @@ class MarvinMetadataExtractor(BaseExtractor):
         return "MarvinEntityExtractor"
 
     async def aextract(self, nodes: Sequence[BaseNode]) -> List[Dict]:
-        ai_model = cast(model, self.marvin_model)
+        from marvin import ai_model
+
+        ai_model = cast(ai_model, self.marvin_model)
         metadata_list: List[Dict] = []
 
         nodes_queue: Iterable[BaseNode] = get_tqdm_iterable(
