@@ -20,7 +20,7 @@ python_version = "3.8"
 authors = ["Your Name <you@example.com>"]
 description = "llama-index kvstore postgres integration"
 license = "MIT"
-name = "llama-index-storage-kvstore-postgres"
+name = "flying-delta-storage-kvstore-postgres"
 packages = [{include = "llama_index/"}]
 readme = "README.md"
 version = "0.1.0"
