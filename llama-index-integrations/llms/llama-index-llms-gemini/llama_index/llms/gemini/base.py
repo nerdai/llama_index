@@ -1,8 +1,8 @@
 """Google's hosted Gemini API."""
 import os
+import typing
 from typing import Any, Dict, Optional, Sequence
 
-import google.generativeai as genai
 from llama_index.core.bridge.pydantic import Field, PrivateAttr
 from llama_index.core.callbacks import CallbackManager
 from llama_index.core.constants import DEFAULT_NUM_OUTPUTS, DEFAULT_TEMPERATURE
@@ -26,6 +26,10 @@ from llama_index.llms.gemini.utils import (
     completion_from_gemini_response,
     merge_neighboring_same_role_messages,
 )
+
+if typing.TYPE_CHECKING:
+    import google.generativeai as genai
+
 
 GEMINI_MODELS = (
     "models/gemini-pro",
@@ -70,6 +74,14 @@ class Gemini(CustomLLM):
         **generate_kwargs: Any,
     ):
         """Creates a new Gemini model interface."""
+        try:
+            import google.generativeai as genai
+        except ImportError:
+            raise ValueError(
+                "Gemini is not installed. Please install it with "
+                "`pip install 'google-generativeai>=0.3.0'`."
+            )
+
         # API keys are optional. The API can be authorised via OAuth (detected
         # environmentally) or by the GOOGLE_API_KEY environment variable.
         config_params: Dict[str, Any] = {
