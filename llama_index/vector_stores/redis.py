@@ -1,6 +1,6 @@
 """Redis Vector store index.
 
-An index that that is built on top of an existing vector store.
+An index that is built on top of an existing vector store.
 """
 import logging
 from typing import TYPE_CHECKING, Any, Dict, List, Optional
@@ -299,7 +299,7 @@ class RedisVectorStore(BasePydanticVectorStore):
                         NodeRelationship.SOURCE: RelatedNodeInfo(node_id=doc.doc_id)
                     },
                 )
-            ids.append(doc.id)
+            ids.append(doc.id.replace(self._prefix + "_", ""))
             nodes.append(node)
             scores.append(1 - float(doc.vector_score))
         _logger.info(f"Found {len(nodes)} results for query with id {ids}")
