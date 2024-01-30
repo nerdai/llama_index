@@ -1,4 +1,5 @@
 from typing import (
+    TYPE_CHECKING,
     Any,
     Dict,
     Iterable,
@@ -46,7 +47,7 @@ class MarvinMetadataExtractor(BaseExtractor):
         )
 
         #use node_parser to get nodes from documents
-        from llama_index.legacy.ingestion import run_transformations
+        from llama_index.ingestion import run_transformations
         nodes = run_transformations(documents, [node_parser] + extractors)
         print(nodes)
     """
