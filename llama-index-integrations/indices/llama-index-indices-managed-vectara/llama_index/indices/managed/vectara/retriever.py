@@ -6,22 +6,11 @@ import json
 import logging
 from typing import Any, List, Optional, Tuple
 
-<<<<<<< HEAD:llama-index-integrations/indices/llama-index-indices-managed-vectara/llama_index/indices/managed/vectara/retriever.py
 from llama_index.core.callbacks.base import CallbackManager
 from llama_index.core.constants import DEFAULT_SIMILARITY_TOP_K
 from llama_index.core.base_retriever import BaseRetriever
 from llama_index.core.indices.managed.types import ManagedIndexQueryMode
 from llama_index.core.indices.vector_store.retrievers.auto_retriever.auto_retriever import (
-=======
-from llama_index.callbacks.base import CallbackManager
-from llama_index.core.base_retriever import BaseRetriever
-from llama_index.indices.managed.types import ManagedIndexQueryMode
-from llama_index.indices.managed.vectara.base import VectaraIndex
-from llama_index.indices.managed.vectara.prompts import (
-    DEFAULT_VECTARA_QUERY_PROMPT_TMPL,
-)
-from llama_index.indices.vector_store.retrievers.auto_retriever.auto_retriever import (
->>>>>>> main:llama_index/indices/managed/vectara/retriever.py
     VectorIndexAutoRetriever,
 )
 from llama_index.core.schema import NodeWithScore, QueryBundle, TextNode
@@ -30,6 +19,9 @@ from llama_index.core.vector_stores.types import (
     MetadataFilters,
     VectorStoreInfo,
     VectorStoreQuerySpec,
+)
+from llama_index.indices.managed.vectara.prompts import (
+    DEFAULT_VECTARA_QUERY_PROMPT_TMPL,
 )
 from llama_index.indices.managed.vectara.base import VectaraIndex
 

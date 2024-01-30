@@ -82,9 +82,6 @@ class MonsterLLM(CustomLLM):
             output_parser=output_parser,
         )
 
-<<<<<<< HEAD:llama-index-integrations/llms/llama-index-llms-monsterapi/llama_index/llms/monsterapi/base.py
-    def initialize_client(self, monster_api_key: Optional[str]) -> Any:
-=======
     def initialize_client(
         self, monster_api_key: Optional[str], base_url: Optional[str]
     ) -> Any:
@@ -97,7 +94,6 @@ class MonsterLLM(CustomLLM):
                 "Please install it with `pip install monsterapi`"
             )
 
->>>>>>> main:llama_index/llms/monsterapi.py
         llm_models_enabled = [i for i, j in MODEL_TYPES.items() if j == "LLM"]
 
         return MonsterClient(monster_api_key, base_url), llm_models_enabled
