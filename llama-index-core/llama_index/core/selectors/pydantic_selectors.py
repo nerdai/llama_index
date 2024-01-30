@@ -9,12 +9,6 @@ from llama_index.core.selectors.prompts import (
     DEFAULT_MULTI_PYD_SELECT_PROMPT_TMPL,
     DEFAULT_SINGLE_PYD_SELECT_PROMPT_TMPL,
 )
-from llama_index.core.selectors.types import (
-    BaseSelector,
-    MultiSelection,
-    SelectorResult,
-    SingleSelection,
-)
 from llama_index.core.tools.types import ToolMetadata
 from llama_index.core.types import BasePydanticProgram
 from llama_index.core.base_selector import (
