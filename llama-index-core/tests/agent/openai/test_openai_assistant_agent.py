@@ -2,12 +2,11 @@ from unittest.mock import MagicMock, patch
 
 import openai
 import pytest
-from openai.types.beta.threads.required_action_function_tool_call import Function
-
 from llama_index.core.agent import OpenAIAssistantAgent
 from llama_index.core.agent.openai_assistant_agent import acall_function
 from llama_index.core.llms import ChatMessage
 from llama_index.core.tools import FunctionTool, ToolOutput
+from openai.types.beta.threads.required_action_function_tool_call import Function
 
 
 def test_from_existing_no_tools() -> None:

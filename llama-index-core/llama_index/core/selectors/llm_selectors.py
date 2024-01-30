@@ -1,15 +1,15 @@
 from typing import Any, Dict, List, Optional, Sequence, cast
 
-from llama_index.core.output_parsers.base import StructuredOutput
-from llama_index.core.output_parsers.selection import Answer, SelectionOutputParser
-from llama_index.core.prompts.mixin import PromptDictType
-from llama_index.core.prompts.prompt_type import PromptType
-from llama_index.core.schema import QueryBundle
 from llama_index.core.base_selector import (
     BaseSelector,
     SelectorResult,
     SingleSelection,
 )
+from llama_index.core.output_parsers.base import StructuredOutput
+from llama_index.core.output_parsers.selection import Answer, SelectionOutputParser
+from llama_index.core.prompts.mixin import PromptDictType
+from llama_index.core.prompts.prompt_type import PromptType
+from llama_index.core.schema import QueryBundle
 from llama_index.core.selectors.prompts import (
     DEFAULT_MULTI_SELECT_PROMPT_TMPL,
     DEFAULT_SINGLE_SELECT_PROMPT_TMPL,

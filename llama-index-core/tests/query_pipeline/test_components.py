@@ -2,16 +2,16 @@
 from typing import Any, List, Sequence
 
 import pytest
-from llama_index.core.prompts.mixin import PromptDictType
-from llama_index.core.query_pipeline.components.argpacks import (
-    ArgPackComponent,
-    KwargPackComponent,
-)
 from llama_index.core.base_selector import (
     BaseSelector,
     MultiSelection,
     SelectorResult,
     SingleSelection,
+)
+from llama_index.core.prompts.mixin import PromptDictType
+from llama_index.core.query_pipeline.components.argpacks import (
+    ArgPackComponent,
+    KwargPackComponent,
 )
 from llama_index.core.query_pipeline.components.function import FnComponent
 from llama_index.core.query_pipeline.components.input import InputComponent

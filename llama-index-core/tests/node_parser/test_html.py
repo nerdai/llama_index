@@ -1,7 +1,8 @@
+import importlib.util
+
 import pytest
 from llama_index.core.node_parser.file.html import HTMLNodeParser
 from llama_index.core.schema import Document
-import importlib.util
 
 
 @pytest.mark.xfail(

@@ -1,5 +1,11 @@
 from typing import Any, Dict, Optional, Sequence
 
+from llama_index.core.base_selector import (
+    BaseSelector,
+    MultiSelection,
+    SelectorResult,
+    SingleSelection,
+)
 from llama_index.core.llms.openai import OpenAI
 from llama_index.core.program.openai_program import OpenAIPydanticProgram
 from llama_index.core.prompts.mixin import PromptDictType
@@ -11,12 +17,6 @@ from llama_index.core.selectors.prompts import (
 )
 from llama_index.core.tools.types import ToolMetadata
 from llama_index.core.types import BasePydanticProgram
-from llama_index.core.base_selector import (
-    BaseSelector,
-    MultiSelection,
-    SelectorResult,
-    SingleSelection,
-)
 
 
 def _pydantic_output_to_selector_result(output: Any) -> SelectorResult:

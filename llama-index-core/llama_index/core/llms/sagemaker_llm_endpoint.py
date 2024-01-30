@@ -2,16 +2,6 @@ from typing import Any, Callable, Dict, Optional, Sequence
 
 from llama_index.core.bridge.pydantic import Field, PrivateAttr
 from llama_index.core.callbacks import CallbackManager
-from llama_index.core.llms.types import (
-    ChatMessage,
-    ChatResponse,
-    ChatResponseAsyncGen,
-    ChatResponseGen,
-    CompletionResponse,
-    CompletionResponseAsyncGen,
-    CompletionResponseGen,
-    LLMMetadata,
-)
 from llama_index.core.llms.base import (
     llm_chat_callback,
     llm_completion_callback,
@@ -23,6 +13,16 @@ from llama_index.core.llms.generic_utils import (
 from llama_index.core.llms.llama_utils import completion_to_prompt, messages_to_prompt
 from llama_index.core.llms.llm import LLM
 from llama_index.core.llms.sagemaker_llm_endpoint_utils import BaseIOHandler, IOHandler
+from llama_index.core.llms.types import (
+    ChatMessage,
+    ChatResponse,
+    ChatResponseAsyncGen,
+    ChatResponseGen,
+    CompletionResponse,
+    CompletionResponseAsyncGen,
+    CompletionResponseGen,
+    LLMMetadata,
+)
 from llama_index.core.types import BaseOutputParser, PydanticProgramMode
 from llama_index.core.utilities.aws_utils import get_aws_service_client
 

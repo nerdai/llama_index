@@ -2,10 +2,6 @@ from typing import Any, AsyncGenerator, Generator, List, Sequence
 from unittest.mock import MagicMock, patch
 
 import pytest
-from openai.types.chat.chat_completion import ChatCompletion, Choice
-from openai.types.chat.chat_completion_chunk import ChatCompletionChunk, ChoiceDelta
-from openai.types.chat.chat_completion_message import ChatCompletionMessage
-
 from llama_index.core.agent.openai.base import OpenAIAgent
 from llama_index.core.agent.openai.step import call_tool_with_error_handling
 from llama_index.core.chat_engine.types import (
@@ -17,6 +13,9 @@ from llama_index.core.llms.mock import MockLLM
 from llama_index.core.llms.openai import OpenAI
 from llama_index.core.llms.types import ChatMessage, ChatResponse
 from llama_index.core.tools.function_tool import FunctionTool
+from openai.types.chat.chat_completion import ChatCompletion, Choice
+from openai.types.chat.chat_completion_chunk import ChatCompletionChunk, ChoiceDelta
+from openai.types.chat.chat_completion_message import ChatCompletionMessage
 
 
 def mock_chat_completion(*args: Any, **kwargs: Any) -> ChatCompletion:

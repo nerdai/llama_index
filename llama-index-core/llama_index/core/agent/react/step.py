@@ -48,9 +48,6 @@ from llama_index.core.llms.types import MessageRole
 from llama_index.core.memory.chat_memory_buffer import ChatMemoryBuffer
 from llama_index.core.memory.types import BaseMemory
 from llama_index.core.objects.base import ObjectRetriever
-from llama_index.core.tools import BaseTool, ToolOutput, adapt_to_async_tool
-from llama_index.core.tools.types import AsyncBaseTool
-from llama_index.core.utils import print_text, unit_generator
 from llama_index.core.prompts.base import PromptTemplate
 from llama_index.core.prompts.mixin import PromptDictType
 from llama_index.core.tools import BaseTool, ToolOutput, adapt_to_async_tool

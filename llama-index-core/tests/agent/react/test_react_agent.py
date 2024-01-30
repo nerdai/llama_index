@@ -2,7 +2,6 @@ import re
 from typing import Any, List, Sequence
 
 import pytest
-
 from llama_index.core.agent.react.base import ReActAgent
 from llama_index.core.agent.react.types import ObservationReasoningStep
 from llama_index.core.agent.types import Task

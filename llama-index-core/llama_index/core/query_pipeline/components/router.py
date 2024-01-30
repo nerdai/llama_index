@@ -3,6 +3,7 @@
 
 from typing import Any, Dict, List
 
+from llama_index.core.base_selector import BaseSelector
 from llama_index.core.bridge.pydantic import Field, PrivateAttr
 from llama_index.core.callbacks.base import CallbackManager
 from llama_index.core.query_pipeline.components.query import (
@@ -13,7 +14,6 @@ from llama_index.core.query_pipeline.components.query import (
     QueryComponent,
     validate_and_convert_stringable,
 )
-from llama_index.core.base_selector import BaseSelector
 from llama_index.core.utils import print_text
 
 

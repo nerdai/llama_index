@@ -12,7 +12,7 @@ from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 from dataclasses_json import DataClassJsonMixin
 from typing_extensions import Self
 
-from llama_index.core.bridge.pydantic import BaseModel, Field, root_validator
+from llama_index.core.bridge.pydantic import BaseModel, Field
 from llama_index.core.utils import SAMPLE_TEXT, truncate_text
 
 if TYPE_CHECKING:

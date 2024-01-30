@@ -1,5 +1,6 @@
 from typing import Optional
 
+from llama_index.core.base_selector import BaseSelector
 from llama_index.core.selectors.llm_selectors import (
     LLMMultiSelector,
     LLMSingleSelector,
@@ -8,7 +9,6 @@ from llama_index.core.selectors.pydantic_selectors import (
     PydanticMultiSelector,
     PydanticSingleSelector,
 )
-from llama_index.core.base_selector import BaseSelector
 from llama_index.core.service_context import ServiceContext
 
 

@@ -12,7 +12,6 @@ from llama_index.core.evaluation.retrieval.metrics_base import (
     BaseRetrievalMetric,
 )
 from llama_index.core.indices.base_retriever import BaseRetriever
-from llama_index.core.schema import ImageNode, TextNode
 from llama_index.core.postprocessor.types import BaseNodePostprocessor
 from llama_index.core.schema import ImageNode, TextNode
 

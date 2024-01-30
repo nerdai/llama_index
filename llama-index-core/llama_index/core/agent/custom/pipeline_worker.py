@@ -22,13 +22,13 @@ from llama_index.core.callbacks import (
 from llama_index.core.chat_engine.types import (
     AGENT_CHAT_RESPONSE_TYPE,
 )
-from llama_index.core.query_pipeline.components.query import QueryComponent
 from llama_index.core.memory.chat_memory_buffer import ChatMemoryBuffer
 from llama_index.core.query_pipeline.components.agent import (
     AgentFnComponent,
     AgentInputComponent,
     BaseAgentComponent,
 )
+from llama_index.core.query_pipeline.components.query import QueryComponent
 from llama_index.core.query_pipeline.query import QueryPipeline
 from llama_index.core.tools import ToolOutput
 
