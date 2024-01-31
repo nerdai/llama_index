@@ -5,6 +5,10 @@ from collections import defaultdict
 from contextlib import contextmanager
 from typing import Any, Dict, List, Optional, Set, Tuple
 
+from llama_index.core.llms.llm import LLM
+from llama_index.core.schema import BaseNode, MetadataMode, NodeWithScore, QueryBundle
+from llama_index.core.service_context import ServiceContext
+from llama_index.core.settings import Settings, llm_from_settings_or_context
 from llama_index.program.evaporate.prompts import (
     DEFAULT_EXPECTED_OUTPUT_PREFIX_TMPL,
     DEFAULT_FIELD_EXTRACT_QUERY_TMPL,
@@ -13,8 +17,6 @@ from llama_index.program.evaporate.prompts import (
     FnGeneratePrompt,
     SchemaIDPrompt,
 )
-from llama_index.core.schema import BaseNode, MetadataMode, NodeWithScore, QueryBundle
-from llama_index.core.service_context import ServiceContext
 
 
 class TimeoutException(Exception):
@@ -91,13 +93,11 @@ class EvaporateExtractor:
 
     In the current version, we use the function generator
     from a set of documents.
-
-    Args:
-        service_context (Optional[ServiceContext]): Service Context to use.
     """
 
     def __init__(
         self,
+        llm: Optional[LLM] = None,
         service_context: Optional[ServiceContext] = None,
         schema_id_prompt: Optional[SchemaIDPrompt] = None,
         fn_generate_prompt: Optional[FnGeneratePrompt] = None,
@@ -107,7 +107,7 @@ class EvaporateExtractor:
     ) -> None:
         """Initialize params."""
         # TODO: take in an entire index instead of forming a response builder
-        self._service_context = service_context or ServiceContext.from_defaults()
+        self._llm = llm or llm_from_settings_or_context(Settings, service_context)
         self._schema_id_prompt = schema_id_prompt or SCHEMA_ID_PROMPT
         self._fn_generate_prompt = fn_generate_prompt or FN_GENERATION_PROMPT
         self._field_extract_query_tmpl = field_extract_query_tmpl
@@ -130,8 +130,7 @@ class EvaporateExtractor:
         """
         field2count: dict = defaultdict(int)
         for node in nodes:
-            llm = self._service_context.llm
-            result = llm.predict(
+            result = self._llm.predict(
                 self._schema_id_prompt,
                 topic=topic,
                 chunk=node.get_content(metadata_mode=MetadataMode.LLM),
@@ -177,7 +176,7 @@ class EvaporateExtractor:
         )
 
         response_synthesizer = get_response_synthesizer(
-            service_context=self._service_context,
+            llm=self._llm,
             text_qa_template=qa_prompt,
             response_mode=ResponseMode.TREE_SUMMARIZE,
         )

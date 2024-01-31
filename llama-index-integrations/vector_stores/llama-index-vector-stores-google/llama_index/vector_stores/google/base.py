@@ -10,8 +10,11 @@ import logging
 import uuid
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Sequence, cast
 
-from llama_index.core.bridge.pydantic import BaseModel, Field, PrivateAttr  # type: ignore
-from llama_index.core.indices.service_context import ServiceContext
+from llama_index.core.bridge.pydantic import (  # type: ignore
+    BaseModel,
+    Field,
+    PrivateAttr,
+)
 from llama_index.core.schema import BaseNode, RelatedNodeInfo, TextNode
 from llama_index.core.vector_stores.types import (
     BasePydanticVectorStore,
@@ -29,12 +32,6 @@ _import_err_msg = "`google.generativeai` package not found, please run `pip inst
 _default_doc_id = "default-doc"
 
 
-google_service_context = ServiceContext.from_defaults(
-    # Avoids instantiating OpenAI as the default model.
-    llm=None,
-    # Avoids instantiating HuggingFace as the default model.
-    embed_model=None,
-)
 """Google GenerativeAI service context.
 
 Use this to provide the correct service context for `GoogleVectorStore`.
@@ -104,8 +101,7 @@ class GoogleVectorStore(BasePydanticVectorStore):
         google_vector_store = GoogleVectorStore.from_corpus(
                 corpus_id="my-corpus-id")
         index = VectorStoreIndex.from_vector_store(
-                google_vector_store,
-                service_context=google_service_context)
+                google_vector_store)
 
     Attributes:
         corpus_id: The corpus ID that this vector store instance will read and
@@ -262,9 +258,9 @@ class GoogleVectorStore(BasePydanticVectorStore):
         `Title for doc-456`. This document will house both nodes.
         """
         try:
-            import google.ai.generativelanguage as genai
-
             import llama_index.legacy.vector_stores.google.generativeai.genai_extension as genaix
+
+            import google.ai.generativelanguage as genai
         except ImportError:
             raise ImportError(_import_err_msg)
 
@@ -310,9 +306,9 @@ class GoogleVectorStore(BasePydanticVectorStore):
             ref_doc_id: The document ID to be deleted.
         """
         try:
-            import google.ai.generativelanguage as genai
-
             import llama_index.legacy.vector_stores.google.generativeai.genai_extension as genaix
+
+            import google.ai.generativelanguage as genai
         except ImportError:
             raise ImportError(_import_err_msg)
 
@@ -351,9 +347,9 @@ class GoogleVectorStore(BasePydanticVectorStore):
             query: See `llama_index.legacy.vector_stores.types.VectorStoreQuery`.
         """
         try:
-            import google.ai.generativelanguage as genai
-
             import llama_index.legacy.vector_stores.google.generativeai.genai_extension as genaix
+
+            import google.ai.generativelanguage as genai
         except ImportError:
             raise ImportError(_import_err_msg)
 

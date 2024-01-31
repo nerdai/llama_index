@@ -7,11 +7,6 @@ import json
 import logging
 from typing import Any, Dict, List, Optional, cast
 
-from llama_index.readers.myscale.base import (
-    MyScaleSettings,
-    escape_str,
-    format_list_to_string,
-)
 from llama_index.core.schema import (
     BaseNode,
     MetadataMode,
@@ -19,13 +14,17 @@ from llama_index.core.schema import (
     RelatedNodeInfo,
     TextNode,
 )
-from llama_index.core.service_context import ServiceContext
 from llama_index.core.utils import iter_batch
 from llama_index.core.vector_stores.types import (
     VectorStore,
     VectorStoreQuery,
     VectorStoreQueryMode,
     VectorStoreQueryResult,
+)
+from llama_index.readers.myscale.base import (
+    MyScaleSettings,
+    escape_str,
+    format_list_to_string,
 )
 
 logger = logging.getLogger(__name__)
@@ -56,8 +55,7 @@ class MyScaleVectorStore(VectorStore):
             Defaults to None.
         search_params (dict, optional): The search parameters for a MyScale query.
             Defaults to None.
-        service_context (ServiceContext, optional): Vector store service context.
-            Defaults to None
+        embed_dims (embed_dims, optional): Embedding dimensions. Defaults to None.
 
     """
 
@@ -78,7 +76,7 @@ class MyScaleVectorStore(VectorStore):
         batch_size: int = 32,
         index_params: Optional[dict] = None,
         search_params: Optional[dict] = None,
-        service_context: Optional[ServiceContext] = None,
+        embed_dims: Optional[int] = None,
         **kwargs: Any,
     ) -> None:
         """Initialize params."""
@@ -130,12 +128,8 @@ class MyScaleVectorStore(VectorStore):
             },
         }
 
-        if service_context is not None:
-            service_context = cast(ServiceContext, service_context)
-            dimension = len(
-                service_context.embed_model.get_query_embedding("try this out")
-            )
-            self._create_index(dimension)
+        if embed_dims is not None:
+            self._create_index(embed_dims)
 
     @property
     def client(self) -> Any:

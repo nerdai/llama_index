@@ -11,13 +11,13 @@ from typing import TYPE_CHECKING, Any, List, Optional, Sequence, cast
 
 from llama_index.core.bridge.pydantic import BaseModel  # type: ignore
 from llama_index.core.callbacks.schema import CBEventType, EventPayload
-from llama_index.core.response.schema import Response
 from llama_index.core.indices.query.schema import QueryBundle
+from llama_index.core.llms.mock import MockLLM
 from llama_index.core.prompts.mixin import PromptDictType
+from llama_index.core.response.schema import Response
 from llama_index.core.response_synthesizers.base import BaseSynthesizer, QueryTextType
 from llama_index.core.schema import MetadataMode, NodeWithScore, TextNode
 from llama_index.core.types import RESPONSE_TEXT_TYPE
-from llama_index.vector_stores.google import google_service_context
 
 if TYPE_CHECKING:
     import google.ai.generativelanguage as genai
@@ -68,12 +68,12 @@ class GoogleTextSynthesizer(BaseSynthesizer):
         See `from_defaults` for more documentation.
         """
         try:
-            import llama_index.vector_stores.google.generativeai.genai_extension as genaix
+            import llama_index.vector_stores.google.genai_extension as genaix
         except ImportError:
             raise ImportError(_import_err_msg)
 
         super().__init__(
-            service_context=google_service_context,
+            llm=MockLLM(),
             output_cls=SynthesizedResponse,
             **kwargs,
         )
@@ -137,9 +137,9 @@ class GoogleTextSynthesizer(BaseSynthesizer):
             A `SynthesizedResponse` object.
         """
         try:
-            import google.ai.generativelanguage as genai
+            import llama_index.vector_stores.google.genai_extension as genaix
 
-            import llama_index.vector_stores.google.generativeai.genai_extension as genaix
+            import google.ai.generativelanguage as genai
         except ImportError:
             raise ImportError(_import_err_msg)
 
