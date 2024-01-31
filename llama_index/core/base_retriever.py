@@ -23,6 +23,7 @@ from llama_index.schema import (
     TextNode,
 )
 from llama_index.service_context import ServiceContext
+from llama_index.settings import Settings
 from llama_index.utils import print_text
 
 
@@ -47,7 +48,7 @@ class BaseRetriever(ChainableMixin, PromptMixin):
     def _check_callback_manager(self) -> None:
         """Check callback manager."""
         if not hasattr(self, "callback_manager"):
-            self.callback_manager = CallbackManager()
+            self.callback_manager = Settings.callback_manager
 
     def _get_prompts(self) -> PromptDictType:
         """Get prompts."""

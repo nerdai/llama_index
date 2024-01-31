@@ -106,7 +106,7 @@ class LLMPredictor(BaseLLMPredictor):
         pydantic_program_mode: PydanticProgramMode = PydanticProgramMode.DEFAULT,
     ) -> None:
         """Initialize params."""
-        self._llm = resolve_llm(llm)
+        self._llm = resolve_llm(llm, callback_manager=callback_manager)
 
         if callback_manager:
             self._llm.callback_manager = callback_manager
@@ -146,6 +146,11 @@ class LLMPredictor(BaseLLMPredictor):
     def callback_manager(self) -> CallbackManager:
         """Get callback manager."""
         return self._llm.callback_manager
+
+    @callback_manager.setter
+    def callback_manager(self, callback_manager: CallbackManager) -> None:
+        """Set callback manager."""
+        self._llm.callback_manager = callback_manager
 
     @property
     def metadata(self) -> LLMMetadata:

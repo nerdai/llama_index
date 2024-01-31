@@ -2,6 +2,8 @@ import logging
 from dataclasses import dataclass
 from typing import Any, List, Optional, cast
 
+from deprecated import deprecated
+
 import llama_index
 from llama_index.bridge.pydantic import BaseModel
 from llama_index.callbacks.base import CallbackManager
@@ -82,6 +84,10 @@ class ServiceContext:
     callback_manager: CallbackManager
 
     @classmethod
+    @deprecated(
+        version="0.10.0",
+        reason="ServiceContext is deprecated, please use `llama_index.settings.Settings` instead.",
+    )
     def from_defaults(
         cls,
         llm_predictor: Optional[BaseLLMPredictor] = None,
@@ -388,3 +394,13 @@ class ServiceContext:
 def set_global_service_context(service_context: Optional[ServiceContext]) -> None:
     """Helper function to set the global service context."""
     llama_index.global_service_context = service_context
+
+    if service_context is not None:
+        from llama_index.settings import Settings
+
+        Settings.llm = service_context.llm
+        Settings.embed_model = service_context.embed_model
+        Settings.prompt_helper = service_context.prompt_helper
+        Settings.transformations = service_context.transformations
+        Settings.node_parser = service_context.node_parser
+        Settings.callback_manager = service_context.callback_manager

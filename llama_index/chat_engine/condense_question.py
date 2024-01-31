@@ -17,6 +17,11 @@ from llama_index.llms.generic_utils import messages_to_history_str
 from llama_index.memory import BaseMemory, ChatMemoryBuffer
 from llama_index.prompts.base import BasePromptTemplate, PromptTemplate
 from llama_index.service_context import ServiceContext
+from llama_index.settings import (
+    Settings,
+    callback_manager_from_settings_or_context,
+    llm_from_settings_or_context,
+)
 from llama_index.tools import ToolOutput
 
 logger = logging.getLogger(__name__)
@@ -79,8 +84,7 @@ class CondenseQuestionChatEngine(BaseChatEngine):
         """Initialize a CondenseQuestionChatEngine from default parameters."""
         condense_question_prompt = condense_question_prompt or DEFAULT_PROMPT
 
-        service_context = service_context or ServiceContext.from_defaults()
-        llm = service_context.llm
+        llm = llm_from_settings_or_context(Settings, service_context)
 
         chat_history = chat_history or []
         memory = memory or memory_cls.from_defaults(chat_history=chat_history, llm=llm)
@@ -100,7 +104,9 @@ class CondenseQuestionChatEngine(BaseChatEngine):
             memory,
             llm,
             verbose=verbose,
-            callback_manager=service_context.callback_manager,
+            callback_manager=callback_manager_from_settings_or_context(
+                Settings, service_context
+            ),
         )
 
     def _condense_question(

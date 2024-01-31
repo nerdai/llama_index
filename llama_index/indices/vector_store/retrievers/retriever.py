@@ -7,6 +7,7 @@ from llama_index.callbacks.base import CallbackManager
 from llama_index.constants import DEFAULT_SIMILARITY_TOP_K
 from llama_index.core.base_retriever import BaseRetriever
 from llama_index.data_structs.data_structs import IndexDict
+from llama_index.embeddings.base import BaseEmbedding
 from llama_index.indices.utils import log_vector_store_query_result
 from llama_index.indices.vector_store.base import VectorStoreIndex
 from llama_index.schema import NodeWithScore, ObjectType, QueryBundle
@@ -47,13 +48,14 @@ class VectorIndexRetriever(BaseRetriever):
         sparse_top_k: Optional[int] = None,
         callback_manager: Optional[CallbackManager] = None,
         object_map: Optional[dict] = None,
+        embed_model: Optional[BaseEmbedding] = None,
         verbose: bool = False,
         **kwargs: Any,
     ) -> None:
         """Initialize params."""
         self._index = index
         self._vector_store = self._index.vector_store
-        self._service_context = self._index.service_context
+        self._embed_model = embed_model or self._index._embed_model
         self._docstore = self._index.docstore
 
         self._similarity_top_k = similarity_top_k
@@ -85,7 +87,7 @@ class VectorIndexRetriever(BaseRetriever):
         if self._vector_store.is_embedding_query:
             if query_bundle.embedding is None and len(query_bundle.embedding_strs) > 0:
                 query_bundle.embedding = (
-                    self._service_context.embed_model.get_agg_embedding_from_queries(
+                    self._embed_model.get_agg_embedding_from_queries(
                         query_bundle.embedding_strs
                     )
                 )
@@ -94,7 +96,7 @@ class VectorIndexRetriever(BaseRetriever):
     async def _aretrieve(self, query_bundle: QueryBundle) -> List[NodeWithScore]:
         if self._vector_store.is_embedding_query:
             if query_bundle.embedding is None and len(query_bundle.embedding_strs) > 0:
-                embed_model = self._service_context.embed_model
+                embed_model = self._embed_model
                 query_bundle.embedding = (
                     await embed_model.aget_agg_embedding_from_queries(
                         query_bundle.embedding_strs

@@ -1,14 +1,24 @@
 """Joint QA Summary graph."""
 
 
-from typing import Optional, Sequence
+from typing import List, Optional, Sequence
 
+from llama_index.callbacks.base import CallbackManager
+from llama_index.embeddings.base import BaseEmbedding
 from llama_index.indices.list.base import SummaryIndex
 from llama_index.indices.vector_store import VectorStoreIndex
 from llama_index.ingestion import run_transformations
+from llama_index.llms import LLM
 from llama_index.query_engine.router_query_engine import RouterQueryEngine
-from llama_index.schema import Document
+from llama_index.schema import Document, TransformComponent
 from llama_index.service_context import ServiceContext
+from llama_index.settings import (
+    Settings,
+    callback_manager_from_settings_or_context,
+    embed_model_from_settings_or_context,
+    llm_from_settings_or_context,
+    transformations_from_settings_or_context,
+)
 from llama_index.storage.storage_context import StorageContext
 from llama_index.tools.query_engine import QueryEngineTool
 
@@ -39,12 +49,30 @@ class QASummaryQueryEngineBuilder:
 
     def __init__(
         self,
+        llm: Optional[LLM] = None,
+        embed_model: Optional[BaseEmbedding] = None,
+        callback_manager: Optional[CallbackManager] = None,
+        transformations: Optional[List[TransformComponent]] = None,
         storage_context: Optional[StorageContext] = None,
-        service_context: Optional[ServiceContext] = None,
         summary_text: str = DEFAULT_SUMMARY_TEXT,
         qa_text: str = DEFAULT_QA_TEXT,
+        # deprecated
+        service_context: Optional[ServiceContext] = None,
     ) -> None:
         """Init params."""
+        self._llm = llm or llm_from_settings_or_context(Settings, service_context)
+        self._callback_manager = (
+            callback_manager
+            or callback_manager_from_settings_or_context(Settings, service_context)
+        )
+        self._embed_model = embed_model or embed_model_from_settings_or_context(
+            Settings, service_context
+        )
+        self._transformations = (
+            transformations
+            or transformations_from_settings_or_context(Settings, service_context)
+        )
+
         self._storage_context = storage_context or StorageContext.from_defaults()
         self._service_context = service_context or ServiceContext.from_defaults()
         self._summary_text = summary_text
@@ -56,16 +84,16 @@ class QASummaryQueryEngineBuilder:
     ) -> RouterQueryEngine:
         """Build query engine."""
         # parse nodes
-        nodes = run_transformations(
-            documents, self._service_context.transformations  # type: ignore
-        )
+        nodes = run_transformations(documents, self._transformations)  # type: ignore
 
         # ingest nodes
         self._storage_context.docstore.add_documents(nodes, allow_update=True)
 
         # build indices
         vector_index = VectorStoreIndex(
-            nodes,
+            nodes=nodes,
+            transformations=self._transformations,
+            embed_model=self._embed_model,
             service_context=self._service_context,
             storage_context=self._storage_context,
         )
@@ -76,15 +104,17 @@ class QASummaryQueryEngineBuilder:
         )
 
         vector_query_engine = vector_index.as_query_engine(
-            service_context=self._service_context
+            llm=self._llm, service_context=self._service_context
         )
         list_query_engine = summary_index.as_query_engine(
+            llm=self._llm,
             service_context=self._service_context,
             response_mode="tree_summarize",
         )
 
         # build query engine
         return RouterQueryEngine.from_defaults(
+            llm=self._llm,
             query_engine_tools=[
                 QueryEngineTool.from_defaults(
                     vector_query_engine, description=self._qa_text
