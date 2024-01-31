@@ -29,13 +29,11 @@ from llama_index.core.chat_engine.types import (
     AgentChatResponse,
 )
 from llama_index.core.llms.llm import LLM
-from llama_index.core.llms.openai import OpenAI
 from llama_index.core.memory.chat_memory_buffer import ChatMemoryBuffer
 from llama_index.core.objects.base import ObjectRetriever
+from llama_index.core.settings import Settings
 from llama_index.core.tools import BaseTool, ToolOutput, adapt_to_async_tool
 from llama_index.core.tools.types import AsyncBaseTool
-
-DEFAULT_MODEL_NAME = "gpt-3.5-turbo-0613"
 
 
 class CustomSimpleAgentWorker(BaseModel, BaseAgentWorker):
@@ -109,7 +107,7 @@ class CustomSimpleAgentWorker(BaseModel, BaseAgentWorker):
         **kwargs: Any,
     ) -> "CustomSimpleAgentWorker":
         """Convenience constructor method from set of of BaseTools (Optional)."""
-        llm = llm or OpenAI(model=DEFAULT_MODEL_NAME)
+        llm = llm or Settings.llm
         if callback_manager is not None:
             llm.callback_manager = callback_manager
         return cls(

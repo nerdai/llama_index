@@ -7,13 +7,22 @@ from llama_index.core.embeddings.utils import resolve_embed_model
 from pytest import MonkeyPatch
 
 
-def mock_hf_embeddings(*args: Any, **kwargs: Dict[str, Any]) -> Any:
+def mock_hf_embeddings(self: Any, *args: Any, **kwargs: Dict[str, Any]) -> Any:
     """Mock HuggingFaceEmbeddings."""
+    super(HuggingFaceEmbedding, self).__init__(
+        model_name="fake",
+        tokenizer_name="fake",
+        model="fake",
+        tokenizer="fake",
+    )
     return
 
 
-def mock_openai_embeddings(*args: Any, **kwargs: Dict[str, Any]) -> Any:
+def mock_openai_embeddings(self: Any, *args: Any, **kwargs: Dict[str, Any]) -> Any:
     """Mock OpenAIEmbedding."""
+    super(OpenAIEmbedding, self).__init__(
+        api_key="fake", api_base="fake", api_version="fake"
+    )
     return
 
 

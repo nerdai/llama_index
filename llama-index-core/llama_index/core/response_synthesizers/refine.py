@@ -2,6 +2,8 @@ import logging
 from typing import Any, Callable, Generator, Optional, Sequence, Type, cast
 
 from llama_index.core.bridge.pydantic import BaseModel, Field, ValidationError
+from llama_index.core.callbacks.base import CallbackManager
+from llama_index.core.indices.prompt_helper import PromptHelper
 from llama_index.core.indices.utils import truncate_text
 from llama_index.core.prompts.base import BasePromptTemplate, PromptTemplate
 from llama_index.core.prompts.default_prompt_selectors import (
@@ -90,7 +92,9 @@ class Refine(BaseSynthesizer):
 
     def __init__(
         self,
-        service_context: Optional[ServiceContext] = None,
+        llm: Optional[LLMPredictorType] = None,
+        callback_manager: Optional[CallbackManager] = None,
+        prompt_helper: Optional[PromptHelper] = None,
         text_qa_template: Optional[BasePromptTemplate] = None,
         refine_template: Optional[BasePromptTemplate] = None,
         output_cls: Optional[BaseModel] = None,
@@ -100,8 +104,16 @@ class Refine(BaseSynthesizer):
         program_factory: Optional[
             Callable[[BasePromptTemplate], BasePydanticProgram]
         ] = None,
+        # deprecated
+        service_context: Optional[ServiceContext] = None,
     ) -> None:
-        super().__init__(service_context=service_context, streaming=streaming)
+        super().__init__(
+            llm=llm,
+            callback_manager=callback_manager,
+            prompt_helper=prompt_helper,
+            service_context=service_context,
+            streaming=streaming,
+        )
         self._text_qa_template = text_qa_template or DEFAULT_TEXT_QA_PROMPT_SEL
         self._refine_template = refine_template or DEFAULT_REFINE_PROMPT_SEL
         self._verbose = verbose
@@ -170,13 +182,13 @@ class Refine(BaseSynthesizer):
             return get_program_for_llm(
                 StructuredRefineResponse,
                 prompt,
-                self._service_context.llm,
+                self._llm,
                 verbose=self._verbose,
             )
         else:
             return DefaultRefineProgram(
                 prompt=prompt,
-                llm=self._service_context.llm,
+                llm=self._llm,
                 output_cls=self._output_cls,
             )
 
@@ -188,9 +200,7 @@ class Refine(BaseSynthesizer):
     ) -> RESPONSE_TEXT_TYPE:
         """Give response given a query and a corresponding text chunk."""
         text_qa_template = self._text_qa_template.partial_format(query_str=query_str)
-        text_chunks = self._service_context.prompt_helper.repack(
-            text_qa_template, [text_chunk]
-        )
+        text_chunks = self._prompt_helper.repack(text_qa_template, [text_chunk])
 
         response: Optional[RESPONSE_TEXT_TYPE] = None
         program = self._program_factory(text_qa_template)
@@ -214,7 +224,7 @@ class Refine(BaseSynthesizer):
                         f"Validation error on structured response: {e}", exc_info=True
                     )
             elif response is None and self._streaming:
-                response = self._service_context.llm.stream(
+                response = self._llm.stream(
                     text_qa_template,
                     context_str=cur_text_chunk,
                     **response_kwargs,
@@ -260,10 +270,8 @@ class Refine(BaseSynthesizer):
         # compute available chunk size to see if there is any available space
         # determine if the refine template is too big (which can happen if
         # prompt template + query + existing answer is too large)
-        avail_chunk_size = (
-            self._service_context.prompt_helper._get_available_chunk_size(
-                refine_template
-            )
+        avail_chunk_size = self._prompt_helper._get_available_chunk_size(
+            refine_template
         )
 
         if avail_chunk_size < 0:
@@ -272,7 +280,7 @@ class Refine(BaseSynthesizer):
             return response
 
         # obtain text chunks to add to the refine template
-        text_chunks = self._service_context.prompt_helper.repack(
+        text_chunks = self._prompt_helper.repack(
             refine_template, text_chunks=[text_chunk]
         )
 
@@ -304,7 +312,7 @@ class Refine(BaseSynthesizer):
                     query_str=query_str, existing_answer=response
                 )
 
-                response = self._service_context.llm.stream(
+                response = self._llm.stream(
                     refine_template,
                     context_msg=cur_text_chunk,
                     **response_kwargs,
@@ -366,10 +374,8 @@ class Refine(BaseSynthesizer):
         # compute available chunk size to see if there is any available space
         # determine if the refine template is too big (which can happen if
         # prompt template + query + existing answer is too large)
-        avail_chunk_size = (
-            self._service_context.prompt_helper._get_available_chunk_size(
-                refine_template
-            )
+        avail_chunk_size = self._prompt_helper._get_available_chunk_size(
+            refine_template
         )
 
         if avail_chunk_size < 0:
@@ -378,7 +384,7 @@ class Refine(BaseSynthesizer):
             return response
 
         # obtain text chunks to add to the refine template
-        text_chunks = self._service_context.prompt_helper.repack(
+        text_chunks = self._prompt_helper.repack(
             refine_template, text_chunks=[text_chunk]
         )
 
@@ -419,9 +425,7 @@ class Refine(BaseSynthesizer):
     ) -> RESPONSE_TEXT_TYPE:
         """Give response given a query and a corresponding text chunk."""
         text_qa_template = self._text_qa_template.partial_format(query_str=query_str)
-        text_chunks = self._service_context.prompt_helper.repack(
-            text_qa_template, [text_chunk]
-        )
+        text_chunks = self._prompt_helper.repack(text_qa_template, [text_chunk])
 
         response: Optional[RESPONSE_TEXT_TYPE] = None
         program = self._program_factory(text_qa_template)

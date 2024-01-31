@@ -8,6 +8,7 @@ from llama_index.core.callbacks.schema import CBEventType, EventPayload
 from llama_index.core.graph_stores.registry import (
     GRAPH_STORE_CLASS_TO_GRAPH_STORE_TYPE,
 )
+from llama_index.core.llms.llm import LLM
 from llama_index.core.prompts.base import (
     BasePromptTemplate,
     PromptTemplate,
@@ -21,6 +22,11 @@ from llama_index.core.response_synthesizers import (
 )
 from llama_index.core.schema import NodeWithScore, QueryBundle, TextNode
 from llama_index.core.service_context import ServiceContext
+from llama_index.core.settings import (
+    Settings,
+    callback_manager_from_settings_or_context,
+    llm_from_settings_or_context,
+)
 from llama_index.core.storage.storage_context import StorageContext
 from llama_index.core.utils import print_text
 
@@ -62,13 +68,15 @@ class KnowledgeGraphQueryEngine(BaseQueryEngine):
 
     def __init__(
         self,
-        service_context: Optional[ServiceContext] = None,
+        llm: Optional[LLM] = None,
         storage_context: Optional[StorageContext] = None,
         graph_query_synthesis_prompt: Optional[BasePromptTemplate] = None,
         graph_response_answer_prompt: Optional[BasePromptTemplate] = None,
         refresh_schema: bool = False,
         verbose: bool = False,
         response_synthesizer: Optional[BaseSynthesizer] = None,
+        # deprecated
+        service_context: Optional[ServiceContext] = None,
         **kwargs: Any,
     ):
         # Ensure that we have a graph store
@@ -79,7 +87,7 @@ class KnowledgeGraphQueryEngine(BaseQueryEngine):
         self._storage_context = storage_context
         self.graph_store = storage_context.graph_store
 
-        self._service_context = service_context or ServiceContext.from_defaults()
+        self._llm = llm or llm_from_settings_or_context(Settings, service_context)
 
         # Get Graph Store Type
         self._graph_store_type = GRAPH_STORE_CLASS_TO_GRAPH_STORE_TYPE[
@@ -96,12 +104,16 @@ class KnowledgeGraphQueryEngine(BaseQueryEngine):
             graph_response_answer_prompt or DEFAULT_KG_RESPONSE_ANSWER_PROMPT
         )
         self._verbose = verbose
+        callback_manager = callback_manager_from_settings_or_context(
+            Settings, service_context
+        )
         self._response_synthesizer = response_synthesizer or get_response_synthesizer(
-            callback_manager=self._service_context.callback_manager,
-            service_context=self._service_context,
+            llm=self._llm,
+            callback_manager=callback_manager,
+            service_context=service_context,
         )
 
-        super().__init__(self._service_context.callback_manager)
+        super().__init__(callback_manager=callback_manager)
 
     def _get_prompts(self) -> Dict[str, Any]:
         """Get prompts."""
@@ -125,7 +137,7 @@ class KnowledgeGraphQueryEngine(BaseQueryEngine):
         """Generate a Graph Store Query from a query bundle."""
         # Get the query engine query string
 
-        graph_store_query: str = self._service_context.llm.predict(
+        graph_store_query: str = self._llm.predict(
             self._graph_query_synthesis_prompt,
             query_str=query_str,
             schema=self._graph_schema,
@@ -137,7 +149,7 @@ class KnowledgeGraphQueryEngine(BaseQueryEngine):
         """Generate a Graph Store Query from a query bundle."""
         # Get the query engine query string
 
-        graph_store_query: str = await self._service_context.llm.apredict(
+        graph_store_query: str = await self._llm.apredict(
             self._graph_query_synthesis_prompt,
             query_str=query_str,
             schema=self._graph_schema,

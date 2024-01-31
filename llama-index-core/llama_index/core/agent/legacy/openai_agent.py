@@ -25,13 +25,13 @@ from llama_index.core.llms.openai_utils import OpenAIToolCall
 from llama_index.core.llms.types import ChatMessage, ChatResponse, MessageRole
 from llama_index.core.memory import BaseMemory, ChatMemoryBuffer
 from llama_index.core.objects.base import ObjectRetriever
+from llama_index.core.settings import Settings
 from llama_index.core.tools import BaseTool, ToolOutput, adapt_to_async_tool
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.WARNING)
 
 DEFAULT_MAX_FUNCTION_CALLS = 5
-DEFAULT_MODEL_NAME = "gpt-3.5-turbo-0613"
 
 
 def call_tool_with_error_handling(
@@ -571,7 +571,7 @@ class OpenAIAgent(BaseOpenAIAgent):
         tools = tools or []
 
         chat_history = chat_history or []
-        llm = llm or OpenAI(model=DEFAULT_MODEL_NAME)
+        llm = llm or Settings.llm
         if not isinstance(llm, OpenAI):
             raise ValueError("llm must be a OpenAI instance")
 

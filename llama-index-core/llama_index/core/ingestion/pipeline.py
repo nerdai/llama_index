@@ -13,7 +13,6 @@ from typing import Any, Generator, List, Optional, Sequence, Union
 from fsspec import AbstractFileSystem
 
 from llama_index.core.bridge.pydantic import BaseModel, Field
-from llama_index.core.embeddings.utils import resolve_embed_model
 from llama_index.core.ingestion.cache import DEFAULT_CACHE_NAME, IngestionCache
 from llama_index.core.node_parser import SentenceSplitter
 from llama_index.core.readers.base import ReaderConfig
@@ -23,7 +22,7 @@ from llama_index.core.schema import (
     MetadataMode,
     TransformComponent,
 )
-from llama_index.core.service_context import ServiceContext
+from llama_index.core.settings import Settings
 from llama_index.core.storage.docstore import (
     BaseDocumentStore,
     SimpleDocumentStore,
@@ -216,32 +215,6 @@ class IngestionPipeline(BaseModel):
             disable_cache=disable_cache,
         )
 
-    @classmethod
-    def from_service_context(
-        cls,
-        service_context: ServiceContext,
-        reader: Optional[ReaderConfig] = None,
-        documents: Optional[Sequence[Document]] = None,
-        vector_store: Optional[BasePydanticVectorStore] = None,
-        cache: Optional[IngestionCache] = None,
-        docstore: Optional[BaseDocumentStore] = None,
-        disable_cache: bool = False,
-    ) -> "IngestionPipeline":
-        transformations = [
-            *service_context.transformations,
-            service_context.embed_model,
-        ]
-
-        return cls(
-            transformations=transformations,
-            reader=reader,
-            documents=documents,
-            vector_store=vector_store,
-            cache=cache,
-            docstore=docstore,
-            disable_cache=disable_cache,
-        )
-
     def persist(
         self,
         persist_dir: str = "./pipeline_storage",
@@ -290,7 +263,7 @@ class IngestionPipeline(BaseModel):
     def _get_default_transformations(self) -> List[TransformComponent]:
         return [
             SentenceSplitter(),
-            resolve_embed_model("default"),
+            Settings.embed_model,
         ]
 
     def _prepare_inputs(

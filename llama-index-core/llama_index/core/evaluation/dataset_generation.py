@@ -5,13 +5,15 @@ import asyncio
 import json
 import re
 import uuid
-from typing import Coroutine, Dict, List, Tuple
+from typing import Coroutine, Dict, List, Optional, Tuple
 
 from deprecated import deprecated
 
 from llama_index.core import Document, ServiceContext, SummaryIndex
 from llama_index.core.bridge.pydantic import BaseModel, Field
+from llama_index.core.callbacks.base import CallbackManager
 from llama_index.core.ingestion import run_transformations
+from llama_index.core.llms.llm import LLM
 from llama_index.core.postprocessor.node import KeywordNodePostprocessor
 from llama_index.core.prompts.base import BasePromptTemplate, PromptTemplate
 from llama_index.core.prompts.default_prompts import DEFAULT_TEXT_QA_PROMPT
@@ -20,7 +22,18 @@ from llama_index.core.prompts.mixin import (
     PromptMixin,
     PromptMixinType,
 )
-from llama_index.core.schema import BaseNode, MetadataMode, NodeWithScore
+from llama_index.core.schema import (
+    BaseNode,
+    MetadataMode,
+    NodeWithScore,
+    TransformComponent,
+)
+from llama_index.core.settings import (
+    Settings,
+    callback_manager_from_settings_or_context,
+    llm_from_settings_or_context,
+    transformations_from_settings_or_context,
+)
 
 DEFAULT_QUESTION_GENERATION_PROMPT = """\
 Context information is below.
@@ -109,7 +122,8 @@ class DatasetGenerator(PromptMixin):
 
     Args:
         nodes (List[Node]): List of nodes. (Optional)
-        service_context (ServiceContext): Service Context.
+        llm (LLM): Language model.
+        callback_manager (CallbackManager): Callback manager.
         num_questions_per_chunk: number of question to be \
         generated per chunk. Each document is chunked of size 512 words.
         text_question_template: Question generation template.
@@ -120,20 +134,23 @@ class DatasetGenerator(PromptMixin):
     def __init__(
         self,
         nodes: List[BaseNode],
-        service_context: ServiceContext | None = None,
+        llm: Optional[LLM] = None,
+        callback_manager: Optional[CallbackManager] = None,
         num_questions_per_chunk: int = 10,
         text_question_template: BasePromptTemplate | None = None,
         text_qa_template: BasePromptTemplate | None = None,
         question_gen_query: str | None = None,
         metadata_mode: MetadataMode = MetadataMode.NONE,
         show_progress: bool = False,
+        # deprecated
+        service_context: ServiceContext | None = None,
     ) -> None:
         """Init params."""
-        if service_context is None:
-            service_context = service_context or ServiceContext.from_defaults(
-                chunk_size_limit=3000
-            )
-        self.service_context = service_context
+        self.llm = llm or llm_from_settings_or_context(Settings, service_context)
+        self.callback_manager = (
+            callback_manager
+            or callback_manager_from_settings_or_context(Settings, service_context)
+        )
         self.text_question_template = text_question_template or PromptTemplate(
             DEFAULT_QUESTION_GENERATION_PROMPT
         )
@@ -154,7 +171,9 @@ class DatasetGenerator(PromptMixin):
     def from_documents(
         cls,
         documents: List[Document],
-        service_context: ServiceContext | None = None,
+        llm: Optional[LLM] = None,
+        transformations: Optional[List[TransformComponent]] = None,
+        callback_manager: Optional[CallbackManager] = None,
         num_questions_per_chunk: int = 10,
         text_question_template: BasePromptTemplate | None = None,
         text_qa_template: BasePromptTemplate | None = None,
@@ -162,22 +181,28 @@ class DatasetGenerator(PromptMixin):
         required_keywords: List[str] | None = None,
         exclude_keywords: List[str] | None = None,
         show_progress: bool = False,
+        # deprecated
+        service_context: ServiceContext | None = None,
     ) -> DatasetGenerator:
         """Generate dataset from documents."""
-        if service_context is None:
-            service_context = service_context or ServiceContext.from_defaults(
-                chunk_size_limit=3000
-            )
+        llm = llm or llm_from_settings_or_context(Settings, service_context)
+        transformations = transformations or transformations_from_settings_or_context(
+            Settings, service_context
+        )
+        callback_manager = (
+            callback_manager
+            or callback_manager_from_settings_or_context(Settings, service_context)
+        )
 
         nodes = run_transformations(
-            documents, service_context.transformations, show_progress=show_progress
+            documents, transformations, show_progress=show_progress
         )
 
         # use node postprocessor to filter nodes
         required_keywords = required_keywords or []
         exclude_keywords = exclude_keywords or []
         node_postprocessor = KeywordNodePostprocessor(
-            service_context=service_context,
+            callback_manager=callback_manager,
             required_keywords=required_keywords,
             exclude_keywords=exclude_keywords,
         )
@@ -187,12 +212,14 @@ class DatasetGenerator(PromptMixin):
 
         return cls(
             nodes=nodes,
-            service_context=service_context,
+            llm=llm,
+            callback_manager=callback_manager,
             num_questions_per_chunk=num_questions_per_chunk,
             text_question_template=text_question_template,
             text_qa_template=text_qa_template,
             question_gen_query=question_gen_query,
             show_progress=show_progress,
+            service_context=service_context,
         )
 
     async def _agenerate_dataset(
@@ -224,11 +251,11 @@ class DatasetGenerator(PromptMixin):
                         metadata=node.metadata,
                     )
                 ],
-                service_context=self.service_context,
+                callback_manager=self.callback_manager,
             )
 
             query_engine = index.as_query_engine(
-                service_context=self.service_context,
+                llm=self.llm,
                 text_qa_template=self.text_question_template,
                 use_async=True,
             )
@@ -259,7 +286,7 @@ class DatasetGenerator(PromptMixin):
                 cur_query_keys = [query_id for query_id, _ in cur_query_items]
                 for query_id, query in cur_query_items:
                     qa_query_engine = index.as_query_engine(
-                        service_context=self.service_context,
+                        llm=self.llm,
                         text_qa_template=self.text_qa_template,
                     )
                     qr_task = qa_query_engine.aquery(query)

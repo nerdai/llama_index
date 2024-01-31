@@ -25,12 +25,12 @@ from llama_index.core.async_utils import DEFAULT_NUM_WORKERS, run_jobs
 from llama_index.core.bridge.pydantic import Field, PrivateAttr
 from llama_index.core.extractors.interface import BaseExtractor
 from llama_index.core.llms.llm import LLM
-from llama_index.core.llms.utils import resolve_llm
 from llama_index.core.prompts import PromptTemplate
 from llama_index.core.schema import BaseNode, TextNode
 from llama_index.core.service_context_elements.llm_predictor import (
     LLMPredictorType,
 )
+from llama_index.core.settings import Settings
 from llama_index.core.types import BasePydanticProgram
 
 DEFAULT_TITLE_NODE_TEMPLATE = """\
@@ -87,7 +87,7 @@ class TitleExtractor(BaseExtractor):
             raise ValueError("num_nodes must be >= 1")
 
         super().__init__(
-            llm=llm or llm_predictor or resolve_llm("default"),
+            llm=llm or llm_predictor or Settings.llm,
             nodes=nodes,
             node_template=node_template,
             combine_template=combine_template,
@@ -177,7 +177,7 @@ class KeywordExtractor(BaseExtractor):
             raise ValueError("num_keywords must be >= 1")
 
         super().__init__(
-            llm=llm or llm_predictor or resolve_llm("default"),
+            llm=llm or llm_predictor or Settings.llm,
             keywords=keywords,
             num_workers=num_workers,
             **kwargs,
@@ -273,7 +273,7 @@ class QuestionsAnsweredExtractor(BaseExtractor):
             raise ValueError("questions must be >= 1")
 
         super().__init__(
-            llm=llm or llm_predictor or resolve_llm("default"),
+            llm=llm or llm_predictor or Settings.llm,
             questions=questions,
             prompt_template=prompt_template,
             embedding_only=embedding_only,
@@ -362,7 +362,7 @@ class SummaryExtractor(BaseExtractor):
         self._next_summary = "next" in summaries
 
         super().__init__(
-            llm=llm or llm_predictor or resolve_llm("default"),
+            llm=llm or llm_predictor or Settings.llm,
             summaries=summaries,
             prompt_template=prompt_template,
             num_workers=num_workers,

@@ -10,9 +10,16 @@ from typing import Any, Dict, Optional, Sequence, Union
 
 from llama_index.core.base_retriever import BaseRetriever
 from llama_index.core.data_structs.data_structs import IndexList
+from llama_index.core.embeddings.base import BaseEmbedding
 from llama_index.core.indices.base import BaseIndex
+from llama_index.core.llms.llm import LLM
 from llama_index.core.schema import BaseNode, IndexNode
 from llama_index.core.service_context import ServiceContext
+from llama_index.core.settings import (
+    Settings,
+    embed_model_from_settings_or_context,
+    llm_from_settings_or_context,
+)
 from llama_index.core.storage.docstore.types import RefDocInfo
 from llama_index.core.utils import get_tqdm_iterable
 
@@ -49,8 +56,9 @@ class SummaryIndex(BaseIndex[IndexList]):
         nodes: Optional[Sequence[BaseNode]] = None,
         objects: Optional[Sequence[IndexNode]] = None,
         index_struct: Optional[IndexList] = None,
-        service_context: Optional[ServiceContext] = None,
         show_progress: bool = False,
+        # deprecated
+        service_context: Optional[ServiceContext] = None,
         **kwargs: Any,
     ) -> None:
         """Initialize params."""
@@ -66,6 +74,8 @@ class SummaryIndex(BaseIndex[IndexList]):
     def as_retriever(
         self,
         retriever_mode: Union[str, ListRetrieverMode] = ListRetrieverMode.DEFAULT,
+        llm: Optional[LLM] = None,
+        embed_model: Optional[BaseEmbedding] = None,
         **kwargs: Any,
     ) -> BaseRetriever:
         from llama_index.core.indices.list.retrievers import (
@@ -77,11 +87,17 @@ class SummaryIndex(BaseIndex[IndexList]):
         if retriever_mode == ListRetrieverMode.DEFAULT:
             return SummaryIndexRetriever(self, object_map=self._object_map, **kwargs)
         elif retriever_mode == ListRetrieverMode.EMBEDDING:
+            embed_model = embed_model or embed_model_from_settings_or_context(
+                Settings, self.service_context
+            )
             return SummaryIndexEmbeddingRetriever(
-                self, object_map=self._object_map, **kwargs
+                self, object_map=self._object_map, embed_model=embed_model, **kwargs
             )
         elif retriever_mode == ListRetrieverMode.LLM:
-            return SummaryIndexLLMRetriever(self, object_map=self._object_map, **kwargs)
+            llm = llm or llm_from_settings_or_context(Settings, self.service_context)
+            return SummaryIndexLLMRetriever(
+                self, object_map=self._object_map, llm=llm, **kwargs
+            )
         else:
             raise ValueError(f"Unknown retriever mode: {retriever_mode}")
 

@@ -16,8 +16,10 @@ from llama_index.core.indices.struct_store.base import BaseStructStoreIndex
 from llama_index.core.indices.struct_store.container_builder import (
     SQLContextContainerBuilder,
 )
+from llama_index.core.llms.utils import LLMType
 from llama_index.core.schema import BaseNode
 from llama_index.core.service_context import ServiceContext
+from llama_index.core.settings import Settings, llm_from_settings_or_context
 from llama_index.core.utilities.sql_wrapper import SQLDatabase
 
 
@@ -110,7 +112,7 @@ class SQLStructStoreIndex(BaseStructStoreIndex[SQLStructTable]):
             return index_struct
         else:
             data_extractor = SQLStructDatapointExtractor(
-                self._service_context.llm,
+                llm_from_settings_or_context(Settings, self.service_context),
                 self.schema_extract_prompt,
                 self.output_parser,
                 self.sql_database,
@@ -130,7 +132,7 @@ class SQLStructStoreIndex(BaseStructStoreIndex[SQLStructTable]):
     def _insert(self, nodes: Sequence[BaseNode], **insert_kwargs: Any) -> None:
         """Insert a document."""
         data_extractor = SQLStructDatapointExtractor(
-            self._service_context.llm,
+            llm_from_settings_or_context(Settings, self._service_context),
             self.schema_extract_prompt,
             self.output_parser,
             self.sql_database,
@@ -144,7 +146,10 @@ class SQLStructStoreIndex(BaseStructStoreIndex[SQLStructTable]):
         raise NotImplementedError("Not supported")
 
     def as_query_engine(
-        self, query_mode: Union[str, SQLQueryMode] = SQLQueryMode.NL, **kwargs: Any
+        self,
+        llm: Optional[LLMType] = None,
+        query_mode: Union[str, SQLQueryMode] = SQLQueryMode.NL,
+        **kwargs: Any,
     ) -> BaseQueryEngine:
         # NOTE: lazy import
         from llama_index.core.indices.struct_store.sql_query import (

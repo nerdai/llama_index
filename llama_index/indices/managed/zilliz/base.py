@@ -6,14 +6,15 @@ interfaces a managed service.
 """
 
 import logging
-from typing import Any, Dict, Optional, Sequence, Type
+from typing import Any, Dict, List, Optional, Sequence, Type
 
 import requests
 
+from llama_index.callbacks.base import CallbackManager
 from llama_index.core.base_retriever import BaseRetriever
 from llama_index.data_structs.data_structs import IndexDict, IndexStructType
 from llama_index.indices.managed.base import BaseManagedIndex, IndexType
-from llama_index.schema import BaseNode, Document
+from llama_index.schema import BaseNode, Document, TransformComponent
 from llama_index.service_context import ServiceContext
 from llama_index.storage.storage_context import StorageContext
 
@@ -386,8 +387,11 @@ class ZillizCloudPipelineIndex(BaseManagedIndex):
         cls: Type[IndexType],
         documents: Sequence[Document],
         storage_context: Optional[StorageContext] = None,
-        service_context: Optional[ServiceContext] = None,
         show_progress: bool = False,
+        callback_manager: Optional[CallbackManager] = None,
+        transformations: Optional[List[TransformComponent]] = None,
+        # deprecated
+        service_context: Optional[ServiceContext] = None,
         **kwargs: Any,
     ) -> IndexType:
         """Build a Zilliz Cloud Pipeline index from a sequence of documents."""
@@ -404,4 +408,3 @@ class ZillizCloudPipelineIndex(BaseManagedIndex):
         raise NotImplementedError(
             "Deleting nodes is not yet supported with Zilliz Cloud Pipeline."
         )
-

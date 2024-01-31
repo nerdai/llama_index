@@ -1,5 +1,7 @@
 from typing import Any, Generator, Optional, Sequence, cast
 
+from llama_index.core.callbacks.base import CallbackManager
+from llama_index.core.indices.prompt_helper import PromptHelper
 from llama_index.core.prompts import BasePromptTemplate
 from llama_index.core.prompts.default_prompt_selectors import (
     DEFAULT_TEXT_QA_PROMPT_SEL,
@@ -7,17 +9,28 @@ from llama_index.core.prompts.default_prompt_selectors import (
 from llama_index.core.prompts.mixin import PromptDictType
 from llama_index.core.response_synthesizers.base import BaseSynthesizer
 from llama_index.core.service_context import ServiceContext
+from llama_index.core.service_context_elements.llm_predictor import LLMPredictorType
 from llama_index.core.types import RESPONSE_TEXT_TYPE
 
 
 class SimpleSummarize(BaseSynthesizer):
     def __init__(
         self,
+        llm: Optional[LLMPredictorType] = None,
+        callback_manager: Optional[CallbackManager] = None,
+        prompt_helper: Optional[PromptHelper] = None,
         text_qa_template: Optional[BasePromptTemplate] = None,
-        service_context: Optional[ServiceContext] = None,
         streaming: bool = False,
+        # deprecated
+        service_context: Optional[ServiceContext] = None,
     ) -> None:
-        super().__init__(service_context=service_context, streaming=streaming)
+        super().__init__(
+            llm=llm,
+            callback_manager=callback_manager,
+            prompt_helper=prompt_helper,
+            service_context=service_context,
+            streaming=streaming,
+        )
         self._text_qa_template = text_qa_template or DEFAULT_TEXT_QA_PROMPT_SEL
 
     def _get_prompts(self) -> PromptDictType:
@@ -36,7 +49,7 @@ class SimpleSummarize(BaseSynthesizer):
         **response_kwargs: Any,
     ) -> RESPONSE_TEXT_TYPE:
         text_qa_template = self._text_qa_template.partial_format(query_str=query_str)
-        truncated_chunks = self._service_context.prompt_helper.truncate(
+        truncated_chunks = self._prompt_helper.truncate(
             prompt=text_qa_template,
             text_chunks=text_chunks,
         )
@@ -44,13 +57,13 @@ class SimpleSummarize(BaseSynthesizer):
 
         response: RESPONSE_TEXT_TYPE
         if not self._streaming:
-            response = await self._service_context.llm.apredict(
+            response = await self._llm.apredict(
                 text_qa_template,
                 context_str=node_text,
                 **response_kwargs,
             )
         else:
-            response = self._service_context.llm.stream(
+            response = self._llm.stream(
                 text_qa_template,
                 context_str=node_text,
                 **response_kwargs,
@@ -70,7 +83,7 @@ class SimpleSummarize(BaseSynthesizer):
         **kwargs: Any,
     ) -> RESPONSE_TEXT_TYPE:
         text_qa_template = self._text_qa_template.partial_format(query_str=query_str)
-        truncated_chunks = self._service_context.prompt_helper.truncate(
+        truncated_chunks = self._prompt_helper.truncate(
             prompt=text_qa_template,
             text_chunks=text_chunks,
         )
@@ -78,13 +91,13 @@ class SimpleSummarize(BaseSynthesizer):
 
         response: RESPONSE_TEXT_TYPE
         if not self._streaming:
-            response = self._service_context.llm.predict(
+            response = self._llm.predict(
                 text_qa_template,
                 context_str=node_text,
                 **kwargs,
             )
         else:
-            response = self._service_context.llm.stream(
+            response = self._llm.stream(
                 text_qa_template,
                 context_str=node_text,
                 **kwargs,

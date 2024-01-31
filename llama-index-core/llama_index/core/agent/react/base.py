@@ -24,14 +24,12 @@ from llama_index.core.callbacks import (
     CallbackManager,
 )
 from llama_index.core.llms.llm import LLM
-from llama_index.core.llms.openai import OpenAI
 from llama_index.core.llms.types import ChatMessage
 from llama_index.core.memory.chat_memory_buffer import ChatMemoryBuffer
 from llama_index.core.memory.types import BaseMemory
 from llama_index.core.objects.base import ObjectRetriever
+from llama_index.core.settings import Settings
 from llama_index.core.tools import BaseTool
-
-DEFAULT_MODEL_NAME = "gpt-3.5-turbo-0613"
 
 
 class ReActAgent(AgentRunner):
@@ -110,7 +108,7 @@ class ReActAgent(AgentRunner):
         Returns:
             ReActAgent
         """
-        llm = llm or OpenAI(model=DEFAULT_MODEL_NAME)
+        llm = llm or Settings.llm
         if callback_manager is not None:
             llm.callback_manager = callback_manager
         memory = memory or memory_cls.from_defaults(

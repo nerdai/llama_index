@@ -12,6 +12,7 @@ from llama_index.core.data_structs.data_structs import (
     IndexDict,
     MultiModelIndexDict,
 )
+from llama_index.core.embeddings.base import BaseEmbedding
 from llama_index.core.embeddings.multi_modal_base import MultiModalEmbedding
 from llama_index.core.embeddings.utils import EmbedType, resolve_embed_model
 from llama_index.core.indices.utils import (
@@ -21,8 +22,11 @@ from llama_index.core.indices.utils import (
     embed_nodes,
 )
 from llama_index.core.indices.vector_store.base import VectorStoreIndex
+from llama_index.core.llms.utils import LLMType
+from llama_index.core.multi_modal_llms import MultiModalLLM
 from llama_index.core.schema import BaseNode, ImageNode
 from llama_index.core.service_context import ServiceContext
+from llama_index.core.settings import Settings, llm_from_settings_or_context
 from llama_index.core.storage.storage_context import StorageContext
 from llama_index.core.vector_stores.simple import (
     DEFAULT_VECTOR_STORE,
@@ -50,7 +54,7 @@ class MultiModalVectorStoreIndex(VectorStoreIndex):
         self,
         nodes: Optional[Sequence[BaseNode]] = None,
         index_struct: Optional[MultiModelIndexDict] = None,
-        service_context: Optional[ServiceContext] = None,
+        embed_model: Optional[BaseEmbedding] = None,
         storage_context: Optional[StorageContext] = None,
         use_async: bool = False,
         store_nodes_override: bool = False,
@@ -65,10 +69,14 @@ class MultiModalVectorStoreIndex(VectorStoreIndex):
         # those flags are used for cases when only one vector store is used
         is_image_vector_store_empty: bool = False,
         is_text_vector_store_empty: bool = False,
+        # deprecated
+        service_context: Optional[ServiceContext] = None,
         **kwargs: Any,
     ) -> None:
         """Initialize params."""
-        image_embed_model = resolve_embed_model(image_embed_model)
+        image_embed_model = resolve_embed_model(
+            image_embed_model, callback_manager=kwargs.get("callback_manager", None)
+        )
         assert isinstance(image_embed_model, MultiModalEmbedding)
         self._image_embed_model = image_embed_model
         self._is_image_to_text = is_image_to_text
@@ -93,6 +101,7 @@ class MultiModalVectorStoreIndex(VectorStoreIndex):
         super().__init__(
             nodes=nodes,
             index_struct=index_struct,
+            embed_model=embed_model,
             service_context=service_context,
             storage_context=storage_context,
             show_progress=show_progress,
@@ -129,7 +138,9 @@ class MultiModalVectorStoreIndex(VectorStoreIndex):
             **kwargs,
         )
 
-    def as_query_engine(self, **kwargs: Any) -> BaseQueryEngine:
+    def as_query_engine(
+        self, llm: Optional[LLMType] = None, **kwargs: Any
+    ) -> BaseQueryEngine:
         """As query engine."""
         from llama_index.core.indices.multi_modal.retriever import (
             MultiModalVectorIndexRetriever,
@@ -140,8 +151,12 @@ class MultiModalVectorStoreIndex(VectorStoreIndex):
 
         retriever = cast(MultiModalVectorIndexRetriever, self.as_retriever(**kwargs))
 
+        llm = llm or llm_from_settings_or_context(Settings, self._service_context)
+        assert isinstance(llm, MultiModalLLM)
+
         return SimpleMultiModalQueryEngine(
             retriever,
+            multi_modal_llm=llm,
             **kwargs,
         )
 
@@ -149,6 +164,8 @@ class MultiModalVectorStoreIndex(VectorStoreIndex):
     def from_vector_store(
         cls,
         vector_store: VectorStore,
+        embed_model: Optional[EmbedType] = None,
+        # deprecated
         service_context: Optional[ServiceContext] = None,
         # Image-related kwargs
         image_vector_store: Optional[VectorStore] = None,
@@ -167,6 +184,11 @@ class MultiModalVectorStoreIndex(VectorStoreIndex):
             storage_context=storage_context,
             image_vector_store=image_vector_store,
             image_embed_model=image_embed_model,
+            embed_model=resolve_embed_model(
+                embed_model, callback_manager=kwargs.get("callback_manager", None)
+            )
+            if embed_model
+            else Settings.embed_model,
             **kwargs,
         )
 
@@ -195,16 +217,16 @@ class MultiModalVectorStoreIndex(VectorStoreIndex):
             if self._is_image_to_text:
                 id_to_text_embed_map = embed_nodes(
                     nodes,
-                    embed_model=self._service_context.embed_model,
+                    embed_model=self._embed_model,
                     show_progress=show_progress,
                 )
                 # TODO: refactor this change of image embed model to same as text
-                self._image_embed_model = self._service_context.embed_model
+                self._image_embed_model = self._embed_model
 
         else:
             id_to_embed_map = embed_nodes(
                 nodes,
-                embed_model=self._service_context.embed_model,
+                embed_model=self._embed_model,
                 show_progress=show_progress,
             )
 
@@ -246,16 +268,16 @@ class MultiModalVectorStoreIndex(VectorStoreIndex):
             if self._is_image_to_text:
                 id_to_text_embed_map = await async_embed_nodes(
                     nodes,
-                    embed_model=self._service_context.embed_model,
+                    embed_model=self._embed_model,
                     show_progress=show_progress,
                 )
                 # TODO: refactor this change of image embed model to same as text
-                self._image_embed_model = self._service_context.embed_model
+                self._image_embed_model = self._embed_model
 
         else:
             id_to_embed_map = await async_embed_nodes(
                 nodes,
-                embed_model=self._service_context.embed_model,
+                embed_model=self._embed_model,
                 show_progress=show_progress,
             )
 

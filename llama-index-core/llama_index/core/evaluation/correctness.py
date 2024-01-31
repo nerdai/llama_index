@@ -4,6 +4,7 @@ from typing import Any, Callable, Optional, Sequence, Tuple, Union
 
 from llama_index.core.evaluation.base import BaseEvaluator, EvaluationResult
 from llama_index.core.evaluation.eval_utils import default_parser
+from llama_index.core.llms.llm import LLM
 from llama_index.core.prompts import (
     BasePromptTemplate,
     ChatMessage,
@@ -13,6 +14,7 @@ from llama_index.core.prompts import (
 )
 from llama_index.core.prompts.mixin import PromptDictType
 from llama_index.core.service_context import ServiceContext
+from llama_index.core.settings import Settings, llm_from_settings_or_context
 
 DEFAULT_SYSTEM_TEMPLATE = """
 You are an expert evaluation system for a question answering chatbot.
@@ -85,14 +87,16 @@ class CorrectnessEvaluator(BaseEvaluator):
 
     def __init__(
         self,
-        service_context: Optional[ServiceContext] = None,
+        llm: Optional[LLM] = None,
         eval_template: Optional[Union[BasePromptTemplate, str]] = None,
         score_threshold: float = 4.0,
+        # deprecated
+        service_context: Optional[ServiceContext] = None,
         parser_function: Callable[
             [str], Tuple[Optional[float], Optional[str]]
         ] = default_parser,
     ) -> None:
-        self._service_context = service_context or ServiceContext.from_defaults()
+        self._llm = llm or llm_from_settings_or_context(Settings, service_context)
 
         self._eval_template: BasePromptTemplate
         if isinstance(eval_template, str):
@@ -131,7 +135,7 @@ class CorrectnessEvaluator(BaseEvaluator):
         if query is None or response is None:
             raise ValueError("query, and response must be provided")
 
-        eval_response = await self._service_context.llm.apredict(
+        eval_response = await self._llm.apredict(
             prompt=self._eval_template,
             query=query,
             generated_answer=response,

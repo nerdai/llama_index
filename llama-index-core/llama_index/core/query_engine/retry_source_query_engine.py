@@ -5,6 +5,7 @@ from llama_index.core.base_query_engine import BaseQueryEngine
 from llama_index.core.callbacks.base import CallbackManager
 from llama_index.core.evaluation import BaseEvaluator
 from llama_index.core.indices.list.base import SummaryIndex
+from llama_index.core.llms.llm import LLM
 from llama_index.core.prompts.mixin import PromptMixinType
 from llama_index.core.query_engine.retriever_query_engine import (
     RetrieverQueryEngine,
@@ -12,6 +13,11 @@ from llama_index.core.query_engine.retriever_query_engine import (
 from llama_index.core.response.schema import RESPONSE_TYPE, Response
 from llama_index.core.schema import Document, QueryBundle
 from llama_index.core.service_context import ServiceContext
+from llama_index.core.settings import (
+    Settings,
+    callback_manager_from_settings_or_context,
+    llm_from_settings_or_context,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -23,16 +29,21 @@ class RetrySourceQueryEngine(BaseQueryEngine):
         self,
         query_engine: RetrieverQueryEngine,
         evaluator: BaseEvaluator,
-        service_context: Optional[ServiceContext] = None,
+        llm: Optional[LLM] = None,
         max_retries: int = 3,
         callback_manager: Optional[CallbackManager] = None,
+        # deprecated
+        service_context: Optional[ServiceContext] = None,
     ) -> None:
         """Run a BaseQueryEngine with retries."""
         self._query_engine = query_engine
         self._evaluator = evaluator
-        self._service_context = service_context
+        self._llm = llm or llm_from_settings_or_context(Settings, service_context)
         self.max_retries = max_retries
-        super().__init__(callback_manager)
+        super().__init__(
+            callback_manager=callback_manager
+            or callback_manager_from_settings_or_context(Settings, service_context)
+        )
 
     def _get_prompt_modules(self) -> PromptMixinType:
         """Get prompt sub-modules."""
@@ -71,13 +82,12 @@ class RetrySourceQueryEngine(BaseQueryEngine):
                 raise ValueError("No source nodes passed evaluation.")
             new_index = SummaryIndex.from_documents(
                 new_docs,
-                service_context=self._service_context,
             )
             new_retriever_engine = RetrieverQueryEngine(new_index.as_retriever())
             new_query_engine = RetrySourceQueryEngine(
                 new_retriever_engine,
                 self._evaluator,
-                self._service_context,
+                self._llm,
                 self.max_retries - 1,
             )
             return new_query_engine.query(query_bundle)

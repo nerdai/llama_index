@@ -8,11 +8,20 @@ from typing import Any, Dict, List, Optional, Sequence
 
 from llama_index.core.async_utils import run_async_tasks
 from llama_index.core.base_retriever import BaseRetriever
+from llama_index.core.callbacks.base import CallbackManager
 from llama_index.core.data_structs.data_structs import IndexDict
+from llama_index.core.embeddings.utils import EmbedType, resolve_embed_model
 from llama_index.core.indices.base import BaseIndex
 from llama_index.core.indices.utils import async_embed_nodes, embed_nodes
-from llama_index.core.schema import BaseNode, ImageNode, IndexNode, MetadataMode
+from llama_index.core.schema import (
+    BaseNode,
+    ImageNode,
+    IndexNode,
+    MetadataMode,
+    TransformComponent,
+)
 from llama_index.core.service_context import ServiceContext
+from llama_index.core.settings import Settings, embed_model_from_settings_or_context
 from llama_index.core.storage.docstore.types import RefDocInfo
 from llama_index.core.storage.storage_context import StorageContext
 from llama_index.core.utils import iter_batch
@@ -36,19 +45,31 @@ class VectorStoreIndex(BaseIndex[IndexDict]):
     def __init__(
         self,
         nodes: Optional[Sequence[BaseNode]] = None,
-        objects: Optional[Sequence[IndexNode]] = None,
-        index_struct: Optional[IndexDict] = None,
-        service_context: Optional[ServiceContext] = None,
-        storage_context: Optional[StorageContext] = None,
+        # vector store index params
         use_async: bool = False,
         store_nodes_override: bool = False,
+        embed_model: Optional[EmbedType] = None,
         insert_batch_size: int = 2048,
+        # parent class params
+        objects: Optional[Sequence[IndexNode]] = None,
+        index_struct: Optional[IndexDict] = None,
+        storage_context: Optional[StorageContext] = None,
+        callback_manager: Optional[CallbackManager] = None,
+        transformations: Optional[List[TransformComponent]] = None,
         show_progress: bool = False,
+        # deprecated
+        service_context: Optional[ServiceContext] = None,
         **kwargs: Any,
     ) -> None:
         """Initialize params."""
         self._use_async = use_async
         self._store_nodes_override = store_nodes_override
+        self._embed_model = (
+            resolve_embed_model(embed_model, callback_manager=callback_manager)
+            if embed_model
+            else embed_model_from_settings_or_context(Settings, service_context)
+        )
+
         self._insert_batch_size = insert_batch_size
         super().__init__(
             nodes=nodes,
@@ -57,6 +78,8 @@ class VectorStoreIndex(BaseIndex[IndexDict]):
             storage_context=storage_context,
             show_progress=show_progress,
             objects=objects,
+            callback_manager=callback_manager,
+            transformations=transformations,
             **kwargs,
         )
 
@@ -64,6 +87,8 @@ class VectorStoreIndex(BaseIndex[IndexDict]):
     def from_vector_store(
         cls,
         vector_store: VectorStore,
+        embed_model: Optional[EmbedType] = None,
+        # deprecated
         service_context: Optional[ServiceContext] = None,
         **kwargs: Any,
     ) -> "VectorStoreIndex":
@@ -72,9 +97,15 @@ class VectorStoreIndex(BaseIndex[IndexDict]):
                 "Cannot initialize from a vector store that does not store text."
             )
 
+        kwargs.pop("storage_context", None)
         storage_context = StorageContext.from_defaults(vector_store=vector_store)
+
         return cls(
-            nodes=[], service_context=service_context, storage_context=storage_context
+            nodes=[],
+            embed_model=embed_model,
+            service_context=service_context,
+            storage_context=storage_context,
+            **kwargs,
         )
 
     @property
@@ -90,7 +121,7 @@ class VectorStoreIndex(BaseIndex[IndexDict]):
         return VectorIndexRetriever(
             self,
             node_ids=list(self.index_struct.nodes_dict.values()),
-            callback_manager=self._service_context.callback_manager,
+            callback_manager=self._callback_manager,
             object_map=self._object_map,
             **kwargs,
         )
@@ -107,7 +138,7 @@ class VectorStoreIndex(BaseIndex[IndexDict]):
 
         """
         id_to_embed_map = embed_nodes(
-            nodes, self._service_context.embed_model, show_progress=show_progress
+            nodes, self._embed_model, show_progress=show_progress
         )
 
         results = []
@@ -131,7 +162,7 @@ class VectorStoreIndex(BaseIndex[IndexDict]):
         """
         id_to_embed_map = await async_embed_nodes(
             nodes=nodes,
-            embed_model=self._service_context.embed_model,
+            embed_model=self._embed_model,
             show_progress=show_progress,
         )
 

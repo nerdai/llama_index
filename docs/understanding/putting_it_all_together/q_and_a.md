@@ -71,21 +71,21 @@ it can synthesize information across your heterogeneous data sources.
 
 ```python
 from llama_index import VectorStoreIndex, SummaryIndex
-from llama_index.indices.composability import ComposableGraph
+from llama_index.schema import IndexNode
 
 index1 = VectorStoreIndex.from_documents(notion_docs)
 index2 = VectorStoreIndex.from_documents(slack_docs)
 
-graph = ComposableGraph.from_indices(
-    SummaryIndex, [index1, index2], index_summaries=["summary1", "summary2"]
+top_level = SummaryIndex(
+    objects=[
+        IndexNode(text="summary", index_id="notion", obj=index1),
+        IndexNode(text="summary", index_id="slack", obj=index2),
+    ]
 )
-query_engine = graph.as_query_engine()
+
+query_engine = top_level.as_query_engine()
 response = query_engine.query("<query_str>")
 ```
-
-**Guides**
-
-- [City Analysis](/examples/composable_indices/city_analysis/PineconeDemo-CityAnalysis.ipynb) ([Notebook](https://github.com/jerryjliu/llama_index/blob/main/docs/examples/composable_indices/city_analysis/PineconeDemo-CityAnalysis.ipynb))
 
 (Route-across-multiple-sources)=
 
@@ -136,7 +136,6 @@ response = query_engine.query(
 **Guides**
 
 - [Router Query Engine Guide](/examples/query_engine/RouterQueryEngine.ipynb) ([Notebook](https://github.com/jerryjliu/llama_index/blob/main/docs/examples/query_engine/RouterQueryEngine.ipynb))
-- [City Analysis Unified Query Interface](/examples/composable_indices/city_analysis/City_Analysis-Unified-Query.ipynb) ([Notebook](https://github.com/jerryjliu/llama_index/blob/main/docs/examples/composable_indices/city_analysis/PineconeDemo-CityAnalysis.ipynb))
 
 ## Compare/Contrast Queries
 
@@ -147,9 +146,7 @@ from llama_index.indices.query.query_transform.base import (
     DecomposeQueryTransform,
 )
 
-decompose_transform = DecomposeQueryTransform(
-    service_context.llm, verbose=True
-)
+decompose_transform = DecomposeQueryTransform(llm, verbose=True)
 ```
 
 This module will help break down a complex query into a simpler one over your existing index structure.
@@ -157,7 +154,6 @@ This module will help break down a complex query into a simpler one over your ex
 **Guides**
 
 - [Query Transformations](/optimizing/advanced_retrieval/query_transformations.md)
-- [City Analysis Compare/Contrast Example](/examples/composable_indices/city_analysis/City_Analysis-Decompose.ipynb) ([Notebook](https://github.com/jerryjliu/llama_index/blob/main/docs/examples/composable_indices/city_analysis/City_Analysis-Decompose.ipynb))
 
 You can also rely on the LLM to _infer_ whether to perform compare/contrast queries (see Multi-Document Queries below).
 
@@ -247,7 +243,6 @@ LlamaIndex can support queries that require an understanding of time. It can do 
 
 ## Additional Resources
 
-- [A Guide to Creating a Unified Query Framework over your indexes](/understanding/putting_it_all_together/q_and_a/unified_query.md)
 - [A Guide to Extracting Terms and Definitions](/understanding/putting_it_all_together/q_and_a/terms_definitions_tutorial.md)
 - [SEC 10k Analysis](https://medium.com/@jerryjliu98/how-unstructured-and-llamaindex-can-help-bring-the-power-of-llms-to-your-own-data-3657d063e30d)
 
@@ -257,7 +252,6 @@ maxdepth: 1
 hidden: true
 ---
 /understanding/putting_it_all_together/q_and_a/terms_definitions_tutorial.md
-/understanding/putting_it_all_together/q_and_a/unified_query.md
 /understanding/putting_it_all_together/graphs.md
 /understanding/putting_it_all_together/structured_data.md
 /understanding/putting_it_all_together/structured_data/Airbyte_demo.ipynb

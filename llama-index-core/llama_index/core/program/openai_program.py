@@ -8,6 +8,7 @@ from llama_index.core.llms.openai_utils import OpenAIToolCall, to_openai_tool
 from llama_index.core.program.llm_prompt_program import BaseLLMFunctionProgram
 from llama_index.core.program.utils import create_list_model
 from llama_index.core.prompts.base import BasePromptTemplate, PromptTemplate
+from llama_index.core.settings import Settings
 from llama_index.core.types import Model
 
 _logger = logging.getLogger(__name__)
@@ -112,7 +113,7 @@ class OpenAIPydanticProgram(BaseLLMFunctionProgram[LLM]):
         tool_choice: Optional[Union[str, Dict[str, Any]]] = None,
         **kwargs: Any,
     ) -> "OpenAIPydanticProgram":
-        llm = llm or OpenAI(model="gpt-3.5-turbo-0613")
+        llm = llm or Settings.llm
 
         if not isinstance(llm, OpenAI):
             raise ValueError(

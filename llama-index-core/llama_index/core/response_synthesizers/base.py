@@ -14,6 +14,7 @@ from typing import Any, Dict, Generator, List, Optional, Sequence, Union
 from llama_index.core.bridge.pydantic import BaseModel, Field
 from llama_index.core.callbacks.base import CallbackManager
 from llama_index.core.callbacks.schema import CBEventType, EventPayload
+from llama_index.core.indices.prompt_helper import PromptHelper
 from llama_index.core.prompts.mixin import PromptMixin
 from llama_index.core.query_pipeline.components.query import (
     ChainableMixin,
@@ -35,6 +36,13 @@ from llama_index.core.schema import (
     QueryBundle,
 )
 from llama_index.core.service_context import ServiceContext
+from llama_index.core.service_context_elements.llm_predictor import LLMPredictorType
+from llama_index.core.settings import (
+    Settings,
+    callback_manager_from_settings_or_context,
+    llm_from_settings_or_context,
+    prompt_helper_from_settings_or_context,
+)
 from llama_index.core.types import RESPONSE_TEXT_TYPE
 
 logger = logging.getLogger(__name__)
@@ -47,13 +55,24 @@ class BaseSynthesizer(ChainableMixin, PromptMixin):
 
     def __init__(
         self,
-        service_context: Optional[ServiceContext] = None,
+        llm: Optional[LLMPredictorType] = None,
+        callback_manager: Optional[CallbackManager] = None,
+        prompt_helper: Optional[PromptHelper] = None,
         streaming: bool = False,
         output_cls: BaseModel = None,
+        # deprecated
+        service_context: Optional[ServiceContext] = None,
     ) -> None:
         """Init params."""
-        self._service_context = service_context or ServiceContext.from_defaults()
-        self._callback_manager = self._service_context.callback_manager
+        self._llm = llm or llm_from_settings_or_context(Settings, service_context)
+        self._callback_manager = (
+            callback_manager
+            or callback_manager_from_settings_or_context(Settings, service_context)
+        )
+        self._prompt_helper = prompt_helper or prompt_helper_from_settings_or_context(
+            Settings, service_context
+        )
+
         self._streaming = streaming
         self._output_cls = output_cls
 
@@ -61,10 +80,6 @@ class BaseSynthesizer(ChainableMixin, PromptMixin):
         """Get prompt modules."""
         # TODO: keep this for now since response synthesizers don't generally have sub-modules
         return {}
-
-    @property
-    def service_context(self) -> ServiceContext:
-        return self._service_context
 
     @property
     def callback_manager(self) -> CallbackManager:
@@ -75,10 +90,8 @@ class BaseSynthesizer(ChainableMixin, PromptMixin):
         """Set callback manager."""
         self._callback_manager = callback_manager
         # TODO: please fix this later
-        self._service_context.callback_manager = callback_manager
-        self._service_context.llm.callback_manager = callback_manager
-        self._service_context.embed_model.callback_manager = callback_manager
-        self._service_context.node_parser.callback_manager = callback_manager
+        self._callback_manager = callback_manager
+        self._llm.callback_manager = callback_manager
 
     @abstractmethod
     def get_response(
@@ -108,13 +121,7 @@ class BaseSynthesizer(ChainableMixin, PromptMixin):
     ) -> None:
         """Log prompt and response from LLM."""
         logger.debug(f"> {log_prefix} prompt template: {formatted_prompt}")
-        self._service_context.llama_logger.add_log(
-            {"formatted_prompt_template": formatted_prompt}
-        )
         logger.debug(f"> {log_prefix} response: {response}")
-        self._service_context.llama_logger.add_log(
-            {f"{log_prefix.lower()}_response": response or "Empty Response"}
-        )
 
     def _get_metadata_for_response(
         self,

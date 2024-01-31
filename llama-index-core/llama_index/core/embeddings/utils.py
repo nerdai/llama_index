@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING, List, Optional, Union
 
 if TYPE_CHECKING:
     from llama_index.core.bridge.langchain import Embeddings as LCEmbeddings
+from llama_index.core.callbacks import CallbackManager
 from llama_index.core.embeddings.base import BaseEmbedding
 from llama_index.core.embeddings.clip import ClipEmbedding
 from llama_index.core.embeddings.langchain import LangchainEmbedding
@@ -30,8 +31,13 @@ def load_embedding(file_path: str) -> List[float]:
         return embedding
 
 
-def resolve_embed_model(embed_model: Optional[EmbedType] = None) -> BaseEmbedding:
+def resolve_embed_model(
+    embed_model: Optional[EmbedType] = None,
+    callback_manager: Optional[CallbackManager] = None,
+) -> BaseEmbedding:
     """Resolve embed model."""
+    from llama_index.core.settings import Settings
+
     try:
         from llama_index.core.bridge.langchain import Embeddings as LCEmbeddings
     except ImportError:
@@ -83,5 +89,7 @@ def resolve_embed_model(embed_model: Optional[EmbedType] = None) -> BaseEmbeddin
     if embed_model is None:
         print("Embeddings have been explicitly disabled. Using MockEmbedding.")
         embed_model = MockEmbedding(embed_dim=1)
+
+    embed_model.callback_manager = callback_manager or Settings.callback_manager
 
     return embed_model

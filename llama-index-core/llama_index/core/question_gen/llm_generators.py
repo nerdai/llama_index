@@ -13,6 +13,8 @@ from llama_index.core.question_gen.prompts import (
 from llama_index.core.question_gen.types import BaseQuestionGenerator, SubQuestion
 from llama_index.core.schema import QueryBundle
 from llama_index.core.service_context import ServiceContext
+from llama_index.core.service_context_elements.llm_predictor import LLMPredictorType
+from llama_index.core.settings import Settings, llm_from_settings_or_context
 from llama_index.core.tools.types import ToolMetadata
 from llama_index.core.types import BaseOutputParser
 
@@ -32,12 +34,13 @@ class LLMQuestionGenerator(BaseQuestionGenerator):
     @classmethod
     def from_defaults(
         cls,
+        llm: Optional[LLMPredictorType] = None,
         service_context: Optional[ServiceContext] = None,
         prompt_template_str: Optional[str] = None,
         output_parser: Optional[BaseOutputParser] = None,
     ) -> "LLMQuestionGenerator":
         # optionally initialize defaults
-        service_context = service_context or ServiceContext.from_defaults()
+        llm = llm or llm_from_settings_or_context(Settings, service_context)
         prompt_template_str = prompt_template_str or DEFAULT_SUB_QUESTION_PROMPT_TMPL
         output_parser = output_parser or SubQuestionOutputParser()
 
@@ -47,7 +50,7 @@ class LLMQuestionGenerator(BaseQuestionGenerator):
             output_parser=output_parser,
             prompt_type=PromptType.SUB_QUESTION,
         )
-        return cls(service_context.llm, prompt)
+        return cls(llm, prompt)
 
     def _get_prompts(self) -> PromptDictType:
         """Get prompts."""

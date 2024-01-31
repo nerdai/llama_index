@@ -11,6 +11,7 @@ from llama_index.core.indices.struct_store.sql_query import (
 from llama_index.core.indices.vector_store.retrievers.auto_retriever import (
     VectorIndexAutoRetriever,
 )
+from llama_index.core.llms.llm import LLM
 from llama_index.core.prompts.base import BasePromptTemplate, PromptTemplate
 from llama_index.core.prompts.mixin import PromptDictType, PromptMixinType
 from llama_index.core.query_engine.retriever_query_engine import (
@@ -81,6 +82,7 @@ class SQLAutoVectorQueryEngine(SQLJoinQueryEngine):
         sql_query_tool: QueryEngineTool,
         vector_query_tool: QueryEngineTool,
         selector: Optional[Union[LLMSingleSelector, PydanticSingleSelector]] = None,
+        llm: Optional[LLM] = None,
         service_context: Optional[ServiceContext] = None,
         sql_vector_synthesis_prompt: Optional[BasePromptTemplate] = None,
         sql_augment_query_transform: Optional[SQLAugmentQueryTransform] = None,
@@ -118,6 +120,7 @@ class SQLAutoVectorQueryEngine(SQLJoinQueryEngine):
             sql_query_tool,
             vector_query_tool,
             selector=selector,
+            llm=llm,
             service_context=service_context,
             sql_join_synthesis_prompt=sql_vector_synthesis_prompt,
             sql_augment_query_transform=sql_augment_query_transform,

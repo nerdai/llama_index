@@ -13,7 +13,6 @@ from llama_index.core.indices.query.query_transform.prompts import (
     ImageOutputQueryTransformPrompt,
     StepDecomposeQueryTransformPrompt,
 )
-from llama_index.core.llms.utils import resolve_llm
 from llama_index.core.prompts import BasePromptTemplate
 from llama_index.core.prompts.default_prompts import DEFAULT_HYDE_PROMPT
 from llama_index.core.prompts.mixin import (
@@ -33,6 +32,7 @@ from llama_index.core.schema import QueryBundle, QueryType
 from llama_index.core.service_context_elements.llm_predictor import (
     LLMPredictorType,
 )
+from llama_index.core.settings import Settings
 from llama_index.core.utils import print_text
 
 
@@ -131,7 +131,7 @@ class HyDEQueryTransform(BaseQueryTransform):
         """
         super().__init__()
 
-        self._llm = llm or resolve_llm("default")
+        self._llm = llm or Settings.llm
         self._hyde_prompt = hyde_prompt or DEFAULT_HYDE_PROMPT
         self._include_original = include_original
 
@@ -178,7 +178,7 @@ class DecomposeQueryTransform(BaseQueryTransform):
     ) -> None:
         """Init params."""
         super().__init__()
-        self._llm = llm or resolve_llm("default")
+        self._llm = llm or Settings.llm
         self._decompose_query_prompt = (
             decompose_query_prompt or DEFAULT_DECOMPOSE_QUERY_TRANSFORM_PROMPT
         )
@@ -280,7 +280,7 @@ class StepDecomposeQueryTransform(BaseQueryTransform):
     ) -> None:
         """Init params."""
         super().__init__()
-        self._llm = llm or resolve_llm("default")
+        self._llm = llm or Settings.llm
         self._step_decompose_query_prompt = (
             step_decompose_query_prompt or DEFAULT_STEP_DECOMPOSE_QUERY_TRANSFORM_PROMPT
         )

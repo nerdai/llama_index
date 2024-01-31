@@ -14,6 +14,7 @@ from llama_index.core.indices.struct_store.sql_retriever import (
     NLSQLRetriever,
     SQLParserMode,
 )
+from llama_index.core.llms.llm import LLM
 from llama_index.core.objects.base import ObjectRetriever
 from llama_index.core.objects.table_node_mapping import SQLTableSchema
 from llama_index.core.prompts import BasePromptTemplate, PromptTemplate
@@ -29,6 +30,11 @@ from llama_index.core.response_synthesizers import (
 )
 from llama_index.core.schema import QueryBundle
 from llama_index.core.service_context import ServiceContext
+from llama_index.core.settings import (
+    Settings,
+    callback_manager_from_settings_or_context,
+    llm_from_settings_or_context,
+)
 from llama_index.core.utilities.sql_wrapper import SQLDatabase
 
 logger = logging.getLogger(__name__)
@@ -84,7 +90,11 @@ class SQLStructStoreQueryEngine(BaseQueryEngine):
             sql_context_container or index.sql_context_container
         )
         self._sql_only = sql_only
-        super().__init__(index.service_context.callback_manager)
+        super().__init__(
+            callback_manager=callback_manager_from_settings_or_context(
+                Settings, index.service_context
+            )
+        )
 
     def _get_prompt_modules(self) -> PromptMixinType:
         """Get prompt modules."""
@@ -154,6 +164,7 @@ class NLStructStoreQueryEngine(BaseQueryEngine):
     ) -> None:
         """Initialize params."""
         self._index = index
+        self._llm = llm_from_settings_or_context(Settings, index.service_context)
         self._sql_database = index.sql_database
         self._sql_context_container = index.sql_context_container
         self._service_context = index.service_context
@@ -166,10 +177,14 @@ class NLStructStoreQueryEngine(BaseQueryEngine):
         self._context_query_kwargs = context_query_kwargs or {}
         self._synthesize_response = synthesize_response
         self._sql_only = sql_only
-        super().__init__(index.service_context.callback_manager)
+        super().__init__(
+            callback_manager=callback_manager_from_settings_or_context(
+                Settings, index.service_context
+            )
+        )
 
     @property
-    def service_context(self) -> ServiceContext:
+    def service_context(self) -> Optional[ServiceContext]:
         """Get service context."""
         return self._service_context
 
@@ -223,7 +238,7 @@ class NLStructStoreQueryEngine(BaseQueryEngine):
         table_desc_str = self._get_table_context(query_bundle)
         logger.info(f"> Table desc str: {table_desc_str}")
 
-        response_str = self._service_context.llm.predict(
+        response_str = self._llm.predict(
             self._text_to_sql_prompt,
             query_str=query_bundle.query_str,
             schema=table_desc_str,
@@ -239,7 +254,7 @@ class NLStructStoreQueryEngine(BaseQueryEngine):
         metadata["sql_query"] = sql_query_str
 
         if self._synthesize_response:
-            response_str = self._service_context.llm.predict(
+            response_str = self._llm.predict(
                 self._response_synthesis_prompt,
                 query_str=query_bundle.query_str,
                 sql_query=sql_query_str,
@@ -255,7 +270,7 @@ class NLStructStoreQueryEngine(BaseQueryEngine):
         table_desc_str = self._get_table_context(query_bundle)
         logger.info(f"> Table desc str: {table_desc_str}")
 
-        response_str = await self._service_context.llm.apredict(
+        response_str = await self._llm.apredict(
             self._text_to_sql_prompt,
             query_str=query_bundle.query_str,
             schema=table_desc_str,
@@ -286,14 +301,17 @@ def _validate_prompt(response_synthesis_prompt: BasePromptTemplate) -> None:
 class BaseSQLTableQueryEngine(BaseQueryEngine):
     def __init__(
         self,
+        llm: Optional[LLM] = None,
         synthesize_response: bool = True,
         response_synthesis_prompt: Optional[BasePromptTemplate] = None,
-        service_context: Optional[ServiceContext] = None,
         verbose: bool = False,
+        # deprecated
+        service_context: Optional[ServiceContext] = None,
         **kwargs: Any,
     ) -> None:
         """Initialize params."""
-        self._service_context = service_context or ServiceContext.from_defaults()
+        self._service_context = service_context
+        self._llm = llm or llm_from_settings_or_context(Settings, service_context)
         self._response_synthesis_prompt = (
             response_synthesis_prompt or DEFAULT_RESPONSE_SYNTHESIS_PROMPT_V2
         )
@@ -301,7 +319,12 @@ class BaseSQLTableQueryEngine(BaseQueryEngine):
         _validate_prompt(self._response_synthesis_prompt)
         self._synthesize_response = synthesize_response
         self._verbose = verbose
-        super().__init__(self._service_context.callback_manager, **kwargs)
+        super().__init__(
+            callback_manager=callback_manager_from_settings_or_context(
+                Settings, service_context
+            ),
+            **kwargs,
+        )
 
     def _get_prompts(self) -> Dict[str, Any]:
         """Get prompts."""
@@ -322,7 +345,7 @@ class BaseSQLTableQueryEngine(BaseQueryEngine):
         """Get SQL retriever."""
 
     @property
-    def service_context(self) -> ServiceContext:
+    def service_context(self) -> Optional[ServiceContext]:
         """Get service context."""
         return self._service_context
 
@@ -338,8 +361,8 @@ class BaseSQLTableQueryEngine(BaseQueryEngine):
                 sql_query=sql_query_str,
             )
             response_synthesizer = get_response_synthesizer(
-                service_context=self._service_context,
-                callback_manager=self._service_context.callback_manager,
+                llm=self._llm,
+                callback_manager=self.callback_manager,
                 text_qa_template=partial_synthesis_prompt,
                 verbose=self._verbose,
             )
@@ -365,8 +388,8 @@ class BaseSQLTableQueryEngine(BaseQueryEngine):
                 sql_query=sql_query_str,
             )
             response_synthesizer = get_response_synthesizer(
-                service_context=self._service_context,
-                callback_manager=self._service_context.callback_manager,
+                llm=self._llm,
+                callback_manager=self.callback_manager,
                 text_qa_template=partial_synthesis_prompt,
             )
             response = await response_synthesizer.asynthesize(
@@ -390,6 +413,7 @@ class NLSQLTableQueryEngine(BaseSQLTableQueryEngine):
     def __init__(
         self,
         sql_database: SQLDatabase,
+        llm: Optional[LLM] = None,
         text_to_sql_prompt: Optional[BasePromptTemplate] = None,
         context_query_kwargs: Optional[dict] = None,
         synthesize_response: bool = True,
@@ -405,6 +429,7 @@ class NLSQLTableQueryEngine(BaseSQLTableQueryEngine):
         # self._tables = tables
         self._sql_retriever = NLSQLRetriever(
             sql_database,
+            llm=llm,
             text_to_sql_prompt=text_to_sql_prompt,
             context_query_kwargs=context_query_kwargs,
             tables=tables,
@@ -416,6 +441,7 @@ class NLSQLTableQueryEngine(BaseSQLTableQueryEngine):
         super().__init__(
             synthesize_response=synthesize_response,
             response_synthesis_prompt=response_synthesis_prompt,
+            llm=llm,
             service_context=service_context,
             verbose=verbose,
             **kwargs,
@@ -440,6 +466,7 @@ class PGVectorSQLQueryEngine(BaseSQLTableQueryEngine):
     def __init__(
         self,
         sql_database: SQLDatabase,
+        llm: Optional[LLM] = None,
         text_to_sql_prompt: Optional[BasePromptTemplate] = None,
         context_query_kwargs: Optional[dict] = None,
         synthesize_response: bool = True,
@@ -454,6 +481,7 @@ class PGVectorSQLQueryEngine(BaseSQLTableQueryEngine):
         text_to_sql_prompt = text_to_sql_prompt or DEFAULT_TEXT_TO_SQL_PGVECTOR_PROMPT
         self._sql_retriever = NLSQLRetriever(
             sql_database,
+            llm=llm,
             text_to_sql_prompt=text_to_sql_prompt,
             context_query_kwargs=context_query_kwargs,
             tables=tables,
@@ -465,6 +493,7 @@ class PGVectorSQLQueryEngine(BaseSQLTableQueryEngine):
         super().__init__(
             synthesize_response=synthesize_response,
             response_synthesis_prompt=response_synthesis_prompt,
+            llm=llm,
             service_context=service_context,
             **kwargs,
         )
@@ -482,6 +511,7 @@ class SQLTableRetrieverQueryEngine(BaseSQLTableQueryEngine):
         self,
         sql_database: SQLDatabase,
         table_retriever: ObjectRetriever[SQLTableSchema],
+        llm: Optional[LLM] = None,
         text_to_sql_prompt: Optional[BasePromptTemplate] = None,
         context_query_kwargs: Optional[dict] = None,
         synthesize_response: bool = True,
@@ -494,6 +524,7 @@ class SQLTableRetrieverQueryEngine(BaseSQLTableQueryEngine):
         """Initialize params."""
         self._sql_retriever = NLSQLRetriever(
             sql_database,
+            llm=llm,
             text_to_sql_prompt=text_to_sql_prompt,
             context_query_kwargs=context_query_kwargs,
             table_retriever=table_retriever,
@@ -504,6 +535,7 @@ class SQLTableRetrieverQueryEngine(BaseSQLTableQueryEngine):
         super().__init__(
             synthesize_response=synthesize_response,
             response_synthesis_prompt=response_synthesis_prompt,
+            llm=llm,
             service_context=service_context,
             **kwargs,
         )

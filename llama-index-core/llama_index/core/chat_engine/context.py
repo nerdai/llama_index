@@ -16,6 +16,11 @@ from llama_index.core.memory import BaseMemory, ChatMemoryBuffer
 from llama_index.core.postprocessor.types import BaseNodePostprocessor
 from llama_index.core.schema import MetadataMode, NodeWithScore, QueryBundle
 from llama_index.core.service_context import ServiceContext
+from llama_index.core.settings import (
+    Settings,
+    callback_manager_from_settings_or_context,
+    llm_from_settings_or_context,
+)
 
 DEFAULT_CONTEXT_TEMPLATE = (
     "Context information is below."
@@ -67,8 +72,7 @@ class ContextChatEngine(BaseChatEngine):
         **kwargs: Any,
     ) -> "ContextChatEngine":
         """Initialize a ContextChatEngine from default parameters."""
-        service_context = service_context or ServiceContext.from_defaults()
-        llm = service_context.llm
+        llm = llm_from_settings_or_context(Settings, service_context)
 
         chat_history = chat_history or []
         memory = memory or ChatMemoryBuffer.from_defaults(
@@ -93,7 +97,9 @@ class ContextChatEngine(BaseChatEngine):
             memory=memory,
             prefix_messages=prefix_messages,
             node_postprocessors=node_postprocessors,
-            callback_manager=service_context.callback_manager,
+            callback_manager=callback_manager_from_settings_or_context(
+                Settings, service_context
+            ),
             context_template=context_template,
         )
 

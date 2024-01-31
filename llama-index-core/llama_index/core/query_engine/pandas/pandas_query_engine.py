@@ -14,7 +14,7 @@ import pandas as pd
 
 from llama_index.core.base_query_engine import BaseQueryEngine
 from llama_index.core.indices.struct_store.pandas import PandasIndex
-from llama_index.core.llms.utils import LLMType
+from llama_index.core.llms.llm import LLM
 from llama_index.core.prompts import BasePromptTemplate, PromptTemplate
 from llama_index.core.prompts.default_prompts import DEFAULT_PANDAS_PROMPT
 from llama_index.core.prompts.mixin import PromptDictType, PromptMixinType
@@ -24,6 +24,11 @@ from llama_index.core.query_engine.pandas.output_parser import (
 from llama_index.core.response.schema import Response
 from llama_index.core.schema import QueryBundle
 from llama_index.core.service_context import ServiceContext
+from llama_index.core.settings import (
+    Settings,
+    callback_manager_from_settings_or_context,
+    llm_from_settings_or_context,
+)
 from llama_index.core.utils import print_text
 
 logger = logging.getLogger(__name__)
@@ -87,7 +92,7 @@ class PandasQueryEngine(BaseQueryEngine):
         head: int = 5,
         verbose: bool = False,
         service_context: Optional[ServiceContext] = None,
-        llm: Optional[LLMType] = "default",
+        llm: Optional[LLM] = None,
         synthesize_response: bool = False,
         response_synthesis_prompt: Optional[BasePromptTemplate] = None,
         **kwargs: Any,
@@ -103,13 +108,17 @@ class PandasQueryEngine(BaseQueryEngine):
         )
         self._verbose = verbose
 
-        self._service_context = service_context or ServiceContext.from_defaults(llm=llm)
+        self._llm = llm or llm_from_settings_or_context(Settings, service_context)
         self._synthesize_response = synthesize_response
         self._response_synthesis_prompt = (
             response_synthesis_prompt or DEFAULT_RESPONSE_SYNTHESIS_PROMPT
         )
 
-        super().__init__(self._service_context.callback_manager)
+        super().__init__(
+            callback_manager=callback_manager_from_settings_or_context(
+                Settings, service_context
+            )
+        )
 
     def _get_prompt_modules(self) -> PromptMixinType:
         """Get prompt sub-modules."""
@@ -145,7 +154,7 @@ class PandasQueryEngine(BaseQueryEngine):
         """Answer a query."""
         context = self._get_table_context()
 
-        pandas_response_str = self._service_context.llm.predict(
+        pandas_response_str = self._llm.predict(
             self._pandas_prompt,
             df_str=context,
             query_str=query_bundle.query_str,
@@ -164,7 +173,7 @@ class PandasQueryEngine(BaseQueryEngine):
         }
         if self._synthesize_response:
             response_str = str(
-                self._service_context.llm.predict(
+                self._llm.predict(
                     self._response_synthesis_prompt,
                     query_str=query_bundle.query_str,
                     pandas_instructions=pandas_response_str,
