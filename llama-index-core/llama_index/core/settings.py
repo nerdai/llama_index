@@ -5,16 +5,16 @@ if TYPE_CHECKING:
     from llama_index import ServiceContext
 
 
-from llama_index.callbacks.base import BaseCallbackHandler, CallbackManager
+from llama_index.core.callbacks.base import BaseCallbackHandler, CallbackManager
 from llama_index.core.embeddings.base import BaseEmbedding
-from llama_index.embeddings.utils import EmbedType, resolve_embed_model
-from llama_index.indices.prompt_helper import PromptHelper
-from llama_index.llms import LLM
-from llama_index.llms.utils import LLMType, resolve_llm
-from llama_index.node_parser import NodeParser, SentenceSplitter
-from llama_index.schema import TransformComponent
-from llama_index.types import PydanticProgramMode
-from llama_index.utils import get_tokenizer, set_global_tokenizer
+from llama_index.core.embeddings.utils import EmbedType, resolve_embed_model
+from llama_index.core.indices.prompt_helper import PromptHelper
+from llama_index.core.llms import LLM
+from llama_index.core.llms.utils import LLMType, resolve_llm
+from llama_index.core.node_parser import NodeParser, SentenceSplitter
+from llama_index.core.schema import TransformComponent
+from llama_index.core.types import PydanticProgramMode
+from llama_index.core.utils import get_tokenizer, set_global_tokenizer
 
 
 @dataclass

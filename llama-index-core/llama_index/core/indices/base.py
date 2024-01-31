@@ -11,6 +11,7 @@ from llama_index.core.data_structs.data_structs import IndexStruct
 from llama_index.core.ingestion import run_transformations
 from llama_index.core.llms.openai import OpenAI
 from llama_index.core.llms.openai_utils import is_function_calling_model
+from llama_index.core.llms.utils import LLMType, resolve_llm
 from llama_index.core.schema import BaseNode, Document, IndexNode, TransformComponent
 from llama_index.core.service_context import ServiceContext
 from llama_index.core.settings import (
@@ -21,7 +22,6 @@ from llama_index.core.settings import (
 )
 from llama_index.core.storage.docstore.types import BaseDocumentStore, RefDocInfo
 from llama_index.core.storage.storage_context import StorageContext
-from llama_index.llms.utils import LLMType, resolve_llm
 
 IS = TypeVar("IS", bound=IndexStruct)
 IndexType = TypeVar("IndexType", bound="BaseIndex")
