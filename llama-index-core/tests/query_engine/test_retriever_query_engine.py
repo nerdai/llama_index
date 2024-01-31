@@ -30,13 +30,13 @@ def test_query_engine_falls_back_to_inheriting_retrievers_service_context() -> N
     query_engine = RetrieverQueryEngine(retriever=retriever)
 
     assert (
-        retriever._service_context.llm.metadata.model_name
-        == gpt35turbo_predictor.metadata.model_name
+        retriever._llm.metadata.model_name == gpt35turbo_predictor.metadata.model_name
     )
     assert (
-        query_engine._response_synthesizer.service_context.llm.metadata.model_name
-        == retriever._service_context.llm.metadata.model_name
+        query_engine._response_synthesizer._llm.metadata.model_name
+        == retriever._llm.metadata.model_name
     )
     assert (
-        query_engine._response_synthesizer.service_context == retriever._service_context
+        query_engine._response_synthesizer.callback_manager
+        == retriever.callback_manager
     )
