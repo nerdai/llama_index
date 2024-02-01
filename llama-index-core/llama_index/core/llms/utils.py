@@ -4,12 +4,8 @@ if TYPE_CHECKING:
     from langchain.base_language import BaseLanguageModel
 
 from llama_index.core.llms.callbacks import CallbackManager
-from llama_index.core.llms.llama_cpp import LlamaCPP
-from llama_index.core.llms.llama_utils import completion_to_prompt, messages_to_prompt
 from llama_index.core.llms.llm import LLM
 from llama_index.core.llms.mock import MockLLM
-from llama_index.core.llms.openai import OpenAI
-from llama_index.core.llms.openai_utils import validate_openai_api_key
 
 LLMType = Union[str, LLM, "BaseLanguageModel"]
 
@@ -22,10 +18,37 @@ def resolve_llm(
 
     try:
         from langchain.base_language import BaseLanguageModel
-
-        from llama_index.llms.langchain import LangChainLLM
     except ImportError:
         BaseLanguageModel = None  # type: ignore
+
+    try:
+        from llama_index.llms.langchain import LangChainLLM
+    except ImportError:
+        raise ImportError(
+            "`llama-index-llms-langchain` package not found, "
+            "please run `pip install llama-index-llms-langchain`"
+        )
+
+    try:
+        from llama_index.llms.openai import OpenAI
+        from llama_index.llms.openai.utils import validate_openai_api_key
+    except ImportError:
+        raise ImportError(
+            "`llama-index-llms-openai` package not found, "
+            "please run `pip install llama-index-llms-openai`"
+        )
+
+    try:
+        from llama_index.llms.llama.utils import (
+            completion_to_prompt,
+            messages_to_prompt,
+        )
+        from llama_index.llms.llama_cpp import LlamaCPP
+    except ImportError:
+        raise ImportError(
+            "`llama-index-llms-llama-cpp` package not found, "
+            "please run `pip install llama-index-llms-llama-cpp`"
+        )
 
     if llm == "default":
         # return default OpenAI model. If it fails, return LlamaCPP
