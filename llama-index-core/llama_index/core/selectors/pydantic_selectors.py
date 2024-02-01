@@ -44,7 +44,7 @@ class PydanticSingleSelector(BaseSelector):
     def from_defaults(
         cls,
         program: Optional[BasePydanticProgram] = None,
-        llm: Optional[OpenAI] = None,
+        llm: Optional["OpenAI"] = None,
         prompt_template_str: str = DEFAULT_SINGLE_PYD_SELECT_PROMPT_TMPL,
         verbose: bool = False,
     ) -> "PydanticSingleSelector":
@@ -108,11 +108,18 @@ class PydanticMultiSelector(BaseSelector):
     def from_defaults(
         cls,
         program: Optional[BasePydanticProgram] = None,
-        llm: Optional[OpenAI] = None,
+        llm: Optional["OpenAI"] = None,
         prompt_template_str: str = DEFAULT_MULTI_PYD_SELECT_PROMPT_TMPL,
         max_outputs: Optional[int] = None,
         verbose: bool = False,
     ) -> "PydanticMultiSelector":
+        try:
+            from llama_index.program.openai import OpenAIPydanticProgram
+        except ImportError as e:
+            raise ImportError(
+                "`llama-index-program-openai` package is missing. "
+                "Please install using `pip install llama-index-program-openai`."
+            )
         if program is None:
             program = OpenAIPydanticProgram.from_defaults(
                 output_cls=MultiSelection,
