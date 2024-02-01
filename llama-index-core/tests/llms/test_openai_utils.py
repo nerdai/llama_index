@@ -2,7 +2,7 @@ from typing import List
 
 import pytest
 from llama_index.core.bridge.pydantic import BaseModel
-from llama_index.core.llms.openai_utils import (
+from llama_index.core.embeddings.openai_utils import (
     from_openai_message_dicts,
     from_openai_messages,
     to_openai_message_dicts,
