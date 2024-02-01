@@ -2,7 +2,6 @@ from typing import Any, AsyncGenerator, Generator, List, Sequence
 from unittest.mock import MagicMock, patch
 
 import pytest
-from llama_index.core.agent.openai.base import OpenAIAgent
 from llama_index.core.agent.openai.step import call_tool_with_error_handling
 from llama_index.core.chat_engine.types import (
     AgentChatResponse,
@@ -10,12 +9,21 @@ from llama_index.core.chat_engine.types import (
 )
 from llama_index.core.llms.base import ChatMessage, ChatResponse
 from llama_index.core.llms.mock import MockLLM
-from llama_index.core.llms.openai import OpenAI
 from llama_index.core.llms.types import ChatMessage, ChatResponse
 from llama_index.core.tools.function_tool import FunctionTool
 from openai.types.chat.chat_completion import ChatCompletion, Choice
 from openai.types.chat.chat_completion_chunk import ChatCompletionChunk, ChoiceDelta
 from openai.types.chat.chat_completion_message import ChatCompletionMessage
+
+try:
+    from llama_index.llms.openai import OpenAI
+except ImportError:
+    OpenAI = None  # type: ignore
+
+try:
+    from llama_index.agent.openai import OpenAIAgent
+except ImportError:
+    OpenAIAgent = None  # type: ignore
 
 
 def mock_chat_completion(*args: Any, **kwargs: Any) -> ChatCompletion:
@@ -147,6 +155,7 @@ Answer: 2
 """
 
 
+@pytest.mark.skipif(OpenAI is None, reason="llama-index-llms-openai not installed")
 @patch("llama_index.core.llms.openai.SyncOpenAI")
 def test_chat_basic(MockSyncOpenAI: MagicMock, add_tool: FunctionTool) -> None:
     mock_instance = MockSyncOpenAI.return_value
@@ -163,6 +172,7 @@ def test_chat_basic(MockSyncOpenAI: MagicMock, add_tool: FunctionTool) -> None:
     assert response.response == "\n\nThis is a test!"
 
 
+@pytest.mark.skipif(OpenAI is None, reason="llama-index-llms-openai not installed")
 @patch("llama_index.core.llms.openai.AsyncOpenAI")
 @pytest.mark.asyncio()
 async def test_achat_basic(MockAsyncOpenAI: MagicMock, add_tool: FunctionTool) -> None:
@@ -180,6 +190,7 @@ async def test_achat_basic(MockAsyncOpenAI: MagicMock, add_tool: FunctionTool) -
     assert response.response == "\n\nThis is a test!"
 
 
+@pytest.mark.skipif(OpenAI is None, reason="llama-index-llms-openai not installed")
 @patch("llama_index.core.llms.openai.SyncOpenAI")
 def test_stream_chat_basic(MockSyncOpenAI: MagicMock, add_tool: FunctionTool) -> None:
     mock_instance = MockSyncOpenAI.return_value
@@ -197,6 +208,7 @@ def test_stream_chat_basic(MockSyncOpenAI: MagicMock, add_tool: FunctionTool) ->
     assert str(response) == "This is a test!"
 
 
+@pytest.mark.skipif(OpenAI is None, reason="llama-index-llms-openai not installed")
 @patch("llama_index.core.llms.openai.AsyncOpenAI")
 @pytest.mark.asyncio()
 async def test_astream_chat_basic(
@@ -219,6 +231,7 @@ async def test_astream_chat_basic(
     assert response == "\n\nThis is a test!"
 
 
+@pytest.mark.skipif(OpenAI is None, reason="llama-index-llms-openai not installed")
 @patch("llama_index.core.llms.openai.SyncOpenAI")
 def test_chat_no_functions(MockSyncOpenAI: MagicMock) -> None:
     mock_instance = MockSyncOpenAI.return_value
@@ -254,6 +267,7 @@ def test_call_tool_with_error_handling() -> None:
     assert output.content == "Error!"
 
 
+@pytest.mark.skipif(OpenAI is None, reason="llama-index-llms-openai not installed")
 @patch("llama_index.core.llms.openai.SyncOpenAI")
 def test_add_step(
     MockSyncOpenAI: MagicMock,
@@ -291,6 +305,10 @@ def test_add_step(
     # assert "tmp" in [m.content for m in chat_history]
 
 
+@pytest.mark.skipif(
+    (OpenAI is None) or (OpenAIAgent is None),
+    reason="llama-index-llms-openai not installed",
+)
 @patch("llama_index.core.llms.openai.AsyncOpenAI")
 @pytest.mark.asyncio()
 async def test_async_add_step(
