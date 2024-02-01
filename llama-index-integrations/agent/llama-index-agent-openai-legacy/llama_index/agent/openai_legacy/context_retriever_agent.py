@@ -12,8 +12,6 @@ from llama_index.core.chat_engine.types import (
     AgentChatResponse,
 )
 from llama_index.core.llms.llm import LLM
-from llama_index.core.llms.openai import OpenAI
-from llama_index.core.llms.openai_utils import is_function_calling_model
 from llama_index.core.llms.types import ChatMessage
 from llama_index.core.memory import BaseMemory, ChatMemoryBuffer
 from llama_index.core.prompts import PromptTemplate
@@ -21,6 +19,8 @@ from llama_index.core.schema import NodeWithScore
 from llama_index.core.settings import Settings
 from llama_index.core.tools import BaseTool
 from llama_index.core.utils import print_text
+from llama_index.llms.openai import OpenAI
+from llama_index.llms.openai.utils import is_function_calling_model
 
 # inspired by DEFAULT_QA_PROMPT_TMPL from llama_index/prompts/default_prompts.py
 DEFAULT_QA_PROMPT_TMPL = (
