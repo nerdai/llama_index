@@ -1,9 +1,7 @@
 import warnings
 from typing import Any, Callable, Dict, Optional, Sequence
 
-from llama_index.core.bridge.pydantic import Field, PrivateAttr
-from llama_index.core.callbacks import CallbackManager
-from llama_index.core.llms.types import (
+from llama_index.core.base.llms.types import (
     ChatMessage,
     ChatResponse,
     ChatResponseAsyncGen,
@@ -14,10 +12,14 @@ from llama_index.core.llms.types import (
     LLMMetadata,
     MessageRole,
 )
+from llama_index.core.bridge.pydantic import Field, PrivateAttr
+from llama_index.core.callbacks import CallbackManager
 from llama_index.core.llms.callbacks import (
     llm_chat_callback,
     llm_completion_callback,
 )
+from llama_index.core.llms.llm import LLM
+from llama_index.core.types import BaseOutputParser, PydanticProgramMode
 from llama_index.llms.cohere.utils import (
     CHAT_MODELS,
     acompletion_with_retry,
@@ -25,8 +27,7 @@ from llama_index.llms.cohere.utils import (
     completion_with_retry,
     messages_to_cohere_history,
 )
-from llama_index.core.llms.llm import LLM
-from llama_index.core.types import BaseOutputParser, PydanticProgramMode
+
 import cohere
 
 

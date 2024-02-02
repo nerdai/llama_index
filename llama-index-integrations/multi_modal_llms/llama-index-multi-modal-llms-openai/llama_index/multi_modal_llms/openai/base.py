@@ -1,6 +1,16 @@
 from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple, cast
 
 import httpx
+from llama_index.core.base.llms.types import (
+    ChatMessage,
+    ChatResponse,
+    ChatResponseAsyncGen,
+    ChatResponseGen,
+    CompletionResponse,
+    CompletionResponseAsyncGen,
+    CompletionResponseGen,
+    MessageRole,
+)
 from llama_index.core.bridge.pydantic import Field, PrivateAttr
 from llama_index.core.callbacks import CallbackManager
 from llama_index.core.constants import (
@@ -10,16 +20,6 @@ from llama_index.core.constants import (
 )
 from llama_index.core.llms.generic_utils import (
     messages_to_prompt as generic_messages_to_prompt,
-)
-from llama_index.core.llms.types import (
-    ChatMessage,
-    ChatResponse,
-    ChatResponseAsyncGen,
-    ChatResponseGen,
-    CompletionResponse,
-    CompletionResponseAsyncGen,
-    CompletionResponseGen,
-    MessageRole,
 )
 from llama_index.core.multi_modal_llms import (
     MultiModalLLM,

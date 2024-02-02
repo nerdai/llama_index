@@ -6,8 +6,6 @@ from llama_index.core.storage.kvstore.types import (
     BaseKVStore,
 )
 
-from pymongo import MongoClient
-
 IMPORT_ERROR_MSG = (
     "`pymongo` or `motor` package not found, please run `pip install pymongo motor`"
 )

@@ -7,6 +7,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union, cast
 
 from llama_index.agent.openai.utils import get_function_by_name
 from llama_index.core.agent.types import BaseAgent
+from llama_index.core.base.llms.types import ChatMessage, MessageRole
 from llama_index.core.callbacks import (
     CallbackManager,
     CBEventType,
@@ -19,7 +20,6 @@ from llama_index.core.chat_engine.types import (
     ChatResponseMode,
     StreamingAgentChatResponse,
 )
-from llama_index.core.llms.types import ChatMessage, MessageRole
 from llama_index.core.tools import BaseTool, ToolOutput, adapt_to_async_tool
 
 logger = logging.getLogger(__name__)
@@ -469,8 +469,8 @@ class OpenAIAssistantAgent(BaseAgent):
         """Main chat interface."""
         # TODO: since chat interface doesn't expose additional kwargs
         # we can't pass in file_ids per message
-        added_message_obj = self.add_message(message)
-        run, metadata = self.run_assistant(
+        _added_message_obj = self.add_message(message)
+        _run, metadata = self.run_assistant(
             instructions_prefix=self._instructions_prefix,
         )
         latest_message = self.latest_message

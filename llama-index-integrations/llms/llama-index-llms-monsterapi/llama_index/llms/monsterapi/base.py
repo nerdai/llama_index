@@ -1,15 +1,15 @@
 from typing import Any, Callable, Dict, Optional, Sequence
 
-from llama_index.core.bridge.pydantic import Field, PrivateAttr
-from llama_index.core.callbacks import CallbackManager
-from llama_index.core.constants import DEFAULT_CONTEXT_WINDOW, DEFAULT_NUM_OUTPUTS
-from llama_index.core.llms.types import (
+from llama_index.core.base.llms.types import (
     ChatMessage,
     ChatResponse,
     CompletionResponse,
     CompletionResponseGen,
     LLMMetadata,
 )
+from llama_index.core.bridge.pydantic import Field, PrivateAttr
+from llama_index.core.callbacks import CallbackManager
+from llama_index.core.constants import DEFAULT_CONTEXT_WINDOW, DEFAULT_NUM_OUTPUTS
 from llama_index.core.llms.callbacks import llm_chat_callback, llm_completion_callback
 from llama_index.core.llms.custom import CustomLLM
 from llama_index.core.types import BaseOutputParser, PydanticProgramMode

@@ -4,12 +4,9 @@
 import logging
 from typing import Any, Callable, Optional
 
+import google.api_core
 import vertexai
-from vertexai.language_models import (
-    ChatMessage as VertexChatMessage,
-    InputOutputTextPair,
-)
-
+from llama_index.core.base.llms.types import ChatMessage, MessageRole
 from tenacity import (
     before_sleep_log,
     retry,
@@ -17,9 +14,12 @@ from tenacity import (
     stop_after_attempt,
     wait_exponential,
 )
-import google.api_core
-
-from llama_index.core.llms.types import ChatMessage, MessageRole
+from vertexai.language_models import (
+    ChatMessage as VertexChatMessage,
+)
+from vertexai.language_models import (
+    InputOutputTextPair,
+)
 
 CHAT_MODELS = ["chat-bison", "chat-bison-32k", "chat-bison@001"]
 TEXT_MODELS = ["text-bison", "text-bison-32k", "text-bison@001"]

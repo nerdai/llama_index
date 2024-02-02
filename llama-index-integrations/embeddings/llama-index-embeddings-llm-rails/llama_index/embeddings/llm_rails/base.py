@@ -2,9 +2,8 @@ import logging
 from typing import Any, List
 
 import requests
+from llama_index.core.base.embeddings.base import BaseEmbedding
 from requests.adapters import HTTPAdapter, Retry
-
-from llama_index.core.embeddings.base import BaseEmbedding
 
 logger = logging.getLogger(__name__)
 
