@@ -147,7 +147,7 @@ def _parse_message(message: ChatMessage, is_gemini: bool) -> Any:
             convert_chat_message_to_gemini_content,
         )
 
-        return convert_chat_message_to_gemini_content(message)
+        return convert_chat_message_to_gemini_content(message=message, is_history=False)
     else:
         return message.content
 
@@ -177,7 +177,11 @@ def _parse_chat_history(history: Any, is_gemini: bool) -> Any:
                     convert_chat_message_to_gemini_content,
                 )
 
-                vertex_messages.append(convert_chat_message_to_gemini_content(message))
+                vertex_messages.append(
+                    convert_chat_message_to_gemini_content(
+                        message=message, is_history=True
+                    )
+                )
             else:
                 vertex_message = VertexChatMessage(
                     content=message.content,
