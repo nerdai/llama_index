@@ -1,3 +1,4 @@
+import os
 from abc import abstractmethod
 from collections import deque
 from typing import Any, Deque, Dict, List, Optional, Union, cast
@@ -220,8 +221,23 @@ class AgentRunner(BaseAgentRunner):
         llm: Optional[LLM] = None,
         **kwargs: Any,
     ) -> "AgentRunner":
-        from llama_index.llms.openai import OpenAI
-        from llama_index.llms.openai.utils import is_function_calling_model
+        from llama_index.core.agent import ReActAgent
+
+        if os.getenv("IS_TESTING"):
+            return ReActAgent.from_tools(
+                tools=tools,
+                llm=llm,
+                **kwargs,
+            )
+
+        try:
+            from llama_index.llms.openai import OpenAI
+            from llama_index.llms.openai.utils import is_function_calling_model
+        except ImportError:
+            raise ImportError(
+                "`llama-index-llms-openai` package not found. Please "
+                "install by running `pip install llama-index-llms-openai`."
+            )
 
         if isinstance(llm, OpenAI) and is_function_calling_model(llm.model):
             from llama_index.agent.openai import OpenAIAgent
@@ -232,8 +248,6 @@ class AgentRunner(BaseAgentRunner):
                 **kwargs,
             )
         else:
-            from llama_index.agent import ReActAgent
-
             return ReActAgent.from_tools(
                 tools=tools,
                 llm=llm,

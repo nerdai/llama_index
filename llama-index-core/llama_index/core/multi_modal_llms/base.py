@@ -10,18 +10,18 @@ from llama_index.core.base.llms.types import (
     CompletionResponseAsyncGen,
     CompletionResponseGen,
 )
-from llama_index.core.bridge.pydantic import BaseModel, Field
-from llama_index.core.constants import (
-    DEFAULT_CONTEXT_WINDOW,
-    DEFAULT_NUM_INPUT_FILES,
-    DEFAULT_NUM_OUTPUTS,
-)
-from llama_index.core.query_pipeline.components.query import (
+from llama_index.core.base.query_pipeline.query import (
     ChainableMixin,
     InputKeys,
     OutputKeys,
     QueryComponent,
     validate_and_convert_stringable,
+)
+from llama_index.core.bridge.pydantic import BaseModel, Field
+from llama_index.core.constants import (
+    DEFAULT_CONTEXT_WINDOW,
+    DEFAULT_NUM_INPUT_FILES,
+    DEFAULT_NUM_OUTPUTS,
 )
 from llama_index.core.schema import BaseComponent, ImageDocument
 

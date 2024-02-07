@@ -197,8 +197,8 @@ def test_dag_agent() -> None:
 
 
 def test_agent_from_llm() -> None:
-    from llama_index.agent import ReActAgent
-    from llama_index.llms.mock import MockLLM
+    from llama_index.core.agent import ReActAgent
+    from llama_index.core.llms.mock import MockLLM
 
     llm = MockLLM()
     agent_runner = AgentRunner.from_llm(llm=llm)
