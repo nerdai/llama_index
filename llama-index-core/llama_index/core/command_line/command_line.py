@@ -2,24 +2,26 @@ import argparse
 from typing import Any, Optional
 
 from llama_index.core.command_line.rag import RagCLI, default_ragcli_persist_dir
-from llama_index.core.command_line.upgrade import upgrade_dir
+from llama_index.core.command_line.upgrade import upgrade_dir, upgrade_file
 from llama_index.core.ingestion import IngestionCache, IngestionPipeline
 from llama_index.core.llama_dataset.download import (
     LLAMA_DATASETS_LFS_URL,
     LLAMA_DATASETS_SOURCE_FILES_GITHUB_TREE_URL,
+    LLAMA_HUB_URL,
     download_llama_dataset,
 )
-from llama_index.core.llama_pack.download import LLAMA_HUB_URL, download_llama_pack
+from llama_index.core.llama_pack.download import (
+    LLAMA_PACKS_CONTENTS_URL,
+    download_llama_pack,
+)
 from llama_index.core.storage.docstore import SimpleDocumentStore
 from llama_index.core.text_splitter import SentenceSplitter
-from llama_index.embeddings.openai import OpenAIEmbedding
-from llama_index.vector_stores.chroma import ChromaVectorStore
 
 
 def handle_download_llama_pack(
     llama_pack_class: Optional[str] = None,
     download_dir: Optional[str] = None,
-    llama_hub_url: str = LLAMA_HUB_URL,
+    llama_pack_url: str = LLAMA_PACKS_CONTENTS_URL,
     **kwargs: Any,
 ) -> None:
     assert llama_pack_class is not None
@@ -27,8 +29,8 @@ def handle_download_llama_pack(
 
     download_llama_pack(
         llama_pack_class=llama_pack_class,
-        download_dir=download_dir,
-        llama_hub_url=llama_hub_url,
+        download_dir=download_dir or "./custom_llama_pack",
+        llama_pack_url=llama_pack_url,
     )
     print(f"Successfully downloaded {llama_pack_class} to {download_dir}")
 
@@ -57,33 +59,55 @@ def handle_download_llama_dataset(
     print(f"Successfully downloaded {llama_dataset_class} to {download_dir}")
 
 
-def default_rag_cli() -> RagCLI:
-    import chromadb
-
-    persist_dir = default_ragcli_persist_dir()
-    chroma_client = chromadb.PersistentClient(path=persist_dir)
-    chroma_collection = chroma_client.create_collection("default", get_or_create=True)
-    vector_store = ChromaVectorStore(
-        chroma_collection=chroma_collection, persist_dir=persist_dir
-    )
-    docstore = SimpleDocumentStore()
-
-    ingestion_pipeline = IngestionPipeline(
-        transformations=[SentenceSplitter(), OpenAIEmbedding()],
-        vector_store=vector_store,
-        docstore=docstore,
-        cache=IngestionCache(),
-    )
+def default_rag_cli() -> Optional[RagCLI]:
     try:
-        ingestion_pipeline.load(persist_dir=persist_dir)
-    except FileNotFoundError:
-        pass
+        from llama_index.embeddings.openai import OpenAIEmbedding  # pants: no-infer-dep
+    except ImportError:
+        OpenAIEmbedding = None
 
-    return RagCLI(
-        ingestion_pipeline=ingestion_pipeline,
-        verbose=False,
-        persist_dir=persist_dir,
-    )
+    try:
+        import chromadb
+
+        from llama_index.vector_stores.chroma import (
+            ChromaVectorStore,
+        )
+    except ImportError:
+        ChromaVectorStore = None
+
+    if OpenAIEmbedding and ChromaVectorStore:
+        persist_dir = default_ragcli_persist_dir()
+        chroma_client = chromadb.PersistentClient(path=persist_dir)
+        chroma_collection = chroma_client.create_collection(
+            "default", get_or_create=True
+        )
+        vector_store = ChromaVectorStore(
+            chroma_collection=chroma_collection, persist_dir=persist_dir
+        )
+        docstore = SimpleDocumentStore()
+
+        ingestion_pipeline = IngestionPipeline(
+            transformations=[SentenceSplitter(), OpenAIEmbedding()],
+            vector_store=vector_store,
+            docstore=docstore,
+            cache=IngestionCache(),
+        )
+        try:
+            ingestion_pipeline.load(persist_dir=persist_dir)
+        except FileNotFoundError:
+            pass
+
+        return RagCLI(
+            ingestion_pipeline=ingestion_pipeline,
+            verbose=False,
+            persist_dir=persist_dir,
+        )
+    else:
+        print(
+            "Default RagCLI was not built. There are packages missing. Please"
+            " install required dependencies by running "
+            "`pip install llama-index-embeddings-openai llama-index-llms-openai chroma llama-index-vector-stores-chroma`"
+        )
+        return None
 
 
 def main() -> None:
@@ -164,7 +188,7 @@ def main() -> None:
 
     # Upgrade command
     upgrade_parser = subparsers.add_parser(
-        "upgrade", help="Upgrade a notebook or python file."
+        "upgrade", help="Upgrade a directory containing notebooks or python files."
     )
     upgrade_parser.add_argument(
         "directory",
@@ -172,6 +196,17 @@ def main() -> None:
         help="The directory to upgrade. Will run on only .ipynb or .py files.",
     )
     upgrade_parser.set_defaults(func=lambda args: upgrade_dir(args.directory))
+
+    # Upgrade command
+    upgrade_file_parser = subparsers.add_parser(
+        "upgrade-file", help="Upgrade a single notebook or python file."
+    )
+    upgrade_file_parser.add_argument(
+        "path",
+        type=str,
+        help="The directory to upgrade. Will run on only .ipynb or .py files.",
+    )
+    upgrade_file_parser.set_defaults(func=lambda args: upgrade_file(args.path))
 
     # Parse the command-line arguments
     args = parser.parse_args()

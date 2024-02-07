@@ -1,4 +1,5 @@
 """Download."""
+
 import json
 import logging
 import os
@@ -9,9 +10,7 @@ from importlib import util
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 
-import pkg_resources
 import requests
-from pkg_resources import DistributionNotFound
 
 from llama_index.core.download.utils import (
     get_exports,
@@ -164,6 +163,9 @@ def download_module_and_reqs(
 
     # Install dependencies if there are any and not already installed
     if os.path.exists(requirements_path):
+        import pkg_resources
+        from pkg_resources import DistributionNotFound
+
         try:
             requirements = pkg_resources.parse_requirements(
                 Path(requirements_path).open()
