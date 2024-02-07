@@ -944,13 +944,13 @@ typing = ["typing-extensions (>=4.8)"]
 [[package]]
 description = "Interface between LLMs and your data"
 files = [
-    {file = "flying_delta_core-0.9.39-py3-none-any.whl", hash = "sha256:f5abc83a5424af03f810003d00e05dbf6abcaceeed13b299b8c7689be406659e"},
-    {file = "flying_delta_core-0.9.39.tar.gz", hash = "sha256:e995ca99bc37f5fff77e4e80295e5b2a0a9aaf04315e9c08b60c7d3c92cec36d"},
+    {file = "flying_delta_core-0.9.40-py3-none-any.whl", hash = "sha256:578de9dc4679de9b82bdbbcd94e4078da0bdfb8f816dad0c2b0ea7195b643575"},
+    {file = "flying_delta_core-0.9.40.tar.gz", hash = "sha256:76da80405d0c2beb0179f6aab32f77e57f6d7c3b14c656c2505ae5cdca88f07d"},
 ]
 name = "flying-delta-core"
 optional = false
 python-versions = ">=3.8.1,<4.0"
-version = "0.9.39"
+version = "0.9.40"
 
 [package.dependencies]
 SQLAlchemy = {extras = ["asyncio"], version = ">=1.4.49"}
