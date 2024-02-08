@@ -312,9 +312,9 @@ def test_add_step(
     agent = _get_agent([add_tool])
     task = agent.create_task("What is 1 + 1?")
     # first step
-    step_output = agent.run_step(task.task_id)
+    _step_output = agent.run_step(task.task_id)
     # add human input (not used but should be in memory)
-    step_output = agent.run_step(task.task_id, input="tmp")
+    _step_output = agent.run_step(task.task_id, input="tmp")
     observations = _get_observations(task)
     assert "tmp" in observations
 
@@ -322,9 +322,9 @@ def test_add_step(
     agent = _get_agent([add_tool], streaming=True)
     task = agent.create_task("What is 1 + 1?")
     # first step
-    step_output = agent.stream_step(task.task_id)
+    _step_output = agent.stream_step(task.task_id)
     # add human input (not used but should be in memory)
-    step_output = agent.stream_step(task.task_id, input="tmp")
+    _step_output = agent.stream_step(task.task_id, input="tmp")
     observations = _get_observations(task)
     assert "tmp" in observations
 
@@ -337,9 +337,9 @@ async def test_async_add_step(
     agent = _get_agent([add_tool])
     task = agent.create_task("What is 1 + 1?")
     # first step
-    step_output = await agent.arun_step(task.task_id)
+    _step_output = await agent.arun_step(task.task_id)
     # add human input (not used but should be in memory)
-    step_output = await agent.arun_step(task.task_id, input="tmp")
+    _step_output = await agent.arun_step(task.task_id, input="tmp")
     observations = _get_observations(task)
     assert "tmp" in observations
 
@@ -347,8 +347,8 @@ async def test_async_add_step(
     agent = _get_agent([add_tool], streaming=True)
     task = agent.create_task("What is 1 + 1?")
     # first step
-    step_output = await agent.astream_step(task.task_id)
+    _step_output = await agent.astream_step(task.task_id)
     # add human input (not used but should be in memory)
-    step_output = await agent.astream_step(task.task_id, input="tmp")
+    _step_output = await agent.astream_step(task.task_id, input="tmp")
     observations = _get_observations(task)
     assert "tmp" in observations
