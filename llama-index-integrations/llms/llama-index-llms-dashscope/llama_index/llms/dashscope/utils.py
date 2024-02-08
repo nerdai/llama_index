@@ -1,8 +1,9 @@
 """DashScope api utils."""
+
 from http import HTTPStatus
 from typing import Any, Dict, List, Sequence
 
-from llama_index.core.llms.types import (
+from llama_index.core.base.llms.types import (
     ChatMessage,
     ChatResponse,
     CompletionResponse,
