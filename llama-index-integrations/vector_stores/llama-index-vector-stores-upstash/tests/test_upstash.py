@@ -3,7 +3,6 @@ from importlib.util import find_spec
 from typing import List
 
 import pytest
-
 from llama_index.schema import TextNode
 from llama_index.vector_stores import UpstashVectorStore
 from llama_index.vector_stores.types import VectorStoreQuery
