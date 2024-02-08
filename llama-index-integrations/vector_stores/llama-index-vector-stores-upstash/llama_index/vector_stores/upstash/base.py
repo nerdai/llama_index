@@ -5,18 +5,19 @@ An index that is built with Upstash Vector.
 
 https://upstash.com/docs/vector/overall/getstarted
 """
+
 import logging
 from typing import Any, List
 
-from llama_index.schema import BaseNode
-from llama_index.utils import iter_batch
-from llama_index.vector_stores.types import (
+from llama_index.core.schema import BaseNode
+from llama_index.core.utils import iter_batch
+from llama_index.core.vector_stores.types import (
     VectorStore,
     VectorStoreQuery,
     VectorStoreQueryMode,
     VectorStoreQueryResult,
 )
-from llama_index.vector_stores.utils import (
+from llama_index.core.vector_stores.utils import (
     metadata_dict_to_node,
     node_to_metadata_dict,
 )
