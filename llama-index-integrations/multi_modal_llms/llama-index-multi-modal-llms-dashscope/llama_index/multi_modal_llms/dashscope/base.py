@@ -1,10 +1,9 @@
 """DashScope llm api."""
+
 from http import HTTPStatus
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
-from llama_index.bridge.pydantic import Field
-from llama_index.callbacks import CallbackManager
-from llama_index.core.llms.types import (
+from llama_index.core.base.llms.types import (
     ChatMessage,
     ChatResponse,
     ChatResponseAsyncGen,
@@ -15,13 +14,15 @@ from llama_index.core.llms.types import (
     LLMMetadata,
     MessageRole,
 )
-from llama_index.multi_modal_llms.base import MultiModalLLM
-from llama_index.multi_modal_llms.dashscope_utils import (
+from llama_index.core.bridge.pydantic import Field
+from llama_index.core.callbacks import CallbackManager
+from llama_index.core.multi_modal_llms.base import MultiModalLLM
+from llama_index.core.schema import ImageDocument
+from llama_index.multi_modal_llms.dashscope.utils import (
     chat_message_to_dashscope_multi_modal_messages,
     dashscope_response_to_chat_response,
     dashscope_response_to_completion_response,
 )
-from llama_index.schema import ImageDocument
 
 
 class DashScopeMultiModalModels:

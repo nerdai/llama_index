@@ -1,4 +1,5 @@
 """DashScope api utils."""
+
 from http import HTTPStatus
 from typing import Any, Dict, List, Sequence
 
@@ -7,7 +8,7 @@ from llama_index.core.llms.types import (
     ChatResponse,
     CompletionResponse,
 )
-from llama_index.schema import ImageDocument
+from llama_index.core.schema import ImageDocument
 
 
 def dashscope_response_to_completion_response(response: Any) -> CompletionResponse:
@@ -54,9 +55,11 @@ def create_dashscope_multi_modal_chat_message(
         for image_document in image_documents:
             content.append(
                 {
-                    "image": image_document.image_url
-                    if image_document.image_url is not None
-                    else image_document.image_path
+                    "image": (
+                        image_document.image_url
+                        if image_document.image_url is not None
+                        else image_document.image_path
+                    )
                 }
             )
         content.append({"text": prompt})
