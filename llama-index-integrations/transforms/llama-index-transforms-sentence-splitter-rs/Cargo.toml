@@ -1,0 +1,12 @@
+[dependencies]
+pyo3 = {features = ["extension-module"], version = "0.20.2"}
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+crate-type = ["cdylib"]
+name = "base"
+
+[package]
+edition = "2021"
+name = "sentence_splitter_rs"
+version = "0.9.30"

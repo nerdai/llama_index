@@ -1,0 +1,6 @@
+from typing import List, Tuple
+
+def add(left: int, right: int) -> int: ...
+def _merge_splits(
+    reversed_splits: List[Tuple[str, bool, int]], chunk_size: int, chunk_overlap: int
+) -> List[str]: ...
